@@ -914,6 +914,12 @@
     <Reference Include="Unity.SysrootPackage.Editor">
         <HintPath>/home/hayden/code/unity/Goose2Client/Library/ScriptAssemblies/Unity.SysrootPackage.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+        <HintPath>/home/hayden/code/unity/Goose2Client/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+        <HintPath>/home/hayden/code/unity/Goose2Client/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">

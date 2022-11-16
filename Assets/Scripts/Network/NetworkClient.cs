@@ -84,7 +84,7 @@ namespace Goose2Client
                     string receivedString = System.Text.Encoding.ASCII.GetString(buffer, 0, received);
                     packetBuffer += receivedString;
 
-                    Debug.Log($"Received: {receivedString.Replace('\x1', '\n')}");
+                    // Debug.Log($"Received: {receivedString.Replace('\x1', '\n')}");
 
                     if (packetBuffer.Length == 0) continue;
 
@@ -127,6 +127,16 @@ namespace Goose2Client
         public void LoginContinued()
         {
             Send($"LCNT");
+        }
+
+        public void Pong()
+        {
+            Send($"PONG");
+        }
+
+        public void DoneLoadingMap()
+        {
+            Send($"DLM");
         }
     }
 }

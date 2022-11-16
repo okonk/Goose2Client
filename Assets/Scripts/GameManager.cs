@@ -13,6 +13,8 @@ namespace Goose2Client
         public NetworkClient NetworkClient { get; private set; }
         public PacketManager PacketManager { get; private set; }
 
+        public MapFile CurrentMap { get; set; }
+
         public static GameManager Instance
         {
             get { return instance; }

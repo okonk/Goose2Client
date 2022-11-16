@@ -48,6 +48,8 @@ namespace Goose2Client
             SceneManager.MoveGameObjectToScene(map, SceneManager.GetSceneByName("MapScene"));
             SceneManager.UnloadSceneAsync(currentScene);
 
+            GameManager.Instance.NetworkClient.DoneLoadingMap();
+
             GameManager.Instance.NetworkClient.Pause = false;
         }
 
@@ -56,6 +58,7 @@ namespace Goose2Client
             var mapFile = Resources.Load<TextAsset>(path);
 
             var map = new MapFile(mapFile.bytes);
+            GameManager.Instance.CurrentMap = map;
 
             var grid = new GameObject("MapGrid");
             grid.AddComponent<Grid>();

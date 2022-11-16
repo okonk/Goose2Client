@@ -82,6 +82,7 @@
      <Compile Include="Assets/Scripts/Network/PacketParser.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/UpdateCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/MapFile.cs" />
+     <Compile Include="Assets/Scripts/MapManager.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
@@ -918,6 +919,12 @@
     </Reference>
     <Reference Include="Unity.SysrootPackage.Editor">
         <HintPath>/home/hayden/code/unity/Goose2Client/Library/ScriptAssemblies/Unity.SysrootPackage.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+        <HintPath>/home/hayden/code/unity/Goose2Client/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+        <HintPath>/home/hayden/code/unity/Goose2Client/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -54,7 +54,7 @@ namespace Goose2Client
             //     ImportMap(file, adfs);
             // }
 
-            //ImportMap($"{mapDir}/Map2.map", adfs);
+            //ImportMap($"{mapDir}/Map2.map");
         }
 
         private static void ImportCompiledAnimations(CompiledEnc compiledEnc, Dictionary<int, ADFFile> adfs)
@@ -161,102 +161,107 @@ namespace Goose2Client
             return clip;
         }
 
-        // private static void ImportMap(string path, Dictionary<int, ADFFile> adfs)
-        // {
-        //     var map = new MapFile(path);
+        private static void ImportMap(string path)
+        {
+            var map = new MapFile(path);
 
-        //     var grid = new GameObject("Grid");
-        //     grid.AddComponent<Grid>();
+            var grid = new GameObject("Grid");
+            grid.AddComponent<Grid>();
 
-        //     var layers = new Tilemap[6];
-        //     for (int i = 0; i < layers.Length; i++)
-        //     {
-        //         var layerName = GetLayerName(i);
-        //         var obj = new GameObject(layerName);
-        //         var tilemap = obj.AddComponent<Tilemap>();
-        //         var renderer = obj.AddComponent<TilemapRenderer>();
-        //         renderer.sortingLayerID = SortingLayer.NameToID(layerName);
-        //         renderer.sortOrder = TilemapRenderer.SortOrder.TopRight;
+            var layers = new Tilemap[6];
+            for (int i = 0; i < layers.Length; i++)
+            {
+                var layerName = GetLayerName(i);
+                var obj = new GameObject(layerName);
+                var tilemap = obj.AddComponent<Tilemap>();
+                var renderer = obj.AddComponent<TilemapRenderer>();
+                renderer.sortingLayerID = SortingLayer.NameToID(layerName);
+                renderer.sortOrder = TilemapRenderer.SortOrder.TopRight;
 
-        //         if (i == 5)
-        //             renderer.enabled = false;
+                if (i == 5)
+                    renderer.enabled = false;
 
-        //         obj.transform.parent = grid.transform;
+                obj.transform.parent = grid.transform;
 
-        //         layers[i] = tilemap;
-        //     }
+                layers[i] = tilemap;
+            }
 
-        //     for (int y = 0; y < map.Height; y++)
-        //     {
-        //         for (int x = 0; x < map.Width; x++)
-        //         {
-        //             var tile = map[x, y];
+            for (int y = 0; y < map.Height; y++)
+            {
+                for (int x = 0; x < map.Width; x++)
+                {
+                    var tile = map[x, y];
 
-        //             if (tile.IsBlocked())
-        //                 layers[5].SetTile(new Vector3Int(x, map.Height - y - 1, 0), GetOrCreateTile(13, 3002));
+                    if (tile.IsBlocked())
+                        layers[5].SetTile(new Vector3Int(x, map.Height - y - 1, 0), GetOrCreateTile(13, 3002));
 
-        //             for (int l = 0; l < tile.Layers.Length; l++)
-        //             {
-        //                 var layer = tile.Layers[l];
-        //                 if (layer.Graphic == 0) continue;
+                    for (int l = 0; l < tile.Layers.Length; l++)
+                    {
+                        var layer = tile.Layers[l];
+                        if (layer.Graphic == 0) continue;
 
-        //                 layers[l].SetTile(new Vector3Int(x, map.Height - y - 1, 0), GetOrCreateTile(layer.Sheet, layer.Graphic));
-        //             }
-        //         }
-        //     }
+                        layers[l].SetTile(new Vector3Int(x, map.Height - y - 1, 0), GetOrCreateTile(layer.Sheet, layer.Graphic));
+                    }
+                }
+            }
 
-        //     PrefabUtility.SaveAsPrefabAsset(grid, $"Assets/Resources/Maps/M{Path.GetFileNameWithoutExtension(path).Substring(1)}.prefab");
-        // }
+            PrefabUtility.SaveAsPrefabAsset(grid, $"Assets/Resources/Maps/M{Path.GetFileNameWithoutExtension(path).Substring(1)}.prefab");
+        }
 
-        // private static string GetLayerName(int i)
-        //     => i switch {
-        //         0 => "Ground",
-        //         1 => "Ground 2",
-        //         2 => "Objects 1",
-        //         3 => "Objects 2",
-        //         4 => "Roofs",
-        //         5 => "Blocked",
-        //         _ => throw new ArgumentException(nameof(i))
-        //     };
+        private static string GetLayerName(int i)
+            => i switch {
+                0 => "Ground",
+                1 => "Ground 2",
+                2 => "Objects 1",
+                3 => "Objects 2",
+                4 => "Roofs",
+                5 => "Blocked",
+                _ => throw new ArgumentException(nameof(i))
+            };
 
-        // private static Dictionary<int, Sprite> tileCache = new Dictionary<int, Sprite>();
+        private static Dictionary<int, Tile> tileCache = new Dictionary<int, Tile>();
+        private static Dictionary<int, Sprite[]> sheetCache = new Dictionary<int, Sprite[]>();
 
-        // private static Tile GetOrCreateTile(int sheetNumber, int graphicId)
-        // {
-        //     if (!tileCache.TryGetValue(graphicId, out Sprite sprite))
-        //     {
-        //         var name = graphicId.ToString();
-        //         sprite = AssetDatabase.LoadAllAssetsAtPath($"Assets/Resources/Spritesheets/{sheetNumber}.png").OfType<Sprite>().FirstOrDefault(s => s.name == name);
+        private static Tile GetOrCreateTile(int sheetNumber, int graphicId)
+        {
+            if (tileCache.TryGetValue(graphicId, out Tile tile))
+                return tile;
 
-        //         tileCache[graphicId] = sprite;
-        //     }
+            if (!sheetCache.TryGetValue(sheetNumber, out Sprite[] sprites))
+            {
+                sprites = Resources.LoadAll<Sprite>($"Spritesheets/{sheetNumber}");
+                sheetCache[sheetNumber] = sprites;
+            }
 
-        //     var tile = ScriptableObject.CreateInstance<Tile>();
-        //     tile.sprite = sprite;
+            var name = graphicId.ToString();
+            var sprite = sprites.FirstOrDefault(s => s.name == name);
+            tile = ScriptableObject.CreateInstance<Tile>();
+            tile.sprite = sprite;
 
-        //     return tile;
-        // }
+            tileCache[graphicId] = tile;
+            return tile;
+        }
 
-        // private static ADFFile GetOrLoadAdf(int fileNumber, Dictionary<int, ADFFile> adfs)
-        // {
-        //     if (adfs.TryGetValue(fileNumber, out ADFFile adf))
-        //         return adf;
+        private static ADFFile GetOrLoadAdf(int fileNumber, Dictionary<int, ADFFile> adfs)
+        {
+            if (adfs.TryGetValue(fileNumber, out ADFFile adf))
+                return adf;
 
-        //     adf = new ADFFile($"/home/hayden/code/illutiadata/data/{fileNumber}.adf");
-        //     // ConvertToPng(adf);
+            adf = new ADFFile($"/home/hayden/code/illutiadata/data/{fileNumber}.adf");
+            // ConvertToPng(adf);
 
-        //     // AssetDatabase.SaveAssets();
-        //     // AssetDatabase.Refresh();
+            // AssetDatabase.SaveAssets();
+            // AssetDatabase.Refresh();
 
-        //     // ImportSpritesheet(adf);
+            // ImportSpritesheet(adf);
 
-        //     // AssetDatabase.SaveAssets();
-        //     // AssetDatabase.Refresh();
+            // AssetDatabase.SaveAssets();
+            // AssetDatabase.Refresh();
 
-        //     adfs[fileNumber] = adf;
+            adfs[fileNumber] = adf;
 
-        //     return adf;
-        // }
+            return adf;
+        }
 
         private static void ImportSpritesheet(ADFFile adf)
         {
