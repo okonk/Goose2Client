@@ -15,6 +15,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<PingPacket>(this.OnPing);
             GameManager.Instance.PacketManager.Listen<MakeCharacterPacket>(this.OnMakeCharacter);
             GameManager.Instance.PacketManager.Listen<SetYourCharacterPacket>(this.OnSetYourCharacter);
+            GameManager.Instance.PacketManager.Listen<MoveCharacterPacket>(this.OnMoveCharacter);
         }
 
         private void OnMakeCharacter(object packet)
@@ -27,8 +28,10 @@ namespace Goose2Client
             var position = new Vector3(makeCharacterPacket.MapX + 0.5f, map.Height - makeCharacterPacket.MapY - 1);
             var character = Instantiate(characterPrefab, position, Quaternion.identity);
             character.name = makeCharacterPacket.Name;
-
             characters[makeCharacterPacket.LoginId] = character;
+
+            var characterScript = character.GetComponent<Character>();
+            characterScript.MakeCharacter(makeCharacterPacket);
         }
 
         private void OnPing(object packet)
@@ -44,6 +47,16 @@ namespace Goose2Client
 
             var camera = cameraObject.GetComponent<CinemachineVirtualCamera>();
             camera.Follow = character.transform;
+        }
+
+        private void OnMoveCharacter(object packet)
+        {
+            var moveCharacter = (MoveCharacterPacket)packet;
+
+            var character = characters[moveCharacter.LoginId];
+            var characterScript = character.GetComponent<Character>();
+
+            characterScript.Move(moveCharacter.MapX, moveCharacter.MapY);
         }
     }
 }

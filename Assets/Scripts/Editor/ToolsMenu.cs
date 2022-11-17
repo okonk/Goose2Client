@@ -47,7 +47,8 @@ namespace Goose2Client
 
             var compiledEnc = new CompiledEnc($"{dataDir}/compiled.enc");
             // ImportCompiledAnimations(compiledEnc, adfs);
-            // ImportOtherAnimations(compiledEnc, adfs);
+            ImportIdleAnimations(compiledEnc, adfs);
+            ImportOtherAnimations(compiledEnc, adfs);
 
             // foreach (var file in Directory.EnumerateFiles(mapDir, "*.map"))
             // {
@@ -84,11 +85,46 @@ namespace Goose2Client
 
                         var unityAnimation = CreateAnimation(animationName, frames);
                         AssetDatabase.CreateAsset(unityAnimation, $"Assets/Animations/{animationName}.anim");
+
+                        Debug.Log($"Created {animationName}");
                     }
                 }
             }
         }
 
+        private static void ImportIdleAnimations(CompiledEnc compiledEnc, Dictionary<int, ADFFile> adfs)
+        {
+            foreach (var compiledAnimation in compiledEnc.CompiledAnimations)
+            {
+                for (int animationNumber = 0; animationNumber < 2; animationNumber++)
+                {
+                    var sheetNumber = compiledAnimation.AnimationFiles[animationNumber];
+                    if (sheetNumber == 0) continue;
+
+                    // var checkName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)1);
+                    // if (File.Exists($"Assets/Animations/{checkName}.anim")) continue;
+
+                    var sprites = AssetDatabase.LoadAllAssetsAtPath($"Assets/Resources/Spritesheets/{sheetNumber}.png").OfType<Sprite>();
+                    if (!adfs.TryGetValue(sheetNumber, out var adf)) continue;
+
+                    for (int direction = 0; direction < 4; direction++)
+                    {
+                        var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
+                        if (animationId == 0 || adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition)) continue;
+
+                        var frames = animationDefinition.Frames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).Take(1).ToArray();
+
+                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
+                        animationName = animationName.Replace("Walking", "Idle");
+
+                        var unityAnimation = CreateAnimation(animationName, frames);
+                        AssetDatabase.CreateAsset(unityAnimation, $"Assets/Resources/Animations/{animationName}.anim");
+
+                        Debug.Log($"Created {animationName}");
+                    }
+                }
+            }
+        }
         private static void ImportOtherAnimations(CompiledEnc compiledEnc, Dictionary<int, ADFFile> adfs)
         {
             var compiledAnimations = new HashSet<int>();
@@ -116,13 +152,15 @@ namespace Goose2Client
                 {
                     if (compiledAnimations.Contains(animation.Id)) continue;
 
-                    var sprites = AssetDatabase.LoadAllAssetsAtPath($"Assets/Spritesheets/{adf.FileNumber}.png").OfType<Sprite>();
+                    var sprites = AssetDatabase.LoadAllAssetsAtPath($"Assets/Resources/Spritesheets/{adf.FileNumber}.png").OfType<Sprite>();
                     var frames = animation.Frames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).ToArray();
 
                     var animationName = animation.Id.ToString();
 
                     var unityAnimation = CreateAnimation(animationName, frames);
-                    AssetDatabase.CreateAsset(unityAnimation, $"Assets/Animations/{animationName}.anim");
+                    AssetDatabase.CreateAsset(unityAnimation, $"Assets/Resources/Animations/{animationName}.anim");
+
+                    Debug.Log($"Created {animationName}");
                 }
             }
         }
@@ -326,14 +364,6 @@ namespace Goose2Client
                 Debug.Log($"Problem converting {adf.FileNumber}.adf: {e}");
             }
         }
-    }
-
-    public enum Direction
-    {
-        Up = 0,
-        Down,
-        Left,
-        Right
     }
 
     public enum AnimationOrder

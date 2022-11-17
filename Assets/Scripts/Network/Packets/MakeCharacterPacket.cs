@@ -13,7 +13,7 @@ namespace Goose2Client
         public string GuildName { get; set; }
         public int MapX { get; set; }
         public int MapY { get; set; }
-        public int Facing { get; set; }
+        public Direction Facing { get; set; }
         public int HPPercent { get; set; }
         public int BodyId { get; set; }
         public int BodyR { get; set; }
@@ -46,7 +46,7 @@ namespace Goose2Client
                 GuildName = p.GetString(),
                 MapX = p.GetInt32() - 1,
                 MapY = p.GetInt32() - 1,
-                Facing = p.GetInt32() - 1,
+                Facing = (Direction)(p.GetInt32() - 1),
                 HPPercent = p.GetInt32(),
                 BodyId = p.GetInt32(),
                 BodyR = p.GetInt32(),
