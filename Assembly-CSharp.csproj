@@ -86,6 +86,8 @@
      <Compile Include="Assets/Scripts/Character.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/UpdateCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Constants.cs" />
+     <Compile Include="Assets/Scripts/CharacterAnimation.cs" />
+     <Compile Include="Assets/Scripts/AnimationSlot.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
