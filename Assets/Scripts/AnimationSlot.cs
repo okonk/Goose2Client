@@ -3,13 +3,14 @@ namespace Goose2Client
     public enum AnimationSlot
     {
         Body,
-        Hair,
         Face,
-        Head,
-        Chest,
-        Legs,
         Feet,
+        Legs,
+        Chest,
+        Hair,
+        Head,
+        Shield,
         Weapon,
-        Shield
+        Mount
     }
 }

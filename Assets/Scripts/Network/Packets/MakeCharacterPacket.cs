@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Goose2Client
 {
@@ -71,6 +72,10 @@ namespace Goose2Client
 
                 // mount
                 ParseItem(packet.DisplayedEquipment, 6, p);
+
+                // Fixes bug in the server sending the wrong state
+                if (packet.DisplayedEquipment[4][0] == 0 && packet.DisplayedEquipment[5][0] == 0)
+                    packet.BodyState = 3;
             }
             else {
                 // monster so skip stuff..

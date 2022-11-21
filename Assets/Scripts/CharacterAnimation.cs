@@ -17,7 +17,7 @@ public class CharacterAnimation : MonoBehaviour
         animator.runtimeAnimatorController = overrideController;
     }
 
-    public void SetGraphic(string type, string id)
+    public void SetGraphic(string type, int id)
     {
         var overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>();
         overrideController.GetOverrides(overrides);
@@ -26,15 +26,27 @@ public class CharacterAnimation : MonoBehaviour
         {
             var o = overrides[i];
 
-            var splits = o.Key.name.Split('-', 3);
-            splits[0] = type;
-            splits[1] = id;
-            var newClip = Resources.Load<AnimationClip>($"Animations/{string.Join('-', splits)}");
+            AnimationClip clip = null;
+            if (id > 0)
+            {
+                var splits = o.Key.name.Split('-', 3);
+                splits[0] = type;
+                splits[1] = id.ToString();
+                clip = Resources.Load<AnimationClip>($"Animations/{string.Join('-', splits)}");
+            }
 
-            overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(o.Key, newClip);
+            if (clip == null)
+                clip = Resources.Load<AnimationClip>($"Animations/Blank");
+
+            overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(o.Key, clip);
         }
 
         overrideController.ApplyOverrides(overrides);
+    }
+
+    public void SetColor(Color color)
+    {
+        //this.spriteRenderer.color = color;
     }
 
     public void SetSortOrder(int order)
