@@ -46,7 +46,9 @@ public class CharacterAnimation : MonoBehaviour
 
     public void SetColor(Color color)
     {
-        //this.spriteRenderer.color = color;
+        this.spriteRenderer.material.SetColor("_Color", Color.white);
+        //color.a = 220 / 256f ;
+        this.spriteRenderer.material.SetColor("_Tint", color);
     }
 
     public void SetSortOrder(int order)

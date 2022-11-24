@@ -33,8 +33,6 @@ namespace Goose2Client
 
             SetFacing(packet.Facing);
 
-            Debug.Log($"{packet.Name} has body state {packet.BodyState}");
-
             var equipped = packet.BodyState == 3 ? 0 : 1;
             foreach (var animation in animations.Values)
                 animation.SetFloat(Constants.Equipped, equipped);
