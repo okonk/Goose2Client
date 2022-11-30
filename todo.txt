@@ -1,7 +1,5 @@
 
-Fix tile bleed through bug
 Fix render offset problem
-Walk animations
 Player input to move
 
 
@@ -9,3 +7,5 @@ Done:
 Fix sorting order of items
 Make unknown animations default to blank
 kinda? Item colors
+Fix tile bleed through bug -- sprite atlas resolved it
+Walk animations

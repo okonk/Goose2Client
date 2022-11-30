@@ -60,4 +60,14 @@ public class CharacterAnimation : MonoBehaviour
     {
         this.animator.SetFloat(key, value);
     }
+
+    public void SetBool(string key, bool value)
+    {
+        this.animator.SetBool(key, value);
+    }
+
+    public float GetHeight()
+    {
+        return this.spriteRenderer.sprite.bounds.center.y;
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -11,6 +12,45 @@ namespace Goose2Client
 {
     public class ToolsMenu
     {
+        [MenuItem("Tools/Remap Animations")]
+        private static void RemapAnimations()
+        {
+            // RemapAnim("Right", "Right2");
+            // RemapAnim("Left", "Right");
+            // RemapAnim("Up", "Left");
+            // RemapAnim("Right2", "Up");
+
+            foreach (var animation in Directory.EnumerateFiles("Assets/Resources/Animations", $"*.anim"))
+            {
+                if (animation.Contains("Idle"))
+                    continue;
+
+                int lastDash = animation.LastIndexOf('-');
+                if (lastDash == -1)
+                    continue;
+
+                var filename = Path.GetFileNameWithoutExtension(animation);
+                var contents = File.ReadAllText(animation);
+                var replaced = Regex.Replace(contents, @"m_Name: (.*)$", $"m_Name: {filename}", RegexOptions.Multiline);
+                File.WriteAllText(animation, replaced);
+            }
+        }
+
+        private static void RemapAnim(string dir, string replace)
+        {
+            foreach (var animation in Directory.EnumerateFiles("Assets/Resources/Animations", $"*-{dir}.anim"))
+            {
+                if (animation.Contains("Idle"))
+                    continue;
+
+                int lastDash = animation.LastIndexOf('-');
+                if (lastDash == -1)
+                    throw new Exception("!!!!!");
+
+                File.Move(animation, animation.Substring(0, lastDash) + $"-{replace}.anim");
+            }
+        }
+
         [MenuItem("Tools/Generate Data")]
         private static void GenerateData()
         {

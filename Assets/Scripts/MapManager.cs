@@ -10,23 +10,28 @@ namespace Goose2Client
         [SerializeField] private GameObject cameraObject;
         private Dictionary<int, GameObject> characters = new();
 
+        public static GameObject CharacterAnimationPrefab;
+        private static GameObject CharacterPrefab;
+
         private void Start()
         {
+            CharacterAnimationPrefab = Resources.Load<GameObject>("Prefabs/CharacterAnimation");
+            CharacterPrefab = Resources.Load<GameObject>("Prefabs/Character");
+
             GameManager.Instance.PacketManager.Listen<PingPacket>(this.OnPing);
             GameManager.Instance.PacketManager.Listen<MakeCharacterPacket>(this.OnMakeCharacter);
             GameManager.Instance.PacketManager.Listen<SetYourCharacterPacket>(this.OnSetYourCharacter);
             GameManager.Instance.PacketManager.Listen<MoveCharacterPacket>(this.OnMoveCharacter);
+            GameManager.Instance.PacketManager.Listen<EraseCharacterPacket>(this.OnEraseCharacter);
         }
 
         private void OnMakeCharacter(object packet)
         {
             var makeCharacterPacket = (MakeCharacterPacket)packet;
 
-            var characterPrefab = Resources.Load<GameObject>("Prefabs/Character");
-
             var map = GameManager.Instance.CurrentMap;
-            var position = new Vector3(makeCharacterPacket.MapX + 0.5f, map.Height - makeCharacterPacket.MapY - 1);
-            var character = Instantiate(characterPrefab, position, Quaternion.identity);
+            var position = new Vector3(makeCharacterPacket.MapX, map.Height - makeCharacterPacket.MapY);
+            var character = Instantiate(CharacterPrefab, position, Quaternion.identity);
             character.name = makeCharacterPacket.Name;
             characters[makeCharacterPacket.LoginId] = character;
 
@@ -43,7 +48,8 @@ namespace Goose2Client
         {
             var setYourCharacter = (SetYourCharacterPacket)packet;
 
-            var character = characters[setYourCharacter.LoginId];
+            if (!characters.TryGetValue(setYourCharacter.LoginId, out var character))
+                return;
 
             var camera = cameraObject.GetComponent<CinemachineVirtualCamera>();
             camera.Follow = character.transform;
@@ -53,10 +59,23 @@ namespace Goose2Client
         {
             var moveCharacter = (MoveCharacterPacket)packet;
 
-            var character = characters[moveCharacter.LoginId];
+            if (!characters.TryGetValue(moveCharacter.LoginId, out var character))
+                return;
+
             var characterScript = character.GetComponent<Character>();
 
             characterScript.Move(moveCharacter.MapX, moveCharacter.MapY);
+        }
+
+        private void OnEraseCharacter(object packet)
+        {
+            var eraseCharacter = (EraseCharacterPacket)packet;
+
+            if (!characters.TryGetValue(eraseCharacter.LoginId, out var character))
+                return;
+
+            Destroy(character);
+            characters.Remove(eraseCharacter.LoginId);
         }
     }
 }

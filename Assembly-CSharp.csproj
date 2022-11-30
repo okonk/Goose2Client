@@ -50,6 +50,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/ExperienceBarPacket.cs" />
      <Compile Include="Assets/Scripts/MapFile.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/DoneSendingMapPacket.cs" />
+     <Compile Include="Assets/Scripts/AnimationSlot.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ServerMessagePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/AdminModeActivatePacket.cs" />
      <Compile Include="Assets/Scripts/WindowFrames.cs" />
@@ -57,8 +58,11 @@
      <Compile Include="Assets/Scripts/Network/Packets/LoginFailPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/WindowLinePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ChatPacket.cs" />
+     <Compile Include="Assets/Scripts/Constants.cs" />
+     <Compile Include="Assets/Scripts/CharacterAnimation.cs" />
      <Compile Include="Assets/Scripts/LoadingMapScene/LoadingMapScene.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/PingPacket.cs" />
+     <Compile Include="Assets/Scripts/ColorExtensions.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendMapNamePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SetYourCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EmotePacket.cs" />
@@ -85,10 +89,6 @@
      <Compile Include="Assets/Scripts/Network/PacketParser.cs" />
      <Compile Include="Assets/Scripts/Character.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/UpdateCharacterPacket.cs" />
-     <Compile Include="Assets/Scripts/Constants.cs" />
-     <Compile Include="Assets/Scripts/CharacterAnimation.cs" />
-     <Compile Include="Assets/Scripts/AnimationSlot.cs" />
-     <Compile Include="Assets/Scripts/ColorExtensions.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
