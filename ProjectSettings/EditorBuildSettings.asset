@@ -14,4 +14,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingMapScene.unity
     guid: 85e773a6c92ca332e89439832fbe1723
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: f2e0d5b32f793e0c5b593f9ab84b862d, type: 2}

@@ -35,6 +35,8 @@ namespace Goose2Client
 
         private IEnumerator LoadMapAsync(string mapFile)
         {
+            var map = GetMap($"Maps/{mapFile.Replace(".map", "")}");
+
             var currentScene = SceneManager.GetActiveScene();
             var asyncLoad = SceneManager.LoadSceneAsync("MapScene", LoadSceneMode.Additive);
 
@@ -43,9 +45,8 @@ namespace Goose2Client
                 yield return null;
             }
 
-            var map = ImportMap($"Maps/{mapFile.Replace(".map", "")}");
-
-            SceneManager.MoveGameObjectToScene(map, SceneManager.GetSceneByName("MapScene"));
+            var mapObj = ImportMap(map);
+            SceneManager.MoveGameObjectToScene(mapObj, SceneManager.GetSceneByName("MapScene"));
             SceneManager.UnloadSceneAsync(currentScene);
 
             GameManager.Instance.NetworkClient.DoneLoadingMap();
@@ -53,13 +54,18 @@ namespace Goose2Client
             GameManager.Instance.NetworkClient.Pause = false;
         }
 
-        private GameObject ImportMap(string path)
+        private MapFile GetMap(string path)
         {
             var mapFile = Resources.Load<TextAsset>(path);
 
             var map = new MapFile(mapFile.bytes);
             GameManager.Instance.CurrentMap = map;
 
+            return map;
+        }
+
+        private GameObject ImportMap(MapFile map)
+        {
             var grid = new GameObject("MapGrid");
             grid.AddComponent<Grid>();
 

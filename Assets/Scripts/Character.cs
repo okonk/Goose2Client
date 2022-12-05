@@ -44,6 +44,8 @@ namespace Goose2Client
                 animation.SetFloat(Constants.Equipped, equipped);
 
             this.MoveSpeed = packet.MoveSpeed;
+            this.X = packet.MapX;
+            this.Y = packet.MapY;
         }
 
         private CharacterAnimation CreateAnimation(AnimationSlot slot, string type, int id, Color color)
@@ -132,6 +134,8 @@ namespace Goose2Client
             }
 
             SetMoving(true);
+            this.X = x;
+            this.Y = y;
         }
 
         public void Update()

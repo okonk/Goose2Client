@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System.Linq;
 
 namespace Goose2Client
 {
@@ -10,6 +11,8 @@ namespace Goose2Client
         [SerializeField] private GameObject cameraObject;
         private Dictionary<int, GameObject> characters = new();
 
+        private MapFile map;
+
         public static GameObject CharacterAnimationPrefab;
         private static GameObject CharacterPrefab;
 
@@ -17,6 +20,8 @@ namespace Goose2Client
         {
             CharacterAnimationPrefab = Resources.Load<GameObject>("Prefabs/CharacterAnimation");
             CharacterPrefab = Resources.Load<GameObject>("Prefabs/Character");
+
+            this.map = GameManager.Instance.CurrentMap;
 
             GameManager.Instance.PacketManager.Listen<PingPacket>(this.OnPing);
             GameManager.Instance.PacketManager.Listen<MakeCharacterPacket>(this.OnMakeCharacter);
@@ -29,7 +34,6 @@ namespace Goose2Client
         {
             var makeCharacterPacket = (MakeCharacterPacket)packet;
 
-            var map = GameManager.Instance.CurrentMap;
             var position = new Vector3(makeCharacterPacket.MapX, map.Height - makeCharacterPacket.MapY);
             var character = Instantiate(CharacterPrefab, position, Quaternion.identity);
             character.name = makeCharacterPacket.Name;
@@ -53,6 +57,9 @@ namespace Goose2Client
 
             var camera = cameraObject.GetComponent<CinemachineVirtualCamera>();
             camera.Follow = character.transform;
+
+            var playerController = character.gameObject.AddComponent<PlayerController>();
+            playerController.MapManager = this;
         }
 
         private void OnMoveCharacter(object packet)
@@ -76,6 +83,20 @@ namespace Goose2Client
 
             Destroy(character);
             characters.Remove(eraseCharacter.LoginId);
+        }
+
+        public bool IsValidMove(int x, int y)
+        {
+            if (x < 0 || y < 0 || x >= map.Width || y >= map.Height)
+                return false;
+
+            if (characters.Values.Select(c => c.GetComponent<Character>()).Any(c => c.X == x && c.Y == y))
+                return false;
+
+            if (map[x, y].IsBlocked())
+                return false;
+
+            return true;
         }
     }
 }

@@ -1,6 +1,8 @@
 
 Fix render offset problem
-Player input to move
+When walking under a roof, hide that layer
+allow spinning in place
+Show underwear when nothing equipped
 
 
 Done:
@@ -9,3 +11,5 @@ Make unknown animations default to blank
 kinda? Item colors
 Fix tile bleed through bug -- sprite atlas resolved it
 Walk animations
+Player input to move
+Check blocked tiles when moving

@@ -138,5 +138,10 @@ namespace Goose2Client
         {
             Send($"DLM");
         }
+
+        public void Move(Direction d)
+        {
+            Send($"M{(int)d + 1}");
+        }
     }
 }
