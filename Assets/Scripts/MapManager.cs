@@ -16,6 +16,8 @@ namespace Goose2Client
         public static GameObject CharacterAnimationPrefab;
         private static GameObject CharacterPrefab;
 
+        private GameObject roofLayer;
+
         private void Start()
         {
             CharacterAnimationPrefab = Resources.Load<GameObject>("Prefabs/CharacterAnimation");
@@ -60,6 +62,10 @@ namespace Goose2Client
 
             var playerController = character.gameObject.AddComponent<PlayerController>();
             playerController.MapManager = this;
+
+            var characterScript = character.GetComponent<Character>();
+            if (map[characterScript.X, characterScript.Y].IsRoof)
+                this.roofLayer.SetActive(false);
         }
 
         private void OnMoveCharacter(object packet)
@@ -93,10 +99,26 @@ namespace Goose2Client
             if (characters.Values.Select(c => c.GetComponent<Character>()).Any(c => c.X == x && c.Y == y))
                 return false;
 
-            if (map[x, y].IsBlocked())
+            if (map[x, y].IsBlocked)
                 return false;
 
             return true;
+        }
+
+        public void PlayerMoved(int fromX, int fromY, int toX, int toY)
+        {
+            var fromRoof = map[fromX, fromY].IsRoof;
+            var toRoof = map[toX, toY].IsRoof;
+
+            if (fromRoof && !toRoof)
+                this.roofLayer.SetActive(true);
+            else if (toRoof && !fromRoof)
+                this.roofLayer.SetActive(false);
+        }
+
+        public void OnMapLoaded(GameObject mapObject)
+        {
+            this.roofLayer = GameObject.Find("Roofs");
         }
     }
 }

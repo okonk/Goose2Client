@@ -1,8 +1,7 @@
 
 Fix render offset problem
-When walking under a roof, hide that layer
 allow spinning in place
-Show underwear when nothing equipped
+Show underwear when nothing equipped (male: 3, female: 4 and 8 chest)
 
 
 Done:
@@ -13,3 +12,4 @@ Fix tile bleed through bug -- sprite atlas resolved it
 Walk animations
 Player input to move
 Check blocked tiles when moving
+When walking under a roof, hide that layer

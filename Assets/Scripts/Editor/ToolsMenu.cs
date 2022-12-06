@@ -270,7 +270,7 @@ namespace Goose2Client
                 {
                     var tile = map[x, y];
 
-                    if (tile.IsBlocked())
+                    if (tile.IsBlocked)
                         layers[5].SetTile(new Vector3Int(x, map.Height - y - 1, 0), GetOrCreateTile(13, 3002));
 
                     for (int l = 0; l < tile.Layers.Length; l++)

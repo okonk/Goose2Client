@@ -13,16 +13,6 @@ namespace Goose2Client
         private Dictionary<int, Tile> tileCache = new Dictionary<int, Tile>();
         private Dictionary<int, Sprite[]> sheetCache = new Dictionary<int, Sprite[]>();
 
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
-
         public void Load(string mapFile, string mapName)
         {
             Debug.Log($"Loading {mapFile} {mapName}");
@@ -48,6 +38,9 @@ namespace Goose2Client
             var mapObj = ImportMap(map);
             SceneManager.MoveGameObjectToScene(mapObj, SceneManager.GetSceneByName("MapScene"));
             SceneManager.UnloadSceneAsync(currentScene);
+
+            var mapManager = FindObjectOfType<MapManager>();
+            mapManager.OnMapLoaded(mapObj);
 
             GameManager.Instance.NetworkClient.DoneLoadingMap();
 
@@ -93,7 +86,7 @@ namespace Goose2Client
                 {
                     var tile = map[x, y];
 
-                    if (tile.IsBlocked())
+                    if (tile.IsBlocked)
                         layers[5].SetTile(new Vector3Int(x, map.Height - y - 1, 0), GetOrCreateTile(13, 3002));
 
                     for (int l = 0; l < tile.Layers.Length; l++)
@@ -105,6 +98,9 @@ namespace Goose2Client
                     }
                 }
             }
+
+            tileCache.Clear();
+            sheetCache.Clear();
 
             return grid;
         }

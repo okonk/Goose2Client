@@ -22,9 +22,14 @@ namespace Goose2Client
             this.Layers = new Layer[5];
         }
 
-        public bool IsBlocked()
+        public bool IsBlocked
         {
-            return ((this.Flags & 2) > 0);
+            get { return ((this.Flags & 2) > 0); }
+        }
+
+        public bool IsRoof
+        {
+            get { return this.Layers[4].Graphic != 0; }
         }
     }
 

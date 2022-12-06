@@ -42,6 +42,8 @@ namespace Goose2Client
                 if (!MapManager.IsValidMove(x, y))
                     return;
 
+                MapManager.PlayerMoved(character.X, character.Y, x, y);
+
                 this.character.Move(x, y);
 
                 if (dx < 0)
