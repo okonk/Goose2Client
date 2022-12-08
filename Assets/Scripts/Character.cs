@@ -26,7 +26,8 @@ namespace Goose2Client
             if (packet.BodyId < 100)
             {
                 var hair = CreateAnimation(AnimationSlot.Hair, "Hair", packet.HairId, ColorH.RGBA(packet.HairR, packet.HairG, packet.HairB, packet.HairA));
-                Debug.Log($"height of {packet.Name} is {bodyObject.GetHeight()} hair is {hair.GetHeight()}");
+
+                SetUnderwear(packet.BodyId, packet.DisplayedEquipment);
 
                 CreateAnimation(AnimationSlot.Face, "Eyes", packet.FaceId, Color.clear);
                 CreateAnimation(AnimationSlot.Chest, "Chest", packet.DisplayedEquipment[0][0], ColorH.RGBA(packet.DisplayedEquipment[0]));
@@ -46,6 +47,23 @@ namespace Goose2Client
             this.MoveSpeed = packet.MoveSpeed;
             this.X = packet.MapX;
             this.Y = packet.MapY;
+        }
+
+        private void SetUnderwear(int bodyId, int[][] equips)
+        {
+            if (bodyId == 1 && equips[2][0] == 0)
+            {
+                equips[2][0] = 3;
+                return;
+            }
+            if (bodyId == 2)
+            {
+                if (equips[0][0] == 0)
+                    equips[0][0] = 8;
+
+                if (equips[2][0] == 0)
+                    equips[2][0] = 4;
+            }
         }
 
         private CharacterAnimation CreateAnimation(AnimationSlot slot, string type, int id, Color color)
@@ -91,7 +109,7 @@ namespace Goose2Client
             };
         }
 
-        private void SetFacing(Direction direction)
+        public void SetFacing(Direction direction)
         {
             this.Facing = direction;
 

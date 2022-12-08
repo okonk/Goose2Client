@@ -143,5 +143,10 @@ namespace Goose2Client
         {
             Send($"M{(int)d + 1}");
         }
+
+        public void Face(Direction d)
+        {
+            Send($"F{(int)d + 1}");
+        }
     }
 }

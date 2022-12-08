@@ -1,7 +1,12 @@
 
 Fix render offset problem
-allow spinning in place
-Show underwear when nothing equipped (male: 3, female: 4 and 8 chest)
+copy all maps
+
+health bars
+names (tooltip? above head? both?)
+
+
+can i fix it so when scripts are reloaded it works?
 
 
 Done:
@@ -13,3 +18,5 @@ Walk animations
 Player input to move
 Check blocked tiles when moving
 When walking under a roof, hide that layer
+Show underwear when nothing equipped (male: 3, female: 4 and 8 chest)
+allow spinning in place
