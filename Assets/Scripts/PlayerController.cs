@@ -38,19 +38,16 @@ namespace Goose2Client
                 // allow spinning in place
                 if (movePressedTime < 0.1)
                 {
-                    int dx = (int)Mathf.Round(lastInput.x);
-                    int dy = -1 * (int)Mathf.Round(lastInput.y);
+                    GetMoveDelta(lastInput, out var direction, out int _, out int _);
 
-                    var direction = GetDirection(dx, dy);
-
-                    character.SetFacing(direction);
-                    GameManager.Instance.NetworkClient.Face(direction);
+                    SetFacing(direction);
                 }
+
+                movePressedTime = 0;
             }
             else
             {
                 movePressed = true;
-                movePressedTime = 0;
             }
 
             SetInputLastPressed();
@@ -89,10 +86,7 @@ namespace Goose2Client
 
             if (movePressedTime < 0.1) return;
 
-            int dx = (int)Mathf.Round(moveInput.x);
-            int dy = -1 * (int)Mathf.Round(moveInput.y);
-
-            var direction = GetDirection(dx, dy);
+            GetMoveDelta(moveInput, out var direction, out int dx, out int dy);
 
             int x = dx + character.X;
             int y = dy + character.Y;
@@ -107,9 +101,22 @@ namespace Goose2Client
             }
             else
             {
-                character.SetFacing(direction);
-                GameManager.Instance.NetworkClient.Face(direction);
+                SetFacing(direction);
             }
+        }
+
+        private void SetFacing(Direction direction)
+        {
+            character.SetFacing(direction);
+            GameManager.Instance.NetworkClient.Face(direction);
+        }
+
+        private void GetMoveDelta(Vector2 input, out Direction direction, out int dx, out int dy)
+        {
+            dx = (int)Mathf.Round(input.x);
+            dy = -1 * (int)Mathf.Round(input.y);
+
+            direction = GetDirection(dx, dy);
         }
 
         private Direction GetDirection(int dx, int dy)

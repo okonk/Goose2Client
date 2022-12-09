@@ -4,6 +4,7 @@ copy all maps
 
 health bars
 names (tooltip? above head? both?)
+handle chh packet
 
 
 can i fix it so when scripts are reloaded it works?
