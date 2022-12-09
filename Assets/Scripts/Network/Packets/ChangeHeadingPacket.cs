@@ -7,7 +7,7 @@ namespace Goose2Client
     {
         public int LoginId { get; set; }
 
-        public int Facing { get; set; }
+        public Direction Direction { get; set; }
 
         public override string Prefix { get; } = "CHH";
 
@@ -16,7 +16,7 @@ namespace Goose2Client
             return new ChangeHeadingPacket()
             {
                 LoginId = p.GetInt32(),
-                Facing = p.GetInt32() - 1
+                Direction = (Direction)(p.GetInt32() - 1)
             };
         }
     }

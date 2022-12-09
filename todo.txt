@@ -1,6 +1,5 @@
 
 Fix render offset problem
-copy all maps
 
 health bars
 names (tooltip? above head? both?)
@@ -21,3 +20,4 @@ Check blocked tiles when moving
 When walking under a roof, hide that layer
 Show underwear when nothing equipped (male: 3, female: 4 and 8 chest)
 allow spinning in place
+copy all maps

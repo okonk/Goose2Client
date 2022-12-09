@@ -27,7 +27,7 @@ namespace Goose2Client
             messageOverlay.SetActive(false);
         }
 
-        public void Destroy()
+        public void OnDestroy()
         {
             GameManager.Instance.NetworkClient.Connected -= this.OnConnected;
             GameManager.Instance.NetworkClient.SocketError -= this.OnError;

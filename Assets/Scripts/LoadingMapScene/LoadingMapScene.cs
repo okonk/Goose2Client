@@ -42,6 +42,8 @@ namespace Goose2Client
             var mapManager = FindObjectOfType<MapManager>();
             mapManager.OnMapLoaded(mapObj);
 
+            Debug.Log("done loading map");
+
             GameManager.Instance.NetworkClient.DoneLoadingMap();
 
             GameManager.Instance.NetworkClient.Pause = false;

@@ -85,17 +85,32 @@ namespace Goose2Client
             // AssetDatabase.SaveAssets();
             // AssetDatabase.Refresh();
 
-            var compiledEnc = new CompiledEnc($"{dataDir}/compiled.enc");
+            // var compiledEnc = new CompiledEnc($"{dataDir}/compiled.enc");
             // ImportCompiledAnimations(compiledEnc, adfs);
-            ImportIdleAnimations(compiledEnc, adfs);
-            ImportOtherAnimations(compiledEnc, adfs);
+            // ImportIdleAnimations(compiledEnc, adfs);
+            // ImportOtherAnimations(compiledEnc, adfs);
 
-            // foreach (var file in Directory.EnumerateFiles(mapDir, "*.map"))
-            // {
-            //     ImportMap(file, adfs);
-            // }
 
             //ImportMap($"{mapDir}/Map2.map");
+        }
+
+        [MenuItem("Tools/Copy Maps")]
+        private static void CopysMaps()
+        {
+            //var illutiaDir = EditorUtility.OpenFolderPanel("Choose Original Illutia Client Folder", "", "");
+            var illutiaDir = "/home/hayden/code/illutiadata";
+            var dataDir = $"{illutiaDir}/data";
+            var mapDir = $"{illutiaDir}/maps";
+
+            foreach (var file in Directory.EnumerateFiles(mapDir, "*.map"))
+            {
+                CopyMap(file);
+            }
+        }
+
+        private static void CopyMap(string path)
+        {
+            File.Copy(path, $"Assets/Resources/Maps/M{Path.GetFileNameWithoutExtension(path).Substring(1)}.bytes", overwrite: true);
         }
 
         private static void ImportCompiledAnimations(CompiledEnc compiledEnc, Dictionary<int, ADFFile> adfs)

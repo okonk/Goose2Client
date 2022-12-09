@@ -20,8 +20,6 @@ namespace Goose2Client
             get { return instance; }
         }
 
-
-
         private void Awake()
         {
             if (instance != null && instance != this)

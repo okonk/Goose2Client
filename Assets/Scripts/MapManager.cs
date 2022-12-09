@@ -29,7 +29,20 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<MakeCharacterPacket>(this.OnMakeCharacter);
             GameManager.Instance.PacketManager.Listen<SetYourCharacterPacket>(this.OnSetYourCharacter);
             GameManager.Instance.PacketManager.Listen<MoveCharacterPacket>(this.OnMoveCharacter);
+            GameManager.Instance.PacketManager.Listen<ChangeHeadingPacket>(this.OnChangeHeading);
             GameManager.Instance.PacketManager.Listen<EraseCharacterPacket>(this.OnEraseCharacter);
+            GameManager.Instance.PacketManager.Listen<SendCurrentMapPacket>(this.OnSendCurrentMap);
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.Instance.PacketManager.Remove<PingPacket>(this.OnPing);
+            GameManager.Instance.PacketManager.Remove<MakeCharacterPacket>(this.OnMakeCharacter);
+            GameManager.Instance.PacketManager.Remove<SetYourCharacterPacket>(this.OnSetYourCharacter);
+            GameManager.Instance.PacketManager.Remove<MoveCharacterPacket>(this.OnMoveCharacter);
+            GameManager.Instance.PacketManager.Remove<ChangeHeadingPacket>(this.OnChangeHeading);
+            GameManager.Instance.PacketManager.Remove<EraseCharacterPacket>(this.OnEraseCharacter);
+            GameManager.Instance.PacketManager.Remove<SendCurrentMapPacket>(this.OnSendCurrentMap);
         }
 
         private void OnMakeCharacter(object packet)
@@ -57,8 +70,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(setYourCharacter.LoginId, out var character))
                 return;
 
-            var camera = cameraObject.GetComponent<CinemachineVirtualCamera>();
-            camera.Follow = character.transform;
+            SetCameraFollow(character);
 
             var playerController = character.gameObject.AddComponent<PlayerController>();
             playerController.MapManager = this;
@@ -80,6 +92,18 @@ namespace Goose2Client
             characterScript.Move(moveCharacter.MapX, moveCharacter.MapY);
         }
 
+        private void OnChangeHeading(object packet)
+        {
+            var changeHeadingPacket = (ChangeHeadingPacket)packet;
+
+            if (!characters.TryGetValue(changeHeadingPacket.LoginId, out var character))
+                return;
+
+            var characterScript = character.GetComponent<Character>();
+
+            characterScript.SetFacing(changeHeadingPacket.Direction);
+        }
+
         private void OnEraseCharacter(object packet)
         {
             var eraseCharacter = (EraseCharacterPacket)packet;
@@ -89,6 +113,20 @@ namespace Goose2Client
 
             Destroy(character);
             characters.Remove(eraseCharacter.LoginId);
+        }
+
+        private void OnSendCurrentMap(object packet)
+        {
+            SetCameraFollow(null); // needed otherwise unity gives error about using a destroyed object
+
+            var sendCurrentMap = (SendCurrentMapPacket)packet;
+            GameManager.Instance.ChangeMap(sendCurrentMap.MapFileName, sendCurrentMap.MapName);
+        }
+
+        private void SetCameraFollow(GameObject character)
+        {
+            var camera = cameraObject.GetComponent<CinemachineVirtualCamera>();
+            camera.Follow = character?.transform;
         }
 
         public bool IsValidMove(int x, int y)
