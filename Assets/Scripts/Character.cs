@@ -72,7 +72,6 @@ namespace Goose2Client
 
             var animation = Instantiate(MapManager.CharacterAnimationPrefab, gameObject.transform);
             animation.name = $"{type} ({id})";
-            animation.transform.localPosition = new Vector3(0.5f, -0.5f);
 
             var characterAnimationScript = animation.GetComponent<CharacterAnimation>();
             characterAnimationScript.SetGraphic(type, id);
@@ -80,6 +79,11 @@ namespace Goose2Client
             characterAnimationScript.SetSortOrder(GetSortOrder(slot, Facing));
 
             this.animations[slot] = characterAnimationScript;
+
+            string name = $"{type}-{id}-IdleNoEquip-{Facing}";
+            int height = GameManager.Instance.AnimationManager.GetHeight(name);
+            int yOffset = -System.Math.Max((height - 48) / 2, 0) - 16;
+            animation.transform.localPosition = new Vector3(0.5f, yOffset / 32f);
 
             return characterAnimationScript;
         }

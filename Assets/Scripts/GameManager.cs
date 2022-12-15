@@ -12,6 +12,7 @@ namespace Goose2Client
 
         public NetworkClient NetworkClient { get; private set; }
         public PacketManager PacketManager { get; private set; }
+        public AnimationManager AnimationManager { get; private set; }
 
         public MapFile CurrentMap { get; set; }
 
@@ -33,6 +34,7 @@ namespace Goose2Client
 
             NetworkClient = new NetworkClient();
             PacketManager = new PacketManager();
+            AnimationManager = new AnimationManager();
         }
 
         public void Update()

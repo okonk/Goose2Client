@@ -1,9 +1,13 @@
 
-Fix render offset problem
+
+Figure out how to get currently playing animation to update offsets
 
 health bars
 names (tooltip? above head? both?)
-handle chh packet
+
+fix layer rendering of characters/map objects
+figure out why neutral spells dealer, body 212 doesn't show up
+
 
 
 can i fix it so when scripts are reloaded it works?
@@ -21,3 +25,5 @@ When walking under a roof, hide that layer
 Show underwear when nothing equipped (male: 3, female: 4 and 8 chest)
 allow spinning in place
 copy all maps
+handle chh packet
+Fix render offset problem

@@ -59,6 +59,10 @@ namespace Goose2Client
             var dataDir = $"{illutiaDir}/data";
             var mapDir = $"{illutiaDir}/maps";
 
+            var idsThatDontHaveSprites = new[] { 3150, 3151, 3156, 3159, 3160, 3161, 3162, 3168, 35504, 35505, 35506, 35507, 35508, 35509, 35510, 35511, 35512, 35513, 35514, 35515, 35516, 35517, 35518, 35519,
+                35520, 35521, 35522, 35523, 3170, 3172, 3176, 3177, 3178, 50457, 50467, 50477, 50487, 50497, 50507, 50517, 50527, 50537,
+                50538, 50539, 50540, 50541, 50542, 50543, 50544, 50545, 50546, 50547, 3179, 3180, 3187 };
+
             var adfs = new Dictionary<int, ADFFile>();
 
             foreach (var file in Directory.EnumerateFiles(dataDir, "*.adf"))
@@ -67,6 +71,20 @@ namespace Goose2Client
 
                 var adf = new ADFFile(file);
                 adfs[adf.FileNumber] = adf;
+
+                // if (adf.Type != ADFType.Graphic) continue;
+
+                // var asset = (TextureImporter)TextureImporter.GetAtPath($"Assets/Resources/Spritesheets/{adf.FileNumber}.png");
+                // asset.GetSourceTextureWidthAndHeight(out int totalWidth, out int totalHeight);
+
+                // foreach (var id in idsThatDontHaveSprites)
+                // {
+                //     if (adf.FirstFrameIndex <= id && adf.EndFrameIndex >= id)
+                //     {
+                //         var frame = adf.Frames.FirstOrDefault(f => f.Index == id);
+                //         Debug.Log($"{adf.FileNumber}/{id}: {frame.X} {frame.Y} {frame.W} {frame.H} vs {totalWidth} {totalHeight}");
+                //     }
+                // }
 
                 // if (adf.Type == ADFType.Graphic)
                 //     ConvertToPng(adf);
@@ -85,10 +103,11 @@ namespace Goose2Client
             // AssetDatabase.SaveAssets();
             // AssetDatabase.Refresh();
 
-            // var compiledEnc = new CompiledEnc($"{dataDir}/compiled.enc");
+            var compiledEnc = new CompiledEnc($"{dataDir}/compiled.enc");
             // ImportCompiledAnimations(compiledEnc, adfs);
             // ImportIdleAnimations(compiledEnc, adfs);
             // ImportOtherAnimations(compiledEnc, adfs);
+            ImportAnimationNames(compiledEnc, adfs);
 
 
             //ImportMap($"{mapDir}/Map2.map");
@@ -111,6 +130,97 @@ namespace Goose2Client
         private static void CopyMap(string path)
         {
             File.Copy(path, $"Assets/Resources/Maps/M{Path.GetFileNameWithoutExtension(path).Substring(1)}.bytes", overwrite: true);
+        }
+
+        private static void ImportAnimationNames(CompiledEnc compiledEnc, Dictionary<int, ADFFile> adfs)
+        {
+            var animationHeights = new Dictionary<string, int>();
+
+            foreach (var compiledAnimation in compiledEnc.CompiledAnimations)
+            {
+                for (int animationNumber = 0; animationNumber < 11; animationNumber++)
+                {
+
+                    var sheetNumber = compiledAnimation.AnimationFiles[animationNumber];
+                    if (sheetNumber == 0) continue;
+
+                    if (!adfs.TryGetValue(sheetNumber, out var adf)) continue;
+
+                    for (int direction = 0; direction < 4; direction++)
+                    {
+                        var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
+                        if (animationId == 0 || adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition)) continue;
+
+                        var maxHeight = animationDefinition.Frames.Max(f => f.H);
+                        if (maxHeight == 64) continue;
+
+                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
+
+                        animationHeights[animationName] = maxHeight;
+                    }
+                }
+            }
+
+            foreach (var compiledAnimation in compiledEnc.CompiledAnimations)
+            {
+                for (int animationNumber = 0; animationNumber < 2; animationNumber++)
+                {
+                    var sheetNumber = compiledAnimation.AnimationFiles[animationNumber];
+                    if (sheetNumber == 0) continue;
+
+                    if (!adfs.TryGetValue(sheetNumber, out var adf)) continue;
+
+                    for (int direction = 0; direction < 4; direction++)
+                    {
+                        var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
+                        if (animationId == 0 || adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition)) continue;
+
+                        var maxHeight = animationDefinition.Frames.Max(f => f.H);
+                        if (maxHeight == 64) continue;
+
+                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
+                        animationName = animationName.Replace("Walking", "Idle");
+
+                        animationHeights[animationName] = maxHeight;
+                    }
+                }
+            }
+
+            var compiledAnimations = new HashSet<int>();
+
+            foreach (var compiledAnimation in compiledEnc.CompiledAnimations)
+            {
+                for (int animationNumber = 0; animationNumber < 11; animationNumber++)
+                {
+                    var sheetNumber = compiledAnimation.AnimationFiles[animationNumber];
+                    if (sheetNumber == 0) continue;
+
+                    for (int direction = 0; direction < 4; direction++)
+                    {
+                        var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
+                        compiledAnimations.Add(animationId);
+                    }
+                }
+            }
+
+            foreach (var adf in adfs.Values)
+            {
+                if (adf.Animations == null) continue;
+
+                foreach (var animation in adf.Animations.Values)
+                {
+                    if (compiledAnimations.Contains(animation.Id)) continue;
+
+                    var maxHeight = animation.Frames.Max(f => f.H);
+                    if (maxHeight == 64) continue;
+
+                    var animationName = animation.Id.ToString();
+
+                    animationHeights[animationName] = maxHeight;
+                }
+            }
+
+            File.WriteAllLines($"Assets/Resources/Animations/AnimationHeights.txt", animationHeights.Select(a => $"{a.Key},{a.Value}"));
         }
 
         private static void ImportCompiledAnimations(CompiledEnc compiledEnc, Dictionary<int, ADFFile> adfs)
@@ -358,7 +468,7 @@ namespace Goose2Client
 
         private static void ImportSpritesheet(ADFFile adf)
         {
-            var asset = (TextureImporter)TextureImporter.GetAtPath($"Assets/Spritesheets/{adf.FileNumber}.png");
+            var asset = (TextureImporter)TextureImporter.GetAtPath($"Assets/Resources/Spritesheets/{adf.FileNumber}.png");
 
             asset.spritePixelsPerUnit = 32;
             asset.filterMode = FilterMode.Point;
@@ -380,11 +490,7 @@ namespace Goose2Client
                 var y = totalHeight - frame.Y - frame.H;
                 metadata.rect = new Rect(frame.X, y, frame.W, frame.H);
 
-                if (frame.H > 32)
-                {
-                    metadata.alignment = (int)SpriteAlignment.Custom;
-                    metadata.pivot = new Vector2(0.5f, 0.5f * 32f / (float)frame.H);
-                }
+                metadata.alignment = (int)SpriteAlignment.BottomCenter;
 
                 spritesheet[i] = metadata;
             }
