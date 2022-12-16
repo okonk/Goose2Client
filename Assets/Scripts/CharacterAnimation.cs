@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Goose2Client;
 using UnityEngine;
 
 public class CharacterAnimation : MonoBehaviour
@@ -8,6 +9,8 @@ public class CharacterAnimation : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private AnimatorOverrideController overrideController;
 
+    public int Height { get; private set; } = 64;
+
     private void Awake()
     {
         this.animator = GetComponent<Animator>();
@@ -15,6 +18,23 @@ public class CharacterAnimation : MonoBehaviour
 
         this.overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = overrideController;
+    }
+
+    private void Update()
+    {
+        var currentAnimation = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        int height = GameManager.Instance.AnimationManager.GetHeight(currentAnimation);
+
+        if (height != Height)
+            SetPosition(currentAnimation, height);
+    }
+
+    private void SetPosition(string animationName, int height)
+    {
+        this.Height = height;
+
+        int yOffset = -System.Math.Max((height - 48) / 2, 0) - 16;
+        transform.localPosition = new Vector3(0.5f, yOffset / 32f);
     }
 
     public void SetGraphic(string type, int id)
@@ -42,6 +62,10 @@ public class CharacterAnimation : MonoBehaviour
         }
 
         overrideController.ApplyOverrides(overrides);
+
+        var animationName = $"{type}-{id}-IdleNoEquip-Left";
+        int height = GameManager.Instance.AnimationManager.GetHeight(animationName);
+        SetPosition(animationName, height);
     }
 
     public void SetColor(Color color)
@@ -64,10 +88,5 @@ public class CharacterAnimation : MonoBehaviour
     public void SetBool(string key, bool value)
     {
         this.animator.SetBool(key, value);
-    }
-
-    public float GetHeight()
-    {
-        return this.spriteRenderer.sprite.bounds.center.y;
     }
 }

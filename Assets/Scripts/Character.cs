@@ -80,11 +80,6 @@ namespace Goose2Client
 
             this.animations[slot] = characterAnimationScript;
 
-            string name = $"{type}-{id}-IdleNoEquip-{Facing}";
-            int height = GameManager.Instance.AnimationManager.GetHeight(name);
-            int yOffset = -System.Math.Max((height - 48) / 2, 0) - 16;
-            animation.transform.localPosition = new Vector3(0.5f, yOffset / 32f);
-
             return characterAnimationScript;
         }
 

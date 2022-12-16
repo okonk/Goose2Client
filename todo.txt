@@ -1,7 +1,5 @@
 
 
-Figure out how to get currently playing animation to update offsets
-
 health bars
 names (tooltip? above head? both?)
 
@@ -27,3 +25,4 @@ allow spinning in place
 copy all maps
 handle chh packet
 Fix render offset problem
+Figure out how to get currently playing animation to update offsets -- maybe?
