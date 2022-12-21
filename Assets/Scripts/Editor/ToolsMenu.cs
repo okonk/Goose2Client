@@ -149,9 +149,15 @@ namespace Goose2Client
                     for (int direction = 0; direction < 4; direction++)
                     {
                         var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
-                        if (animationId == 0 || adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition)) continue;
+                        if (animationId == 0) continue;
 
-                        var maxHeight = animationDefinition.Frames.Max(f => f.H);
+                        List<Frame> animationFrames;
+                        if (adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition))
+                            animationFrames = new List<Frame> { adf.Frames[direction] };
+                        else
+                            animationFrames = animationDefinition.Frames;
+
+                        var maxHeight = animationFrames.Max(f => f.H);
                         if (maxHeight == 64) continue;
 
                         var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
@@ -173,9 +179,15 @@ namespace Goose2Client
                     for (int direction = 0; direction < 4; direction++)
                     {
                         var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
-                        if (animationId == 0 || adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition)) continue;
+                        if (animationId == 0) continue;
 
-                        var maxHeight = animationDefinition.Frames.Max(f => f.H);
+                        List<Frame> animationFrames;
+                        if (adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition))
+                            animationFrames = new List<Frame> { adf.Frames[direction] };
+                        else
+                            animationFrames = animationDefinition.Frames;
+
+                        var maxHeight = animationFrames.Max(f => f.H);
                         if (maxHeight == 64) continue;
 
                         var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
@@ -236,20 +248,26 @@ namespace Goose2Client
                     // var checkName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)1);
                     // if (File.Exists($"Assets/Animations/{checkName}.anim")) continue;
 
-                    var sprites = AssetDatabase.LoadAllAssetsAtPath($"Assets/Spritesheets/{sheetNumber}.png").OfType<Sprite>();
+                    var sprites = AssetDatabase.LoadAllAssetsAtPath($"Assets/Resources/Spritesheets/{sheetNumber}.png").OfType<Sprite>();
                     if (!adfs.TryGetValue(sheetNumber, out var adf)) continue;
 
                     for (int direction = 0; direction < 4; direction++)
                     {
                         var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
-                        if (animationId == 0 || adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition)) continue;
+                        if (animationId == 0) continue;
 
-                        var frames = animationDefinition.Frames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).ToArray();
+                        List<Frame> animationFrames;
+                        if (adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition))
+                            animationFrames = new List<Frame> { adf.Frames[direction] };
+                        else
+                            animationFrames = animationDefinition.Frames;
+
+                        var frames = animationFrames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).ToArray();
 
                         var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
 
                         var unityAnimation = CreateAnimation(animationName, frames);
-                        AssetDatabase.CreateAsset(unityAnimation, $"Assets/Animations/{animationName}.anim");
+                        AssetDatabase.CreateAsset(unityAnimation, $"Assets/Resources/Animations/{animationName}.anim");
 
                         Debug.Log($"Created {animationName}");
                     }
@@ -275,9 +293,15 @@ namespace Goose2Client
                     for (int direction = 0; direction < 4; direction++)
                     {
                         var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
-                        if (animationId == 0 || adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition)) continue;
+                        if (animationId == 0) continue;
 
-                        var frames = animationDefinition.Frames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).Take(1).ToArray();
+                        List<Frame> animationFrames;
+                        if (adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition))
+                            animationFrames = new List<Frame> { adf.Frames[direction] };
+                        else
+                            animationFrames = animationDefinition.Frames;
+
+                        var frames = animationFrames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).Take(1).ToArray();
 
                         var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
                         animationName = animationName.Replace("Walking", "Idle");

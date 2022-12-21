@@ -23,6 +23,8 @@ namespace Goose2Client
 
             var bodyObject = CreateAnimation(AnimationSlot.Body, "Body", packet.BodyId, ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA));
 
+            CreateName(packet.Name, packet.Title, packet.Surname, bodyObject.Height);
+
             if (packet.BodyId < 100)
             {
                 var hair = CreateAnimation(AnimationSlot.Hair, "Hair", packet.HairId, ColorH.RGBA(packet.HairR, packet.HairG, packet.HairB, packet.HairA));
@@ -47,6 +49,27 @@ namespace Goose2Client
             this.MoveSpeed = packet.MoveSpeed;
             this.X = packet.MapX;
             this.Y = packet.MapY;
+        }
+
+        private void CreateName(string name, string title, string surname, int bodyHeight)
+        {
+            var textObject = new GameObject("Name Text");
+            textObject.transform.SetParent(gameObject.transform);
+
+            var rectTransform = textObject.AddComponent<RectTransform>();
+            rectTransform.pivot = new Vector2(0.5f, 1);
+
+            var text = textObject.AddComponent<TMPro.TextMeshPro>();
+            text.text = $"{title} {name} {surname}".Trim();
+            text.sortingLayerID = SortingLayer.NameToID(Constants.NamesLayer);
+            text.fontSize = 2.5f;
+            // todo: set material
+
+            var contentSizeFitter = textObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
+            contentSizeFitter.horizontalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
+            contentSizeFitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
+
+            text.transform.localPosition = new Vector3(0.5f, (bodyHeight) / 32f);
         }
 
         private void SetUnderwear(int bodyId, int[][] equips)

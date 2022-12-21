@@ -81,6 +81,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/SpellCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeWindowPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeCharacterPacket.cs" />
+     <Compile Include="Assets/Scripts/AnimationManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/BattleTextPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SpellTilePacket.cs" />
      <Compile Include="Assets/Scripts/PlayerController.cs" />
@@ -90,7 +91,6 @@
      <Compile Include="Assets/Scripts/Network/PacketParser.cs" />
      <Compile Include="Assets/Scripts/Character.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/UpdateCharacterPacket.cs" />
-     <Compile Include="Assets/Scripts/AnimationManager.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />

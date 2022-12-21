@@ -4,7 +4,7 @@ health bars
 names (tooltip? above head? both?)
 
 fix layer rendering of characters/map objects
-figure out why neutral spells dealer, body 212 doesn't show up
+
 
 
 
@@ -26,3 +26,4 @@ copy all maps
 handle chh packet
 Fix render offset problem
 Figure out how to get currently playing animation to update offsets -- maybe?
+figure out why neutral spells dealer, body 212 doesn't show up

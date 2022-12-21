@@ -8,5 +8,7 @@ namespace Goose2Client
         public const string Equipped = "Equipped";
         public const string Casting = "Casting";
         public const string Attacking = "Attacking";
+
+        public const string NamesLayer = "Above All";
     }
 }
