@@ -53,11 +53,17 @@ TagManager:
   - name: Objects 2
     uniqueID: 3975488807
     locked: 0
+  - name: Names
+    uniqueID: 4293233285
+    locked: 0
+  - name: HealthBars
+    uniqueID: 4092488925
+    locked: 0
+  - name: Tooltips
+    uniqueID: 3518786159
+    locked: 0
   - name: Roofs
     uniqueID: 2377101745
-    locked: 0
-  - name: Above All
-    uniqueID: 4293233285
     locked: 0
   - name: UI
     uniqueID: 4281890519

@@ -9,6 +9,8 @@ namespace Goose2Client
         public const string Casting = "Casting";
         public const string Attacking = "Attacking";
 
-        public const string NamesLayer = "Above All";
+        public const string NamesLayer = "Names";
+        public const string HealthBarsLayer = "HealthBars";
+        public const string TooltipsLayer = "Tooltips";
     }
 }
