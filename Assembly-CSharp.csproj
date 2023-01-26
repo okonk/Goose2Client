@@ -39,6 +39,7 @@
      <Compile Include="Assets/Scripts/Network/PacketManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClearInventorySlotPacket.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
+     <Compile Include="Assets/Scripts/CharacterHealthBar.cs" />
      <Compile Include="Assets/Scripts/Network/NetworkClient.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/InventorySlotPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendCurrentMapPacket.cs" />

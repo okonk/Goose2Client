@@ -11,7 +11,7 @@ namespace Goose2Client
 
         public int MPPercentage { get; set; }
 
-        public override string Prefix { get; } = "VC";
+        public override string Prefix { get; } = "VPU";
 
         public override object Parse(PacketParser p)
         {

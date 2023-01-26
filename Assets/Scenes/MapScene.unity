@@ -329,7 +329,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4181332038014965380, guid: b1ee9da69a41604da94d781e80a167c4, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4181332038014965380, guid: b1ee9da69a41604da94d781e80a167c4, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[1]
@@ -350,6 +350,18 @@ PrefabInstance:
     - target: {fileID: 4181332038014965380, guid: b1ee9da69a41604da94d781e80a167c4, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[5]
       value: -1917865551
+      objectReference: {fileID: 0}
+    - target: {fileID: 4181332038014965380, guid: b1ee9da69a41604da94d781e80a167c4, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[6]
+      value: -1734011
+      objectReference: {fileID: 0}
+    - target: {fileID: 4181332038014965380, guid: b1ee9da69a41604da94d781e80a167c4, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[7]
+      value: -202478371
+      objectReference: {fileID: 0}
+    - target: {fileID: 4181332038014965380, guid: b1ee9da69a41604da94d781e80a167c4, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[8]
+      value: -776181137
       objectReference: {fileID: 0}
     - target: {fileID: 4285768181799143205, guid: b1ee9da69a41604da94d781e80a167c4, type: 3}
       propertyPath: m_RootOrder

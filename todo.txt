@@ -1,13 +1,27 @@
 
+show spells
+show attacks
+attack button
 
-health bars
+inventory UI
+chat UI
+spellbook UI
+hotbar UI
+character UI
+bank UI
+combine bag UI
+shop UI
+message UI
+quest UI
+hp/mp/xp bar UI
+party UI
 
+cast spells
+battletext
+mounts
 
 fix layer rendering of characters/map objects
-
-
-
-
+Change hp bar colour based on value
 can i fix it so when scripts are reloaded it works?
 
 
@@ -28,3 +42,5 @@ Fix render offset problem
 Figure out how to get currently playing animation to update offsets -- maybe?
 figure out why neutral spells dealer, body 212 doesn't show up
 names (tooltip? above head? both?)
+health bars
+hp bars should disappear after 2 seconds if max

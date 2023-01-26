@@ -14,6 +14,10 @@ namespace Goose2Client
         private Dictionary<AnimationSlot, CharacterAnimation> animations = new();
 
         private Vector2Int targetPosition;
+        private GameObject nameObject;
+
+        [SerializeField] private CharacterHealthBar healthBars;
+        [SerializeField] private GameObject healthBarsObject;
 
         public bool Moving { get { return (Vector2)transform.position != targetPosition; } }
 
@@ -23,7 +27,10 @@ namespace Goose2Client
 
             var bodyObject = CreateAnimation(AnimationSlot.Body, "Body", packet.BodyId, ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA));
 
-            CreateName(packet.Name, packet.Title, packet.Surname, bodyObject.Height);
+            CreateName(packet.Name, packet.Title, packet.Surname, bodyObject.Height, bodyObject.transform.localPosition.y);
+            UpdateHealthBarPosition(bodyObject.Height, bodyObject.transform.localPosition.y);
+            healthBars.SetHPPercent(packet.HPPercent);
+            healthBars.SetMPPercent(0);
 
             if (packet.BodyId < 100)
             {
@@ -51,7 +58,7 @@ namespace Goose2Client
             this.Y = packet.MapY;
         }
 
-        private void CreateName(string name, string title, string surname, int bodyHeight)
+        private void CreateName(string name, string title, string surname, int bodyHeight, float yOffset)
         {
             var textObject = new GameObject("Name Text");
             textObject.transform.SetParent(gameObject.transform);
@@ -69,7 +76,14 @@ namespace Goose2Client
             contentSizeFitter.horizontalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
             contentSizeFitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
 
-            text.transform.localPosition = new Vector3(0.5f, (bodyHeight) / 32f);
+            text.transform.localPosition = new Vector3(0.5f, bodyHeight / 32f);
+
+            this.nameObject = textObject;
+        }
+
+        private void UpdateHealthBarPosition(int bodyHeight, float yOffset)
+        {
+            healthBarsObject.transform.localPosition = new Vector3(0.5f, (bodyHeight - 13) / 32f);
         }
 
         private void SetUnderwear(int bodyId, int[][] equips)
@@ -194,6 +208,12 @@ namespace Goose2Client
                     SetMoving(false);
                 }
             }
+        }
+
+        public void UpdateHPMP(int hpPercent, int mpPercent)
+        {
+            this.healthBars.SetHPPercent(hpPercent);
+            this.healthBars.SetMPPercent(mpPercent);
         }
     }
 }
