@@ -15,8 +15,10 @@ message UI
 quest UI
 hp/mp/xp bar UI
 party UI
+buff bar UI
 
 cast spells
+casting animation
 battletext
 mounts
 
@@ -24,6 +26,8 @@ fix layer rendering of characters/map objects
 Change hp bar colour based on value
 can i fix it so when scripts are reloaded it works?
 
+
+https://www.reddit.com/r/Unity3D/comments/9tcs5m/getting_stuck_on_last_frame_of_animation_event/
 
 Done:
 Fix sorting order of items

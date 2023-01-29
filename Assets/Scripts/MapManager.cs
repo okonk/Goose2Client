@@ -33,6 +33,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<EraseCharacterPacket>(this.OnEraseCharacter);
             GameManager.Instance.PacketManager.Listen<SendCurrentMapPacket>(this.OnSendCurrentMap);
             GameManager.Instance.PacketManager.Listen<VitalsPercentagePacket>(this.OnVitalsPercentage);
+            GameManager.Instance.PacketManager.Listen<AttackPacket>(this.OnAttack);
         }
 
         private void OnDestroy()
@@ -45,6 +46,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<EraseCharacterPacket>(this.OnEraseCharacter);
             GameManager.Instance.PacketManager.Remove<SendCurrentMapPacket>(this.OnSendCurrentMap);
             GameManager.Instance.PacketManager.Remove<VitalsPercentagePacket>(this.OnVitalsPercentage);
+            GameManager.Instance.PacketManager.Remove<AttackPacket>(this.OnAttack);
         }
 
         private void OnMakeCharacter(object packet)
@@ -170,6 +172,17 @@ namespace Goose2Client
 
             var characterScript = character.GetComponent<Character>();
             characterScript.UpdateHPMP(vitalsPercentage.HPPercentage, vitalsPercentage.MPPercentage);
+        }
+
+        private void OnAttack(object packet)
+        {
+            var attack = (AttackPacket)packet;
+
+            if (!characters.TryGetValue(attack.LoginId, out var character))
+                return;
+
+            var characterScript = character.GetComponent<Character>();
+            characterScript.Attack();
         }
     }
 }

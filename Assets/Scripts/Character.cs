@@ -29,8 +29,7 @@ namespace Goose2Client
 
             CreateName(packet.Name, packet.Title, packet.Surname, bodyObject.Height, bodyObject.transform.localPosition.y);
             UpdateHealthBarPosition(bodyObject.Height, bodyObject.transform.localPosition.y);
-            healthBars.SetHPPercent(packet.HPPercent);
-            healthBars.SetMPPercent(0);
+            UpdateHPMP(packet.HPPercent, 100);
 
             if (packet.BodyId < 100)
             {
@@ -52,6 +51,8 @@ namespace Goose2Client
             var equipped = packet.BodyState == 3 ? 0 : 1;
             foreach (var animation in animations.Values)
                 animation.SetFloat(Constants.Equipped, equipped);
+
+            SetBodyState(packet.BodyState);
 
             this.MoveSpeed = packet.MoveSpeed;
             this.X = packet.MapX;
@@ -88,11 +89,14 @@ namespace Goose2Client
 
         private void SetUnderwear(int bodyId, int[][] equips)
         {
+            // male
             if (bodyId == 1 && equips[2][0] == 0)
             {
                 equips[2][0] = 3;
                 return;
             }
+
+            // female
             if (bodyId == 2)
             {
                 if (equips[0][0] == 0)
@@ -165,6 +169,19 @@ namespace Goose2Client
                 animation.SetBool(Constants.Walking, moving);
         }
 
+        private void SetAttacking(bool attacking)
+        {
+            foreach (var animation in animations.Values)
+                //animation.SetBool(Constants.Attacking, attacking);
+                animation.TriggerAttack();
+        }
+
+        private void SetBodyState(int bodyState)
+        {
+            foreach (var animation in animations.Values)
+                animation.SetFloat(Constants.BodyState, bodyState);
+        }
+
         public void Move(int x, int y)
         {
             var map = GameManager.Instance.CurrentMap;
@@ -214,6 +231,11 @@ namespace Goose2Client
         {
             this.healthBars.SetHPPercent(hpPercent);
             this.healthBars.SetMPPercent(mpPercent);
+        }
+
+        public void Attack()
+        {
+            SetAttacking(true);
         }
     }
 }

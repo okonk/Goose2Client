@@ -10,19 +10,27 @@ using UnityEngine.Tilemaps;
 
 namespace Goose2Client
 {
+    enum AnimationDirection
+    {
+        Left,
+        Down,
+        Right,
+        Up
+    }
+
     public class ToolsMenu
     {
-        [MenuItem("Tools/Remap Animations")]
+        //[MenuItem("Tools/Remap Animations")]
         private static void RemapAnimations()
         {
-            // RemapAnim("Right", "Right2");
-            // RemapAnim("Left", "Right");
-            // RemapAnim("Up", "Left");
-            // RemapAnim("Right2", "Up");
+            RemapAnim("Right", "Right2");
+            RemapAnim("Down", "Right");
+            RemapAnim("Up", "Down");
+            RemapAnim("Right2", "Up");
 
             foreach (var animation in Directory.EnumerateFiles("Assets/Resources/Animations", $"*.anim"))
             {
-                if (animation.Contains("Idle"))
+                if (!animation.Contains("Attack"))
                     continue;
 
                 int lastDash = animation.LastIndexOf('-');
@@ -40,7 +48,7 @@ namespace Goose2Client
         {
             foreach (var animation in Directory.EnumerateFiles("Assets/Resources/Animations", $"*-{dir}.anim"))
             {
-                if (animation.Contains("Idle"))
+                if (!animation.Contains("Attack"))
                     continue;
 
                 int lastDash = animation.LastIndexOf('-');
@@ -107,13 +115,13 @@ namespace Goose2Client
             // ImportCompiledAnimations(compiledEnc, adfs);
             // ImportIdleAnimations(compiledEnc, adfs);
             // ImportOtherAnimations(compiledEnc, adfs);
-            ImportAnimationNames(compiledEnc, adfs);
-
+            //ImportAnimationNames(compiledEnc, adfs);
+            AddAttackFinishedAnimationEvents(compiledEnc, adfs);
 
             //ImportMap($"{mapDir}/Map2.map");
         }
 
-        [MenuItem("Tools/Copy Maps")]
+        //[MenuItem("Tools/Copy Maps")]
         private static void CopysMaps()
         {
             //var illutiaDir = EditorUtility.OpenFolderPanel("Choose Original Illutia Client Folder", "", "");
@@ -130,6 +138,46 @@ namespace Goose2Client
         private static void CopyMap(string path)
         {
             File.Copy(path, $"Assets/Resources/Maps/M{Path.GetFileNameWithoutExtension(path).Substring(1)}.bytes", overwrite: true);
+        }
+
+        private static void AddAttackFinishedAnimationEvents(CompiledEnc compiledEnc, Dictionary<int, ADFFile> adfs)
+        {
+            foreach (var compiledAnimation in compiledEnc.CompiledAnimations)
+            {
+                for (int animationNumber = (int)AnimationOrder.AttackNoEquip; animationNumber <= (int)AnimationOrder.AttackBow; animationNumber++)
+                {
+                    var sheetNumber = compiledAnimation.AnimationFiles[animationNumber];
+                    if (sheetNumber == 0) continue;
+
+                    var sprites = AssetDatabase.LoadAllAssetsAtPath($"Assets/Resources/Spritesheets/{sheetNumber}.png").OfType<Sprite>();
+                    if (!adfs.TryGetValue(sheetNumber, out var adf)) continue;
+
+                    for (int direction = 0; direction < 4; direction++)
+                    {
+                        var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
+                        if (animationId == 0) continue;
+
+                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (AnimationDirection)direction);
+
+                        //var animation = AssetDatabase.LoadAssetAtPath<AnimationClip>($"Assets/Resources/Animations/{animationName}.anim");
+
+                        List<Frame> animationFrames;
+                        if (adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition))
+                            animationFrames = new List<Frame> { adf.Frames[direction] };
+                        else
+                            animationFrames = animationDefinition.Frames;
+
+                        var frames = animationFrames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).ToArray();
+
+                        var unityAnimation = CreateAnimation(animationName, frames);
+                        AssetDatabase.CreateAsset(unityAnimation, $"Assets/Resources/Animations/{animationName}.anim");
+
+                        Debug.Log($"Created {animationName}");
+                    }
+                }
+            }
+
+            AssetDatabase.SaveAssets();
         }
 
         private static void ImportAnimationNames(CompiledEnc compiledEnc, Dictionary<int, ADFFile> adfs)
@@ -160,7 +208,7 @@ namespace Goose2Client
                         var maxHeight = animationFrames.Max(f => f.H);
                         if (maxHeight == 64) continue;
 
-                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
+                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (AnimationDirection)direction);
 
                         animationHeights[animationName] = maxHeight;
                     }
@@ -190,7 +238,7 @@ namespace Goose2Client
                         var maxHeight = animationFrames.Max(f => f.H);
                         if (maxHeight == 64) continue;
 
-                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
+                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (AnimationDirection)direction);
                         animationName = animationName.Replace("Walking", "Idle");
 
                         animationHeights[animationName] = maxHeight;
@@ -264,7 +312,7 @@ namespace Goose2Client
 
                         var frames = animationFrames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).ToArray();
 
-                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
+                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (AnimationDirection)direction);
 
                         var unityAnimation = CreateAnimation(animationName, frames);
                         AssetDatabase.CreateAsset(unityAnimation, $"Assets/Resources/Animations/{animationName}.anim");
@@ -284,7 +332,7 @@ namespace Goose2Client
                     var sheetNumber = compiledAnimation.AnimationFiles[animationNumber];
                     if (sheetNumber == 0) continue;
 
-                    // var checkName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)1);
+                    // var checkName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (AnimationDirection)1);
                     // if (File.Exists($"Assets/Animations/{checkName}.anim")) continue;
 
                     var sprites = AssetDatabase.LoadAllAssetsAtPath($"Assets/Resources/Spritesheets/{sheetNumber}.png").OfType<Sprite>();
@@ -303,7 +351,7 @@ namespace Goose2Client
 
                         var frames = animationFrames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).Take(1).ToArray();
 
-                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (Direction)direction);
+                        var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (AnimationDirection)direction);
                         animationName = animationName.Replace("Walking", "Idle");
 
                         var unityAnimation = CreateAnimation(animationName, frames);
@@ -354,7 +402,7 @@ namespace Goose2Client
             }
         }
 
-        private static string CreateAnimationName(int id, AnimationType type, AnimationOrder animation, Direction direction)
+        private static string CreateAnimationName(int id, AnimationType type, AnimationOrder animation, AnimationDirection direction)
         {
             return $"{type}-{id}-{animation}-{direction}";
         }
@@ -369,8 +417,10 @@ namespace Goose2Client
             curveBinding.path = "";
             curveBinding.type = typeof(SpriteRenderer);
 
-            var keyFrames = new ObjectReferenceKeyframe[frames.Length];
-            for (int i = 0; i < keyFrames.Length; i++)
+            int numberOfFrames = frames.Length;
+
+            var keyFrames = new ObjectReferenceKeyframe[numberOfFrames];
+            for (int i = 0; i < numberOfFrames; i++)
             {
                 var keyFrame = new ObjectReferenceKeyframe();
                 keyFrame.time = i / clip.frameRate;
@@ -384,6 +434,15 @@ namespace Goose2Client
             settings.keepOriginalPositionY = true;
             settings.stopTime = keyFrames.Length / clip.frameRate;
             AnimationUtility.SetAnimationClipSettings(clip, settings);
+
+            // if (endEvent != null)
+            // {
+            //     var ev = new AnimationEvent();
+            //     ev.functionName = endEvent;
+            //     //ev.time = keyFrames[keyFrames.Length - 2].time;
+            //     ev.time = (numberOfFrames + 1) / clip.frameRate;
+            //     AnimationUtility.SetAnimationEvents(clip, new[] { ev });
+            // }
 
             return clip;
         }
