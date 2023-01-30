@@ -15,6 +15,7 @@ namespace Goose2Client
 
         public static GameObject CharacterAnimationPrefab;
         private static GameObject CharacterPrefab;
+        public static GameObject SpellAnimationPrefab;
 
         private GameObject roofLayer;
 
@@ -26,6 +27,7 @@ namespace Goose2Client
         {
             CharacterAnimationPrefab = Resources.Load<GameObject>("Prefabs/CharacterAnimation");
             CharacterPrefab = Resources.Load<GameObject>("Prefabs/Character");
+            SpellAnimationPrefab = Resources.Load<GameObject>("Prefabs/SpellAnimation");
 
             this.map = GameManager.Instance.CurrentMap;
 
@@ -40,6 +42,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<AttackPacket>(this.OnAttack);
             GameManager.Instance.PacketManager.Listen<WeaponSpeedPacket>(this.OnWeaponSpeed);
             GameManager.Instance.PacketManager.Listen<SetYourPositionPacket>(this.OnSetYourPosition);
+            GameManager.Instance.PacketManager.Listen<SpellCharacterPacket>(this.OnSpellCharacter);
         }
 
         private void OnDestroy()
@@ -55,6 +58,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<AttackPacket>(this.OnAttack);
             GameManager.Instance.PacketManager.Remove<WeaponSpeedPacket>(this.OnWeaponSpeed);
             GameManager.Instance.PacketManager.Remove<SetYourPositionPacket>(this.OnSetYourPosition);
+            GameManager.Instance.PacketManager.Remove<SpellCharacterPacket>(this.OnSpellCharacter);
         }
 
         private void OnMakeCharacter(object packet)
@@ -207,6 +211,17 @@ namespace Goose2Client
             var setPosition = (SetYourPositionPacket)packet;
 
             this.character.SetPosition(setPosition.MapX, setPosition.MapY);
+        }
+
+        private void OnSpellCharacter(object packet)
+        {
+            var spellCharacter = (SpellCharacterPacket)packet;
+
+            if (!characters.TryGetValue(spellCharacter.LoginId, out var character))
+                return;
+
+            var characterScript = character.GetComponent<Character>();
+            characterScript.ShowSpell(spellCharacter.AnimationId);
         }
     }
 }

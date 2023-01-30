@@ -1,4 +1,3 @@
-show spells on character
 show spells on map tile
 battletext
 casting animation
@@ -24,6 +23,7 @@ mounts
 fix layer rendering of characters/map objects
 improve name heights
 fix dye colours to match illutia client
+spell positioning
 
 can i fix it so when scripts are reloaded it works?
 
@@ -52,3 +52,4 @@ Change hp bar colour based on value
 attack button
 move weapon speed to mapmanager?
 implement SUPx,y packet
+show spells on character
