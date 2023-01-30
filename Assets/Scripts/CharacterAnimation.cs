@@ -92,11 +92,6 @@ public class CharacterAnimation : MonoBehaviour
 
     public void TriggerAttack()
     {
-        this.animator.SetTrigger("DoAttack");
-    }
-
-    public void AttackAnimationFinished()
-    {
-        this.animator.SetBool(Constants.Attacking, false);
+        this.animator.SetTrigger(Constants.Attack);
     }
 }

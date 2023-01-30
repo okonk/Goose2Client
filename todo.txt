@@ -1,7 +1,8 @@
 
 show spells
-show attacks
+
 attack button
+implement SUPx,y packet
 
 inventory UI
 chat UI
@@ -23,7 +24,6 @@ battletext
 mounts
 
 fix layer rendering of characters/map objects
-Change hp bar colour based on value
 can i fix it so when scripts are reloaded it works?
 
 
@@ -48,3 +48,5 @@ figure out why neutral spells dealer, body 212 doesn't show up
 names (tooltip? above head? both?)
 health bars
 hp bars should disappear after 2 seconds if max
+show attacks
+Change hp bar colour based on value

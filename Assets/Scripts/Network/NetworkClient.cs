@@ -148,5 +148,10 @@ namespace Goose2Client
         {
             Send($"F{(int)d + 1}");
         }
+
+        public void Attack()
+        {
+            Send($"ATT");
+        }
     }
 }

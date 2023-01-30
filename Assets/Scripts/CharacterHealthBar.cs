@@ -16,7 +16,12 @@ namespace Goose2Client
         {
             SetBar(hpBar, value);
 
-            // TODO: Change colour based on value
+            if (value > 66)
+                SetColor(hpBar, ColorH.RGBA(112, 232, 120)); // green
+            else if (value > 33)
+                SetColor(hpBar, ColorH.RGBA(244, 133, 50)); // orange
+            else
+                SetColor(hpBar, ColorH.RGBA(191, 64, 64)); // red
 
             if (value == 100)
                 ScheduleHideBars();
@@ -25,6 +30,12 @@ namespace Goose2Client
         public void SetMPPercent(int value)
         {
             SetBar(mpBar, value);
+        }
+
+        private void SetColor(GameObject bar, Color color)
+        {
+            var spriteRenderer = bar.GetComponent<SpriteRenderer>();
+            spriteRenderer.color = color;
         }
 
         private void SetBar(GameObject bar, int value)

@@ -172,7 +172,6 @@ namespace Goose2Client
         private void SetAttacking(bool attacking)
         {
             foreach (var animation in animations.Values)
-                //animation.SetBool(Constants.Attacking, attacking);
                 animation.TriggerAttack();
         }
 

@@ -4,7 +4,7 @@ namespace Goose2Client
 {
     public static class ColorH
     {
-        public static Color RGBA(int r, int g, int b, int a)
+        public static Color RGBA(int r, int g, int b, int a = 255)
         {
             return new Color(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
         }

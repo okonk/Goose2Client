@@ -130,5 +130,11 @@ namespace Goose2Client
             else
                 return Direction.Down;
         }
+
+        private void OnAttack(InputValue value)
+        {
+            character.Attack();
+            GameManager.Instance.NetworkClient.Attack();
+        }
     }
 }
