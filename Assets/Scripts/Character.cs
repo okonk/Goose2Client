@@ -208,6 +208,17 @@ namespace Goose2Client
             this.Y = y;
         }
 
+        public void SetPosition(int x, int y)
+        {
+            SetMoving(false);
+
+            var map = GameManager.Instance.CurrentMap;
+            this.targetPosition = new Vector2Int(x, map.Height - y);
+            transform.position = (Vector3Int)this.targetPosition;
+            this.X = x;
+            this.Y = y;
+        }
+
         public void Update()
         {
             UpdateMovement();

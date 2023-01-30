@@ -17,7 +17,6 @@ namespace Goose2Client
 
         public MapManager MapManager { get; set; }
 
-        private float weaponSpeed = 1.0f;
         private bool attackPressed = false;
         private float attackDelayTime = 0;
 
@@ -28,13 +27,6 @@ namespace Goose2Client
             var playerInput = gameObject.AddComponent<PlayerInput>();
             playerInput.actions = Resources.Load<InputActionAsset>("Input System/Controls");
             playerInput.actions.Enable();
-
-            GameManager.Instance.PacketManager.Listen<WeaponSpeedPacket>(this.OnWeaponSpeed);
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.Instance.PacketManager.Remove<WeaponSpeedPacket>(this.OnWeaponSpeed);
         }
 
         private void OnAttack(InputValue value)
@@ -153,13 +145,6 @@ namespace Goose2Client
                 return Direction.Down;
         }
 
-        private void OnWeaponSpeed(object packet)
-        {
-            var weaponSpeedPacket = (WeaponSpeedPacket)packet;
-
-            this.weaponSpeed = weaponSpeedPacket.Speed / 1000f;
-        }
-
         private void AttackUpdate()
         {
             bool canAttack = attackDelayTime == 0;
@@ -168,7 +153,7 @@ namespace Goose2Client
 
             attackDelayTime += Time.deltaTime;
 
-            if (attackDelayTime >= weaponSpeed)
+            if (attackDelayTime >= MapManager.WeaponSpeed)
                 attackDelayTime = 0;
 
             if (attackPressed && canAttack)

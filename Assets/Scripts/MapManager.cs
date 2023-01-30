@@ -18,6 +18,10 @@ namespace Goose2Client
 
         private GameObject roofLayer;
 
+        private Character character;
+
+        public float WeaponSpeed { get; set; } = 1.0f;
+
         private void Start()
         {
             CharacterAnimationPrefab = Resources.Load<GameObject>("Prefabs/CharacterAnimation");
@@ -34,6 +38,8 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<SendCurrentMapPacket>(this.OnSendCurrentMap);
             GameManager.Instance.PacketManager.Listen<VitalsPercentagePacket>(this.OnVitalsPercentage);
             GameManager.Instance.PacketManager.Listen<AttackPacket>(this.OnAttack);
+            GameManager.Instance.PacketManager.Listen<WeaponSpeedPacket>(this.OnWeaponSpeed);
+            GameManager.Instance.PacketManager.Listen<SetYourPositionPacket>(this.OnSetYourPosition);
         }
 
         private void OnDestroy()
@@ -47,6 +53,8 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<SendCurrentMapPacket>(this.OnSendCurrentMap);
             GameManager.Instance.PacketManager.Remove<VitalsPercentagePacket>(this.OnVitalsPercentage);
             GameManager.Instance.PacketManager.Remove<AttackPacket>(this.OnAttack);
+            GameManager.Instance.PacketManager.Remove<WeaponSpeedPacket>(this.OnWeaponSpeed);
+            GameManager.Instance.PacketManager.Remove<SetYourPositionPacket>(this.OnSetYourPosition);
         }
 
         private void OnMakeCharacter(object packet)
@@ -82,6 +90,8 @@ namespace Goose2Client
             var characterScript = character.GetComponent<Character>();
             if (map[characterScript.X, characterScript.Y].IsRoof)
                 this.roofLayer.SetActive(false);
+
+            this.character = characterScript;
         }
 
         private void OnMoveCharacter(object packet)
@@ -183,6 +193,20 @@ namespace Goose2Client
 
             var characterScript = character.GetComponent<Character>();
             characterScript.Attack();
+        }
+
+        private void OnWeaponSpeed(object packet)
+        {
+            var weaponSpeedPacket = (WeaponSpeedPacket)packet;
+
+            this.WeaponSpeed = weaponSpeedPacket.Speed / 1000f;
+        }
+
+        private void OnSetYourPosition(object packet)
+        {
+            var setPosition = (SetYourPositionPacket)packet;
+
+            this.character.SetPosition(setPosition.MapX, setPosition.MapY);
         }
     }
 }
