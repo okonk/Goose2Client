@@ -17,6 +17,11 @@ namespace Goose2Client
 
         public MapManager MapManager { get; set; }
 
+        private float weaponSpeed = 1.0f;
+        private bool attackPressed = false;
+        private float attackDelayTime = 0;
+
+
         private void Start()
         {
             this.character = GetComponent<Character>();
@@ -24,6 +29,13 @@ namespace Goose2Client
             var playerInput = gameObject.AddComponent<PlayerInput>();
             playerInput.actions = Resources.Load<InputActionAsset>("Input System/Controls");
             playerInput.actions.Enable();
+
+            GameManager.Instance.PacketManager.Listen<WeaponSpeedPacket>(this.OnWeaponSpeed);
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.Instance.PacketManager.Remove<WeaponSpeedPacket>(this.OnWeaponSpeed);
         }
 
         private void OnMove(InputValue value)
@@ -79,6 +91,12 @@ namespace Goose2Client
 
         private void Update()
         {
+            Move();
+            Attack();
+        }
+
+        private void Move()
+        {
             if (character.Moving || !movePressed)
                 return;
 
@@ -133,8 +151,32 @@ namespace Goose2Client
 
         private void OnAttack(InputValue value)
         {
-            character.Attack();
-            GameManager.Instance.NetworkClient.Attack();
+            attackPressed = value.isPressed;
+        }
+
+        private void OnWeaponSpeed(object packet)
+        {
+            var weaponSpeedPacket = (WeaponSpeedPacket)packet;
+
+            this.weaponSpeed = weaponSpeedPacket.Speed / 1000f;
+        }
+
+        private void Attack()
+        {
+            bool canAttack = attackDelayTime == 0;
+            if (!attackPressed && canAttack)
+                return;
+
+            attackDelayTime += Time.deltaTime;
+
+            if (attackDelayTime >= weaponSpeed)
+                attackDelayTime = 0;
+
+            if (attackPressed && canAttack)
+            {
+                character.Attack();
+                GameManager.Instance.NetworkClient.Attack();
+            }
         }
     }
 }

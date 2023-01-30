@@ -20,7 +20,7 @@
                     "id": "afff668f-4285-41b1-a5d9-3da3c5abfe9e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 }
             ],
