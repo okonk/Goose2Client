@@ -21,7 +21,6 @@ namespace Goose2Client
         private bool attackPressed = false;
         private float attackDelayTime = 0;
 
-
         private void Start()
         {
             this.character = GetComponent<Character>();
@@ -36,6 +35,11 @@ namespace Goose2Client
         private void OnDestroy()
         {
             GameManager.Instance.PacketManager.Remove<WeaponSpeedPacket>(this.OnWeaponSpeed);
+        }
+
+        private void OnAttack(InputValue value)
+        {
+            attackPressed = value.isPressed;
         }
 
         private void OnMove(InputValue value)
@@ -65,6 +69,12 @@ namespace Goose2Client
             SetInputLastPressed();
         }
 
+        private void Update()
+        {
+            MoveUpdate();
+            AttackUpdate();
+        }
+
         private void SetInputLastPressed()
         {
             bool isMovingHorizontal = Mathf.Abs(moveInput.x) > 0.5f;
@@ -89,13 +99,7 @@ namespace Goose2Client
             }
         }
 
-        private void Update()
-        {
-            Move();
-            Attack();
-        }
-
-        private void Move()
+        private void MoveUpdate()
         {
             if (character.Moving || !movePressed)
                 return;
@@ -149,11 +153,6 @@ namespace Goose2Client
                 return Direction.Down;
         }
 
-        private void OnAttack(InputValue value)
-        {
-            attackPressed = value.isPressed;
-        }
-
         private void OnWeaponSpeed(object packet)
         {
             var weaponSpeedPacket = (WeaponSpeedPacket)packet;
@@ -161,7 +160,7 @@ namespace Goose2Client
             this.weaponSpeed = weaponSpeedPacket.Speed / 1000f;
         }
 
-        private void Attack()
+        private void AttackUpdate()
         {
             bool canAttack = attackDelayTime == 0;
             if (!attackPressed && canAttack)

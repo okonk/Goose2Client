@@ -1,8 +1,10 @@
-
-show spells
-
-attack button
 implement SUPx,y packet
+move weapon speed to mapmanager?
+
+show spells on character
+show spells on map tile
+battletext
+casting animation
 
 inventory UI
 chat UI
@@ -17,17 +19,17 @@ quest UI
 hp/mp/xp bar UI
 party UI
 buff bar UI
+toolbar ui
 
 cast spells
-casting animation
-battletext
 mounts
 
 fix layer rendering of characters/map objects
+improve name heights
+fix dye colours to match illutia client
+
 can i fix it so when scripts are reloaded it works?
 
-
-https://www.reddit.com/r/Unity3D/comments/9tcs5m/getting_stuck_on_last_frame_of_animation_event/
 
 Done:
 Fix sorting order of items
@@ -50,3 +52,4 @@ health bars
 hp bars should disappear after 2 seconds if max
 show attacks
 Change hp bar colour based on value
+attack button
