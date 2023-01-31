@@ -9,8 +9,6 @@ public class SpellAnimation : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private AnimatorOverrideController overrideController;
 
-    public int Height { get; private set; } = 64;
-
     private void Awake()
     {
         this.animator = GetComponent<Animator>();
@@ -20,15 +18,13 @@ public class SpellAnimation : MonoBehaviour
         animator.runtimeAnimatorController = overrideController;
     }
 
-    private void SetPosition(int height)
+    private void SetPosition(int height, int x, int y)
     {
-        this.Height = height;
-
-        int yOffset = -System.Math.Max((height - 48) / 2, 0) - 16;
-        transform.localPosition = new Vector3(0.5f, yOffset / 32f);
+        int yOffset = -System.Math.Max((height - 48) / 2, 0) - 24;
+        transform.localPosition = new Vector3(x + 0.5f, y + yOffset / 32f);
     }
 
-    public void SetAnimation(int id)
+    public void SetAnimation(int id, int x, int y)
     {
         var overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>();
         overrideController.GetOverrides(overrides);
@@ -49,7 +45,7 @@ public class SpellAnimation : MonoBehaviour
 
         var animationName = $"{id}";
         int height = GameManager.Instance.AnimationManager.GetHeight(animationName);
-        SetPosition(height);
+        SetPosition(height, x, y);
 
         Invoke(nameof(Stop), clip.length);
     }

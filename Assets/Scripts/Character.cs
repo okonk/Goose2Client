@@ -247,14 +247,5 @@ namespace Goose2Client
         {
             SetAttacking(true);
         }
-
-        public void ShowSpell(int id)
-        {
-            var animation = Instantiate(MapManager.SpellAnimationPrefab, gameObject.transform);
-            animation.name = $"Spell ({id})";
-
-            var spellAnimationScript = animation.GetComponent<SpellAnimation>();
-            spellAnimationScript.SetAnimation(id);
-        }
     }
 }

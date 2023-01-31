@@ -43,6 +43,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<WeaponSpeedPacket>(this.OnWeaponSpeed);
             GameManager.Instance.PacketManager.Listen<SetYourPositionPacket>(this.OnSetYourPosition);
             GameManager.Instance.PacketManager.Listen<SpellCharacterPacket>(this.OnSpellCharacter);
+            GameManager.Instance.PacketManager.Listen<SpellTilePacket>(this.OnSpellTile);
         }
 
         private void OnDestroy()
@@ -59,6 +60,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<WeaponSpeedPacket>(this.OnWeaponSpeed);
             GameManager.Instance.PacketManager.Remove<SetYourPositionPacket>(this.OnSetYourPosition);
             GameManager.Instance.PacketManager.Remove<SpellCharacterPacket>(this.OnSpellCharacter);
+            GameManager.Instance.PacketManager.Remove<SpellTilePacket>(this.OnSpellTile);
         }
 
         private void OnMakeCharacter(object packet)
@@ -172,6 +174,15 @@ namespace Goose2Client
                 this.roofLayer.SetActive(false);
         }
 
+        private void ShowSpell(int id, Transform parent, int x = 0, int y = 0)
+        {
+            var animation = Instantiate(MapManager.SpellAnimationPrefab, parent);
+            animation.name = $"Spell ({id})";
+
+            var spellAnimationScript = animation.GetComponent<SpellAnimation>();
+            spellAnimationScript.SetAnimation(id, x, y);
+        }
+
         public void OnMapLoaded(GameObject mapObject)
         {
             this.roofLayer = GameObject.Find("Roofs");
@@ -220,8 +231,14 @@ namespace Goose2Client
             if (!characters.TryGetValue(spellCharacter.LoginId, out var character))
                 return;
 
-            var characterScript = character.GetComponent<Character>();
-            characterScript.ShowSpell(spellCharacter.AnimationId);
+            ShowSpell(spellCharacter.AnimationId, character.transform);
+        }
+
+        private void OnSpellTile(object packet)
+        {
+            var spellTile = (SpellTilePacket)packet;
+
+            ShowSpell(spellTile.AnimationId, gameObject.transform, spellTile.TileX, map.Height - spellTile.TileY);
         }
     }
 }

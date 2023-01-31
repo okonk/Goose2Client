@@ -1,4 +1,4 @@
-show spells on map tile
+melee animations on some items aren't working
 battletext
 casting animation
 
@@ -17,8 +17,14 @@ party UI
 buff bar UI
 toolbar ui
 
+chat bubbles
+item tooltips
+
 cast spells
+spell targeting
 mounts
+
+emotes
 
 fix layer rendering of characters/map objects
 improve name heights
@@ -53,3 +59,4 @@ attack button
 move weapon speed to mapmanager?
 implement SUPx,y packet
 show spells on character
+show spells on map tile
