@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Goose2Client
 {
-    enum BattleTextType
+    public enum BattleTextType
     {
         White = 0,
         Red1 = 1,

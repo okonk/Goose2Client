@@ -41,22 +41,23 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets/Scripts/Network/Packets/SpellbookSlotPacket.cs" />
+     <Compile Include="Assets/Scripts/Character/CharacterAnimation.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/PingPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/StatusInfoPacket.cs" />
-     <Compile Include="Assets/Scripts/CharacterAnimation.cs" />
      <Compile Include="Assets/Scripts/AnimationSlot.cs" />
      <Compile Include="Assets/Scripts/Network/PacketParser.cs" />
      <Compile Include="Assets/Scripts/Character.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MoveCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/BuffBarPacket.cs" />
+     <Compile Include="Assets/Scripts/Character/CharacterHealthBar.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginSuccessPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeWindowPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SetYourCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/SpellAnimation.cs" />
+     <Compile Include="Assets/Scripts/Character/BattleTextLine.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/UpdateCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SpellCharacterPacket.cs" />
-     <Compile Include="Assets/Scripts/PlayerController.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
@@ -77,7 +78,6 @@
      <Compile Include="Assets/Scripts/Network/Packets/GroupUpdatePacket.cs" />
      <Compile Include="Assets/Scripts/Network/NetworkClient.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/DoneSendingMapPacket.cs" />
-     <Compile Include="Assets/Scripts/CharacterHealthBar.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendCurrentMapPacket.cs" />
      <Compile Include="Assets/Scripts/WindowFrames.cs" />
      <Compile Include="Assets/Scripts/MapFile.cs" />
@@ -86,6 +86,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/EmotePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MapObjectPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ChangeHeadingPacket.cs" />
+     <Compile Include="Assets/Scripts/Character/PlayerController.cs" />
      <Compile Include="Assets/Scripts/MapManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EndWindowPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SetYourPositionPacket.cs" />
@@ -94,6 +95,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/LoginFailPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/HashMessagePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ChatPacket.cs" />
+     <Compile Include="Assets/Scripts/Character/BattleText.cs" />
      <Compile Include="Assets/Scripts/LoadingMapScene/LoadingMapScene.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/AdminModeActivatePacket.cs" />
      <Compile Include="Assets/Scripts/Direction.cs" />

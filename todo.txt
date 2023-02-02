@@ -1,6 +1,7 @@
-melee animations on some items aren't working
-battletext
+
 casting animation
+attack animation glitches out with punches
+
 
 inventory UI
 chat UI
@@ -60,3 +61,5 @@ move weapon speed to mapmanager?
 implement SUPx,y packet
 show spells on character
 show spells on map tile
+battletext
+

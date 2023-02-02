@@ -21,14 +21,17 @@ namespace Goose2Client
 
         public bool Moving { get { return (Vector2)transform.position != targetPosition; } }
 
+        private BattleText battleText;
+        private CharacterAnimation body;
+
         public void MakeCharacter(MakeCharacterPacket packet)
         {
             this.targetPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
 
-            var bodyObject = CreateAnimation(AnimationSlot.Body, "Body", packet.BodyId, ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA));
+            this.body = CreateAnimation(AnimationSlot.Body, "Body", packet.BodyId, ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA));
 
-            CreateName(packet.Name, packet.Title, packet.Surname, bodyObject.Height, bodyObject.transform.localPosition.y);
-            UpdateHealthBarPosition(bodyObject.Height, bodyObject.transform.localPosition.y);
+            CreateName(packet.Name, packet.Title, packet.Surname, body.Height, body.transform.localPosition.y);
+            UpdateHealthBarPosition(body.Height, body.transform.localPosition.y);
             UpdateHPMP(packet.HPPercent, 100);
 
             if (packet.BodyId < 100)
@@ -57,6 +60,8 @@ namespace Goose2Client
             this.MoveSpeed = packet.MoveSpeed;
             this.X = packet.MapX;
             this.Y = packet.MapY;
+
+            this.battleText = GetComponentInChildren<BattleText>();
         }
 
         private void CreateName(string name, string title, string surname, int bodyHeight, float yOffset)
@@ -246,6 +251,11 @@ namespace Goose2Client
         public void Attack()
         {
             SetAttacking(true);
+        }
+
+        public void AddBattleText(BattleTextType textType, string text)
+        {
+            battleText.AddText(textType, text, this.body.Height);
         }
     }
 }

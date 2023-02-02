@@ -44,6 +44,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<SetYourPositionPacket>(this.OnSetYourPosition);
             GameManager.Instance.PacketManager.Listen<SpellCharacterPacket>(this.OnSpellCharacter);
             GameManager.Instance.PacketManager.Listen<SpellTilePacket>(this.OnSpellTile);
+            GameManager.Instance.PacketManager.Listen<BattleTextPacket>(this.OnBattleText);
         }
 
         private void OnDestroy()
@@ -61,6 +62,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<SetYourPositionPacket>(this.OnSetYourPosition);
             GameManager.Instance.PacketManager.Remove<SpellCharacterPacket>(this.OnSpellCharacter);
             GameManager.Instance.PacketManager.Remove<SpellTilePacket>(this.OnSpellTile);
+            GameManager.Instance.PacketManager.Remove<BattleTextPacket>(this.OnBattleText);
         }
 
         private void OnMakeCharacter(object packet)
@@ -239,6 +241,17 @@ namespace Goose2Client
             var spellTile = (SpellTilePacket)packet;
 
             ShowSpell(spellTile.AnimationId, gameObject.transform, spellTile.TileX, map.Height - spellTile.TileY);
+        }
+
+        private void OnBattleText(object packet)
+        {
+            var battleText = (BattleTextPacket)packet;
+
+            if (!characters.TryGetValue(battleText.LoginId, out var character))
+                return;
+
+            var characterScript = character.GetComponent<Character>();
+            characterScript.AddBattleText(battleText.BattleTextType, battleText.Text);
         }
     }
 }

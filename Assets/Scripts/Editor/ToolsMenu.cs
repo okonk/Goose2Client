@@ -169,7 +169,7 @@ namespace Goose2Client
 
                         var frames = animationFrames.Select(frame => sprites.FirstOrDefault(s => s.name == frame.Index.ToString())).ToArray();
 
-                        var unityAnimation = CreateAnimation(animationName, frames);
+                        var unityAnimation = CreateAnimation(animationName, frames, 4);
                         AssetDatabase.CreateAsset(unityAnimation, $"Assets/Resources/Animations/{animationName}.anim");
 
                         Debug.Log($"Created {animationName}");
@@ -407,10 +407,10 @@ namespace Goose2Client
             return $"{type}-{id}-{animation}-{direction}";
         }
 
-        private static AnimationClip CreateAnimation(string name, Sprite[] frames)
+        private static AnimationClip CreateAnimation(string name, Sprite[] frames, float frameRate = 8)
         {
             var clip = new AnimationClip();
-            clip.frameRate = 8f;
+            clip.frameRate = frameRate;
 
             var curveBinding = new EditorCurveBinding();
             curveBinding.propertyName = "m_Sprite";
