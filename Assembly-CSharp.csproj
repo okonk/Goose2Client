@@ -53,6 +53,7 @@
      <Compile Include="Assets/Scripts/Character/CharacterHealthBar.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginSuccessPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeWindowPacket.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/CastPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SetYourCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/SpellAnimation.cs" />
      <Compile Include="Assets/Scripts/Character/BattleTextLine.cs" />

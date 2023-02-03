@@ -174,10 +174,16 @@ namespace Goose2Client
                 animation.SetBool(Constants.Walking, moving);
         }
 
-        private void SetAttacking(bool attacking)
+        public void Attack()
         {
             foreach (var animation in animations.Values)
                 animation.TriggerAttack();
+        }
+
+        public void Cast()
+        {
+            foreach (var animation in animations.Values)
+                animation.TriggerCast();
         }
 
         private void SetBodyState(int bodyState)
@@ -246,11 +252,6 @@ namespace Goose2Client
         {
             this.healthBars.SetHPPercent(hpPercent);
             this.healthBars.SetMPPercent(mpPercent);
-        }
-
-        public void Attack()
-        {
-            SetAttacking(true);
         }
 
         public void AddBattleText(BattleTextType textType, string text)

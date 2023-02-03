@@ -94,4 +94,9 @@ public class CharacterAnimation : MonoBehaviour
     {
         this.animator.SetTrigger(Constants.Attack);
     }
+
+    public void TriggerCast()
+    {
+        this.animator.SetTrigger(Constants.Cast);
+    }
 }

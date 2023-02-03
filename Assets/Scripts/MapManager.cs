@@ -45,6 +45,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<SpellCharacterPacket>(this.OnSpellCharacter);
             GameManager.Instance.PacketManager.Listen<SpellTilePacket>(this.OnSpellTile);
             GameManager.Instance.PacketManager.Listen<BattleTextPacket>(this.OnBattleText);
+            GameManager.Instance.PacketManager.Listen<CastPacket>(this.OnCast);
         }
 
         private void OnDestroy()
@@ -63,6 +64,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<SpellCharacterPacket>(this.OnSpellCharacter);
             GameManager.Instance.PacketManager.Remove<SpellTilePacket>(this.OnSpellTile);
             GameManager.Instance.PacketManager.Remove<BattleTextPacket>(this.OnBattleText);
+            GameManager.Instance.PacketManager.Remove<CastPacket>(this.OnCast);
         }
 
         private void OnMakeCharacter(object packet)
@@ -210,6 +212,17 @@ namespace Goose2Client
 
             var characterScript = character.GetComponent<Character>();
             characterScript.Attack();
+        }
+
+        private void OnCast(object packet)
+        {
+            var cast = (CastPacket)packet;
+
+            if (!characters.TryGetValue(cast.LoginId, out var character))
+                return;
+
+            var characterScript = character.GetComponent<Character>();
+            characterScript.Cast();
         }
 
         private void OnWeaponSpeed(object packet)
