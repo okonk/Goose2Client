@@ -7,14 +7,12 @@ namespace Goose2Client
     {
         public int SlotNumber { get; set; }
 
-        public int ItemId { get; set; }
-        public int ItemFile { get; set; }
+        public int GraphicId { get; set; }
+        public int GraphicFile { get; set; }
 
         public string ItemName { get; set; }
 
         public int StackSize { get; set; }
-
-        public int GraphicId { get; set; }
 
         public int GraphicR { get; set; }
         public int GraphicG { get; set; }
@@ -79,13 +77,11 @@ namespace Goose2Client
             if (p.LengthRemaining() > 0)
             {
                 packet.GraphicId = p.GetInt32();
-                packet.ItemId = packet.GraphicId; // temporary..
-                packet.ItemFile = p.GetInt32();
+                packet.GraphicFile = p.GetInt32();
                 var title = p.GetString();
                 packet.ItemName = p.GetString();
                 var surname = p.GetString();
                 packet.StackSize = p.GetInt32();
-                packet.GraphicId = p.GetInt32();
             }
 
             return packet;

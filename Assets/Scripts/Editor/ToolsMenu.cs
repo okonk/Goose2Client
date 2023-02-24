@@ -551,6 +551,7 @@ namespace Goose2Client
 
         private static void ImportSpritesheet(ADFFile adf)
         {
+            // TODO: Id 14-52 should be single graphic
             var asset = (TextureImporter)TextureImporter.GetAtPath($"Assets/Resources/Spritesheets/{adf.FileNumber}.png");
 
             asset.spritePixelsPerUnit = 32;

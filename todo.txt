@@ -1,8 +1,3 @@
-
-casting animation
-attack animation glitches out with punches
-
-
 inventory UI
 chat UI
 spellbook UI
@@ -18,7 +13,13 @@ party UI
 buff bar UI
 toolbar ui
 
+player isn't centered
+built client is laggy
+
+character update
+
 chat bubbles
+items on the ground
 item tooltips
 
 cast spells
@@ -27,10 +28,17 @@ mounts
 
 emotes
 
+save char name
+
 fix layer rendering of characters/map objects
 improve name heights
-fix dye colours to match illutia client
-spell positioning
+fix dye colours to match illutia client -- everything looks to have extra white?
+
+tabbing and enter on login screen
+
+attack animation glitches out with punches
+-- looks like it's an issue with spritesheets being different sizes and the animation not syncing with the update code
+-- that moves the player sprite. maybe can put the movement of the sprite inside the animation
 
 can i fix it so when scripts are reloaded it works?
 
@@ -62,4 +70,4 @@ implement SUPx,y packet
 show spells on character
 show spells on map tile
 battletext
-
+casting animation
