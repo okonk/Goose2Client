@@ -12,8 +12,12 @@ namespace Goose2Client
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
 
+        [SerializeField] private ItemStats stats;
+
         internal void SetItem(InventorySlotPacket packet)
         {
+            stats = ItemStats.FromPacket(packet);
+
             var idString = packet.GraphicId.ToString();
             var sprite = Resources.LoadAll<Sprite>($"Spritesheets/{packet.GraphicFile}").FirstOrDefault(s => s.name == idString);
 
@@ -27,6 +31,13 @@ namespace Goose2Client
                 countText.text = packet.StackSize.ToString();
                 countText.gameObject.SetActive(true);
             }
+        }
+
+        internal void ClearItem()
+        {
+            stats = null;
+            image.gameObject.SetActive(false);
+            countText.gameObject.SetActive(false);
         }
     }
 }
