@@ -4,31 +4,32 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 namespace Goose2Client
 {
-    public class ItemSlot : MonoBehaviour
+    public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
 
         [SerializeField] private ItemStats stats;
 
-        internal void SetItem(InventorySlotPacket packet)
+        internal void SetItem(ItemStats stats)
         {
-            stats = ItemStats.FromPacket(packet);
+            this.stats = stats;
 
-            var idString = packet.GraphicId.ToString();
-            var sprite = Resources.LoadAll<Sprite>($"Spritesheets/{packet.GraphicFile}").FirstOrDefault(s => s.name == idString);
+            var idString = stats.GraphicId.ToString();
+            var sprite = Resources.LoadAll<Sprite>($"Spritesheets/{stats.GraphicFile}").FirstOrDefault(s => s.name == idString);
 
             image.gameObject.SetActive(true);
             image.sprite = sprite;
             image.color = Color.white;
-            image.material.SetColor("_Tint", ColorH.RGBA(packet.GraphicR, packet.GraphicG, packet.GraphicB, packet.GraphicA));
+            image.material.SetColor("_Tint", ColorH.RGBA(stats.GraphicR, stats.GraphicG, stats.GraphicB, stats.GraphicA));
 
-            if (packet.StackSize > 1)
+            if (stats.StackSize > 1)
             {
-                countText.text = packet.StackSize.ToString();
+                countText.text = stats.StackSize.ToString();
                 countText.gameObject.SetActive(true);
             }
         }
@@ -38,6 +39,16 @@ namespace Goose2Client
             stats = null;
             image.gameObject.SetActive(false);
             countText.gameObject.SetActive(false);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            TooltipManager.Instance.ShowItemTooltip(stats);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            TooltipManager.Instance.HideItemTooltip();
         }
     }
 }

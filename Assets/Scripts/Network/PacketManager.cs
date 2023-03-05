@@ -58,7 +58,7 @@ namespace Goose2Client
                 }
             }
 
-            Debug.Log($"Can't handle packet: {packet}");
+            //Debug.Log($"Can't handle packet: {packet}");
         }
     }
 }

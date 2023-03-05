@@ -47,6 +47,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/StatusInfoPacket.cs" />
      <Compile Include="Assets/Scripts/UI/NonDrawingGraphic.cs" />
      <Compile Include="Assets/Scripts/AnimationSlot.cs" />
+     <Compile Include="Assets/Scripts/UI/ItemTooltip.cs" />
      <Compile Include="Assets/Scripts/Network/PacketParser.cs" />
      <Compile Include="Assets/Scripts/Character.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MoveCharacterPacket.cs" />
@@ -89,6 +90,7 @@
      <Compile Include="Assets/Scripts/ResolutionScript.cs" />
      <Compile Include="Assets/Scripts/MapFile.cs" />
      <Compile Include="Assets/Scripts/UI/InventoryWindow.cs" />
+     <Compile Include="Assets/Scripts/UI/TooltipManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClearInventorySlotPacket.cs" />
      <Compile Include="Assets/Scripts/GameManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EmotePacket.cs" />

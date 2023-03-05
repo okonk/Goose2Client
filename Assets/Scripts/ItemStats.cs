@@ -1,6 +1,6 @@
 namespace Goose2Client
 {
-    internal class ItemStats
+    public class ItemStats
     {
         public int SlotNumber { get; set; }
         public int GraphicId { get; set; }
@@ -10,12 +10,12 @@ namespace Goose2Client
         public string Surname { get; set; }
         public int StackSize { get; set; }
         public int Value { get; set; }
-        public int Flags { get; set; }
+        public ItemFlags Flags { get; set; }
         public string Description { get; set; }
         public int MinDamage { get; set; }
         public int MaxDamage { get; set; }
         public int Delay { get; set; }
-        public int Type { get; set; }
+        public ItemMaterial MaterialType { get; set; }
         public int AC { get; set; }
         public int HP { get; set; }
         public int MP { get; set; }
@@ -31,13 +31,15 @@ namespace Goose2Client
         public int SpiritResist { get; set; }
         public int MinLevel { get; set; }
         public int MaxLevel { get; set; }
-        public int ClassRestrictions { get; set; }
+        public int ClassRestrictions1 { get; set; }
+        public int ClassRestrictions2 { get; set; }
+        public int ClassRestrictions3 { get; set; }
         public int Access { get; set; }
         public int Gender { get; set; }
         public string SpellEffect { get; set; }
         public int SpellEffectChance { get; set; }
-        public int BodyType { get; set; }
-        public int UseType { get; set; }
+        public ItemSlotType SlotType { get; set; }
+        public ItemUseType UseType { get; set; }
         public int NotSure { get; set; }
         public int GraphicR { get; set; }
         public int GraphicG { get; set; }
@@ -61,7 +63,7 @@ namespace Goose2Client
                 MinDamage = packet.MinDamage,
                 MaxDamage = packet.MaxDamage,
                 Delay = packet.Delay,
-                Type = packet.Type,
+                MaterialType = packet.MaterialType,
                 AC = packet.AC,
                 HP = packet.HP,
                 MP = packet.MP,
@@ -77,12 +79,14 @@ namespace Goose2Client
                 SpiritResist = packet.SpiritResist,
                 MinLevel = packet.MinLevel,
                 MaxLevel = packet.MaxLevel,
-                ClassRestrictions = packet.ClassRestrictions,
+                ClassRestrictions1 = packet.ClassRestrictions1,
+                ClassRestrictions2 = packet.ClassRestrictions2,
+                ClassRestrictions3 = packet.ClassRestrictions3,
                 Access = packet.Access,
                 Gender = packet.Gender,
                 SpellEffect = packet.SpellEffect,
                 SpellEffectChance = packet.SpellEffectChance,
-                BodyType = packet.BodyType,
+                SlotType = packet.SlotType,
                 UseType = packet.UseType,
                 NotSure = packet.NotSure,
                 GraphicR = packet.GraphicR,

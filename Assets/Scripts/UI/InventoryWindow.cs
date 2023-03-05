@@ -25,7 +25,8 @@ namespace Goose2Client
         {
             var packet = (InventorySlotPacket)packetObj;
 
-            slots[packet.SlotNumber].SetItem(packet);
+            var stats = ItemStats.FromPacket(packet);
+            slots[packet.SlotNumber].SetItem(stats);
         }
 
         private void OnClearInventorySlot(object packetObj)

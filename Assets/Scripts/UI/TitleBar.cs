@@ -5,20 +5,14 @@ using UnityEngine.EventSystems;
 
 namespace Goose2Client
 {
-    public class TitleBar : MonoBehaviour, IPointerDownHandler, IDragHandler
+    public class TitleBar : MonoBehaviour, IDragHandler
     {
-        private Vector2 mouseStartPosition;
+        [SerializeField] private Canvas canvas;
 
         public void OnDrag(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Left)
-                transform.parent.localPosition = (Vector3)(eventData.position - mouseStartPosition);
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (eventData.button == PointerEventData.InputButton.Left)
-                mouseStartPosition = eventData.pressPosition - (Vector2)transform.parent.localPosition;
+                transform.parent.localPosition += (Vector3)(eventData.delta / canvas.scaleFactor);
         }
     }
 }
