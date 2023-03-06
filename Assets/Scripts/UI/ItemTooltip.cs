@@ -15,8 +15,19 @@ namespace Goose2Client
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI itemTypeText;
         [SerializeField] private TextMeshProUGUI flagsText;
+        [SerializeField] private GameObject statsLineContainer;
 
         private RectTransform rectTransform;
+
+        private static Color descriptionColor = Color.white;
+        private static Color acColor = ColorH.RGBA(216, 208, 176);
+        private static Color weaponDamageColor = ColorH.RGBA(232, 244, 112);
+        private static Color hpMpColor = ColorH.RGBA(192, 204, 136);
+        private static Color statColor = ColorH.RGBA(136, 204, 192);
+        private static Color resistanceColor = ColorH.RGBA(208, 144, 144);
+        private static Color requirementColor = ColorH.RGBA(232, 120, 112);
+        private static Color effectColor = ColorH.RGBA(208, 168, 112);
+        private static Color valueColor = ColorH.RGBA(232, 224, 112);
 
         private void Start()
         {
@@ -34,6 +45,81 @@ namespace Goose2Client
             nameText.text = itemStats.Name;
             itemTypeText.text = GetItemTypeText(itemStats);
             flagsText.text = string.Join(", ", GetFlagsStrings(itemStats.Flags));
+
+            while (statsLineContainer.transform.childCount > 0)
+                DestroyImmediate(statsLineContainer.transform.GetChild(0).gameObject);
+
+            if (itemStats.Description != null) AddStatLine(itemStats.Description, descriptionColor);
+
+            if (itemStats.MaxDamage != 0) AddStatLine($"{itemStats.MinDamage:N0}-{itemStats.MaxDamage:N0} Damage / {itemStats.Delay / 10.0f:F1}s Delay", weaponDamageColor);
+            if (itemStats.AC != 0) AddStatLine($"{itemStats.AC:N0} Armor", acColor);
+
+            if (itemStats.HP != 0) AddStatLine($"{FormatNumber(itemStats.HP)} Health", hpMpColor);
+            if (itemStats.MP != 0) AddStatLine($"{FormatNumber(itemStats.MP)} Mana", hpMpColor);
+            if (itemStats.SP != 0) AddStatLine($"{FormatNumber(itemStats.SP)} Spirit", hpMpColor);
+
+            if (itemStats.Strength != 0) AddStatLine($"{FormatNumber(itemStats.Strength)} Strength", statColor);
+            if (itemStats.Stamina != 0) AddStatLine($"{FormatNumber(itemStats.Stamina)} Stamina", statColor);
+            if (itemStats.Intelligence != 0) AddStatLine($"{FormatNumber(itemStats.Intelligence)} Intelligence", statColor);
+            if (itemStats.Dexterity != 0) AddStatLine($"{FormatNumber(itemStats.Dexterity)} Dexterity", statColor);
+
+            if (itemStats.FireResist != 0) AddStatLine($"{FormatNumber(itemStats.FireResist)} Fire Resistance", resistanceColor);
+            if (itemStats.WaterResist != 0) AddStatLine($"{FormatNumber(itemStats.WaterResist)} Water Resistance", resistanceColor);
+            if (itemStats.EarthResist != 0) AddStatLine($"{FormatNumber(itemStats.EarthResist)} Earth Resistance", resistanceColor);
+            if (itemStats.AirResist != 0) AddStatLine($"{FormatNumber(itemStats.AirResist)} Air Resistance", resistanceColor);
+            if (itemStats.SpiritResist != 0) AddStatLine($"{FormatNumber(itemStats.SpiritResist)} Spirit Resistance", resistanceColor);
+
+            // class restrictions "You must be a xxx, yyy or zzz to use this item."
+            // or "You must NOT be a xxx to use this item." ?
+
+            if (itemStats.MinLevel != 0 && itemStats.MaxLevel != 0) AddStatLine($"Requires level {itemStats.MinLevel} to {itemStats.MaxLevel}", requirementColor);
+            else if (itemStats.MinLevel == 0 && itemStats.MaxLevel != 0) AddStatLine($"Requires level 1 to {itemStats.MaxLevel}", requirementColor);
+            else if (itemStats.MinLevel != 0 && itemStats.MaxLevel == 0) AddStatLine($"Requires level {itemStats.MinLevel}", requirementColor);
+
+            if (!string.IsNullOrEmpty(itemStats.SpellEffect))
+            {
+                var effectLines = itemStats.SpellEffect.Split(';');
+                var effectChance = itemStats.SpellEffectChance == 100 ? "" : $" ({itemStats.SpellEffectChance}%)";
+
+                AddStatLine($"Effect: {effectLines[0]}{effectChance}", effectColor);
+
+                foreach (var effectLine in effectLines.Skip(1))
+                    AddStatLine($"    {effectLine}", effectColor);
+            }
+
+            AddEmptyLine();
+
+            if (itemStats.Value == 0)
+            {
+                AddStatLine("No Value", valueColor);
+            }
+            else
+            {
+                var currency = itemStats.Flags.HasFlag(ItemFlags.Donation) ? "credits" : "gold";
+                AddStatLine($"Value: {itemStats.Value:N0} {currency}", valueColor);
+            }
+        }
+
+        private string FormatNumber(int value)
+        {
+            if (value < 0)
+                return $"-{value:N0}";
+
+            return $"+{value:N0}";
+        }
+
+        private void AddStatLine(string text, Color color)
+        {
+            var prefab = Resources.Load<GameObject>("Prefabs/UI/ItemTooltipStatLine");
+            var lineObject = Instantiate(prefab, statsLineContainer.transform);
+            var lineText = lineObject.GetComponent<TextMeshProUGUI>();
+            lineText.text = text;
+            lineText.color = color;
+        }
+
+        private void AddEmptyLine()
+        {
+            AddStatLine(" ", Color.black);
         }
 
         public void Update()
@@ -71,7 +157,7 @@ namespace Goose2Client
                 ItemUseType.Letter => "Letter",
                 ItemUseType.Money => "Money",
                 ItemUseType.Recipe => "Recipe",
-                ItemUseType.OneTime => "",
+                ItemUseType.OneTime => " ",
                 ItemUseType.Scroll => "Scroll",
                 _ => "Miscellaneous",
             };
@@ -91,14 +177,14 @@ namespace Goose2Client
                 ItemMaterial.OneHandedPierce => "One-Handed Pierce",
                 ItemMaterial.TwoHandedPierce => "Two-Handed Pierce",
                 ItemMaterial.Fist => "Fist Weapon",
-                _ => ""
+                _ => " "
             };
         }
 
         private string GetSlotText(ItemSlotType slot)
         {
             return slot switch {
-                ItemSlotType.None => "",
+                ItemSlotType.None => " ",
                 _ => slot.ToString()
             };
         }
