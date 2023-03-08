@@ -79,6 +79,7 @@
      <Compile Include="Assets/Scripts/ItemStats.cs" />
      <Compile Include="Assets/Scripts/AnimationManager.cs" />
      <Compile Include="Assets/Scripts/Network/PacketHandler.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/ClassUpdatePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendMapNamePacket.cs" />
      <Compile Include="Assets/Scripts/ColorExtensions.cs" />
      <Compile Include="Assets/Scripts/WindowButtons.cs" />

@@ -69,8 +69,17 @@ namespace Goose2Client
             if (itemStats.AirResist != 0) AddStatLine($"{FormatNumber(itemStats.AirResist)} Air Resistance", resistanceColor);
             if (itemStats.SpiritResist != 0) AddStatLine($"{FormatNumber(itemStats.SpiritResist)} Spirit Resistance", resistanceColor);
 
-            // class restrictions "You must be a xxx, yyy or zzz to use this item."
-            // or "You must NOT be a xxx to use this item." ?
+            if (itemStats.ClassRestrictions1 != 0)
+            {
+                int offset = itemStats.ClassRestrictions1 < 50 ? 0 : -50;
+
+                string classes = GameManager.Instance.Classes[itemStats.ClassRestrictions1 + offset];
+                if (itemStats.ClassRestrictions2 != 0) classes += $"{(itemStats.ClassRestrictions3 == 0 ? " or" : ",")} {GameManager.Instance.Classes[itemStats.ClassRestrictions2 + offset]}";
+                if (itemStats.ClassRestrictions3 != 0) classes += $" or {GameManager.Instance.Classes[itemStats.ClassRestrictions3 + offset]}";
+
+                AddStatLine($"You must {(offset != 0 ? "NOT " : "")}be a {classes} to use this item", requirementColor);
+            }
+
 
             if (itemStats.MinLevel != 0 && itemStats.MaxLevel != 0) AddStatLine($"Requires level {itemStats.MinLevel} to {itemStats.MaxLevel}", requirementColor);
             else if (itemStats.MinLevel == 0 && itemStats.MaxLevel != 0) AddStatLine($"Requires level 1 to {itemStats.MaxLevel}", requirementColor);

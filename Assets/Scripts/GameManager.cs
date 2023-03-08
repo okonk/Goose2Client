@@ -14,6 +14,8 @@ namespace Goose2Client
         public PacketManager PacketManager { get; private set; }
         public AnimationManager AnimationManager { get; private set; }
 
+        public Dictionary<int, string> Classes { get; private set; } = new Dictionary<int, string>();
+
         public MapFile CurrentMap { get; set; }
 
         public static GameManager Instance
@@ -35,6 +37,16 @@ namespace Goose2Client
             NetworkClient = new NetworkClient();
             PacketManager = new PacketManager();
             AnimationManager = new AnimationManager();
+        }
+
+        private void Start()
+        {
+            GameManager.Instance.PacketManager.Listen<ClassUpdatePacket>(this.OnClassUpdate);
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.Instance.PacketManager.Remove<ClassUpdatePacket>(this.OnClassUpdate);
         }
 
         public void Update()
@@ -63,6 +75,13 @@ namespace Goose2Client
             var loadingMapScript = canvas.GetComponentInChildren<LoadingMapScene>();
 
             loadingMapScript.Load(mapFile, mapName);
+        }
+
+        private void OnClassUpdate(object packetObj)
+        {
+            var packet = (ClassUpdatePacket)packetObj;
+
+            this.Classes[packet.ClassId] = packet.Name;
         }
     }
 }
