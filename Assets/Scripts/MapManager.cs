@@ -46,6 +46,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<SpellTilePacket>(this.OnSpellTile);
             GameManager.Instance.PacketManager.Listen<BattleTextPacket>(this.OnBattleText);
             GameManager.Instance.PacketManager.Listen<CastPacket>(this.OnCast);
+            GameManager.Instance.PacketManager.Listen<MapObjectPacket>(this.OnMapObject);
         }
 
         private void OnDestroy()
@@ -65,6 +66,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<SpellTilePacket>(this.OnSpellTile);
             GameManager.Instance.PacketManager.Remove<BattleTextPacket>(this.OnBattleText);
             GameManager.Instance.PacketManager.Remove<CastPacket>(this.OnCast);
+            GameManager.Instance.PacketManager.Remove<MapObjectPacket>(this.OnMapObject);
         }
 
         private void OnMakeCharacter(object packet)
@@ -265,6 +267,22 @@ namespace Goose2Client
 
             var characterScript = character.GetComponent<Character>();
             characterScript.AddBattleText(battleText.BattleTextType, battleText.Text);
+        }
+
+        private void OnMapObject(object packetObj)
+        {
+            var packet = (MapObjectPacket)packetObj;
+
+            var itemPrefab = Resources.Load<GameObject>("Prefabs/MapItem");
+            var item = Instantiate(itemPrefab, gameObject.transform);
+            item.name = $"MapItem {packet.Name} ({packet.GraphicId})";
+
+            var renderer = item.GetComponent<SpriteRenderer>();
+            renderer.sprite = Helpers.GetSprite(packet.GraphicId, packet.GraphicFile);
+            renderer.color = Color.white;
+            renderer.material.SetColor("_Tint", ColorH.RGBA(packet.GraphicR, packet.GraphicG, packet.GraphicB, packet.GraphicA));
+
+            item.transform.localPosition = new Vector3(packet.TileX + 0.5f, map.Height - packet.TileY - 0.5f);
         }
     }
 }

@@ -42,6 +42,7 @@
   <ItemGroup>
      <Compile Include="Assets/Scripts/Network/Packets/SpellbookSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Character/CharacterAnimation.cs" />
+     <Compile Include="Assets/Scripts/UI/IWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/PingPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/StatusInfoPacket.cs" />
@@ -62,7 +63,9 @@
      <Compile Include="Assets/Scripts/SpellAnimation.cs" />
      <Compile Include="Assets/Scripts/Character/BattleTextLine.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/UpdateCharacterPacket.cs" />
+     <Compile Include="Assets/Scripts/Helpers.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SpellCharacterPacket.cs" />
+     <Compile Include="Assets/Scripts/UI/DropTarget.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
@@ -86,6 +89,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/GroupUpdatePacket.cs" />
      <Compile Include="Assets/Scripts/Network/NetworkClient.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/DoneSendingMapPacket.cs" />
+     <Compile Include="Assets/Scripts/UI/DragIcon.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendCurrentMapPacket.cs" />
      <Compile Include="Assets/Scripts/WindowFrames.cs" />
      <Compile Include="Assets/Scripts/ResolutionScript.cs" />

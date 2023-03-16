@@ -47,6 +47,9 @@ TagManager:
   - name: Ground 2
     uniqueID: 1394787115
     locked: 0
+  - name: Items
+    uniqueID: 1324672295
+    locked: 0
   - name: Objects 1
     uniqueID: 1830532623
     locked: 0

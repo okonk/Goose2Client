@@ -5,50 +5,72 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.EventSystems;
+using System;
 
 namespace Goose2Client
 {
-    public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
 
         [SerializeField] private ItemStats stats;
 
+        public bool HasItem => stats != null;
+        public int StackSize => stats?.StackSize ?? 0;
+
+        public int SlotNumber { get; set; }
+        public IWindow Window { get; set; }
+
+        public Action<ItemStats> OnDoubleClick { get; set; }
+        public Action<int, int, int> OnDropItem { get; set; }
+
         internal void SetItem(ItemStats stats)
         {
             this.stats = stats;
 
-            var idString = stats.GraphicId.ToString();
-            var sprite = Resources.LoadAll<Sprite>($"Spritesheets/{stats.GraphicFile}").FirstOrDefault(s => s.name == idString);
 
-            image.gameObject.SetActive(true);
+            var sprite = Helpers.GetSprite(stats.GraphicId, stats.GraphicFile);
             image.sprite = sprite;
             image.color = Color.white;
             image.material.SetColor("_Tint", ColorH.RGBA(stats.GraphicR, stats.GraphicG, stats.GraphicB, stats.GraphicA));
 
-            if (stats.StackSize > 1)
-            {
-                countText.text = stats.StackSize.ToString();
-                countText.gameObject.SetActive(true);
-            }
+            countText.text = stats.StackSize.ToString();
+            countText.gameObject.SetActive(stats.StackSize > 1);
         }
 
         internal void ClearItem()
         {
             stats = null;
-            image.gameObject.SetActive(false);
+            image.color = new Color(0, 0, 0, 0); // make the image invisible rather than disabling the object, so drag drop still works
             countText.gameObject.SetActive(false);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            TooltipManager.Instance.ShowItemTooltip(stats);
+            if (HasItem)
+                TooltipManager.Instance.ShowItemTooltip(stats);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             TooltipManager.Instance.HideItemTooltip();
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (!HasItem) return;
+
+            if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount >= 2)
+                OnDoubleClick?.Invoke(this.stats);
+        }
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            var fromSlot = eventData.pointerDrag?.GetComponent<ItemSlot>();
+            if (fromSlot == null || !fromSlot.HasItem) return;
+
+            OnDropItem?.Invoke(fromSlot.Window.WindowId, fromSlot.SlotNumber, SlotNumber);
         }
     }
 }

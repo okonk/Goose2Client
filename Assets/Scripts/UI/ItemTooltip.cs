@@ -80,7 +80,6 @@ namespace Goose2Client
                 AddStatLine($"You must {(offset != 0 ? "NOT " : "")}be a {classes} to use this item", requirementColor);
             }
 
-
             if (itemStats.MinLevel != 0 && itemStats.MaxLevel != 0) AddStatLine($"Requires level {itemStats.MinLevel} to {itemStats.MaxLevel}", requirementColor);
             else if (itemStats.MinLevel == 0 && itemStats.MaxLevel != 0) AddStatLine($"Requires level 1 to {itemStats.MaxLevel}", requirementColor);
             else if (itemStats.MinLevel != 0 && itemStats.MaxLevel == 0) AddStatLine($"Requires level {itemStats.MinLevel}", requirementColor);
@@ -112,7 +111,7 @@ namespace Goose2Client
         private string FormatNumber(int value)
         {
             if (value < 0)
-                return $"-{value:N0}";
+                return $"{value:N0}";
 
             return $"+{value:N0}";
         }

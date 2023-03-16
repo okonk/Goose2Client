@@ -153,5 +153,20 @@ namespace Goose2Client
         {
             Send($"ATT");
         }
+
+        public void UseItem(int slot)
+        {
+            Send($"USE{slot}");
+        }
+
+        public void Change(int fromSlot, int toSlot)
+        {
+            Send($"CHANGE{fromSlot},{toSlot}");
+        }
+
+        public void Drop(int fromSlot, int amount)
+        {
+            Send($"DRP{fromSlot},{amount}");
+        }
     }
 }

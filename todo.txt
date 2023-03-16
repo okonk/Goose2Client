@@ -1,4 +1,7 @@
-inventory UI
+fix colours in inventory
+
+show tooltips on items on the ground
+
 chat UI
 spellbook UI
 hotbar UI
@@ -16,11 +19,12 @@ toolbar ui
 player isn't centered
 built client is laggy
 
+
 character update
 
 chat bubbles
-items on the ground
-item tooltips
+
+
 
 cast spells
 spell targeting
@@ -41,6 +45,10 @@ attack animation glitches out with punches
 -- that moves the player sprite. maybe can put the movement of the sprite inside the animation
 
 can i fix it so when scripts are reloaded it works?
+
+item tooltips flashing when switching fast
+
+split stacks when holding ctrl in inventory
 
 
 Done:
@@ -71,3 +79,7 @@ show spells on character
 show spells on map tile
 battletext
 casting animation
+item tooltips
+drag from inventory to ground to drop
+items on the ground
+inventory UI
