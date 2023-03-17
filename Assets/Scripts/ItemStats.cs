@@ -95,5 +95,24 @@ namespace Goose2Client
                 GraphicA = packet.GraphicA,
             };
         }
+
+       public static ItemStats FromPacket(MapObjectPacket packet)
+        {
+            return new ItemStats
+            {
+                GraphicId = packet.GraphicId,
+                GraphicFile = packet.GraphicFile,
+                Title = packet.Title,
+                Name = packet.Name,
+                Surname = packet.Surname,
+                StackSize = packet.StackSize,
+                MaterialType = packet.MaterialType,
+                Flags = packet.Flags,
+                GraphicR = packet.GraphicR,
+                GraphicG = packet.GraphicG,
+                GraphicB = packet.GraphicB,
+                GraphicA = packet.GraphicA,
+            };
+        }
     }
 }

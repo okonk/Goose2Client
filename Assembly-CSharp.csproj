@@ -55,6 +55,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/BuffBarPacket.cs" />
      <Compile Include="Assets/Scripts/UI/ItemSlot.cs" />
      <Compile Include="Assets/Scripts/Character/CharacterHealthBar.cs" />
+     <Compile Include="Assets/Scripts/UI/MapItemTooltip.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginSuccessPacket.cs" />
      <Compile Include="Assets/Scripts/UI/WindowTransparency.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeWindowPacket.cs" />
@@ -67,6 +68,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/SpellCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/UI/DropTarget.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeCharacterPacket.cs" />
+     <Compile Include="Assets/Scripts/MapItem.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/WeaponSpeedPacket.cs" />

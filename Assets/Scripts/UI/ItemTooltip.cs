@@ -36,12 +36,12 @@ namespace Goose2Client
 
         internal void SetItem(ItemStats itemStats)
         {
-            image.sprite = image.sprite = Helpers.GetSprite(itemStats.GraphicId, itemStats.GraphicFile);
+            image.sprite = Helpers.GetSprite(itemStats.GraphicId, itemStats.GraphicFile);
             image.color = Color.white;
             image.material = Instantiate(image.material);
             image.material.SetColor("_Tint", ColorH.RGBA(itemStats.GraphicR, itemStats.GraphicG, itemStats.GraphicB, itemStats.GraphicA));
 
-            nameText.text = itemStats.Name;
+            nameText.text = $"{itemStats.Title} {itemStats.Name} {itemStats.Surname}".Trim();
             itemTypeText.text = GetItemTypeText(itemStats);
             flagsText.text = string.Join(", ", GetFlagsStrings(itemStats.Flags));
 

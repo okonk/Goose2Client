@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Goose2Client
 {
-    class MapObjectPacket : PacketHandler
+    public class MapObjectPacket : PacketHandler
     {
         public int GraphicId { get; set; }
         public int GraphicFile { get; set; }
@@ -15,7 +15,7 @@ namespace Goose2Client
         public string Name { get; set; }
         public string Surname { get; set; }
         public int StackSize { get; set; }
-        public ItemMaterial Type { get; set; }
+        public ItemMaterial MaterialType { get; set; }
         public ItemFlags Flags { get; set; }
         public int DropAnimation { get; set; }
         public int GraphicR { get; set; }
@@ -39,7 +39,7 @@ namespace Goose2Client
                 Name = p.GetString(),
                 Surname = p.GetString(),
                 StackSize = p.GetInt32(),
-                Type = (ItemMaterial)p.GetInt32(),
+                MaterialType = (ItemMaterial)p.GetInt32(),
                 Flags = (ItemFlags)p.GetInt32(),
                 DropAnimation = p.GetInt32(),
             };

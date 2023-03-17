@@ -1,6 +1,7 @@
 
+fix tooltips not disappearing when item destroyed
+block tooltip if window is on top
 
-show tooltips on items on the ground
 
 chat UI
 spellbook UI
@@ -82,3 +83,4 @@ items on the ground
 inventory UI
 fix colours in inventory
 tabbing and enter on login screen
+show tooltips on items on the ground

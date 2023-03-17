@@ -168,5 +168,10 @@ namespace Goose2Client
         {
             Send($"DRP{fromSlot},{amount}");
         }
+
+        public void Pickup()
+        {
+            Send($"GET");
+        }
     }
 }

@@ -11,6 +11,8 @@ namespace Goose2Client
         [SerializeField] private GameObject cameraObject;
         private Dictionary<int, GameObject> characters = new();
 
+        private Dictionary<int, GameObject> mapObjects = new();
+
         private MapFile map;
 
         public static GameObject CharacterAnimationPrefab;
@@ -47,6 +49,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<BattleTextPacket>(this.OnBattleText);
             GameManager.Instance.PacketManager.Listen<CastPacket>(this.OnCast);
             GameManager.Instance.PacketManager.Listen<MapObjectPacket>(this.OnMapObject);
+            GameManager.Instance.PacketManager.Listen<EraseObjectPacket>(this.OnEraseMapObject);
         }
 
         private void OnDestroy()
@@ -67,6 +70,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<BattleTextPacket>(this.OnBattleText);
             GameManager.Instance.PacketManager.Remove<CastPacket>(this.OnCast);
             GameManager.Instance.PacketManager.Remove<MapObjectPacket>(this.OnMapObject);
+            GameManager.Instance.PacketManager.Remove<EraseObjectPacket>(this.OnEraseMapObject);
         }
 
         private void OnMakeCharacter(object packet)
@@ -277,12 +281,25 @@ namespace Goose2Client
             var item = Instantiate(itemPrefab, gameObject.transform);
             item.name = $"MapItem {packet.Name} ({packet.GraphicId})";
 
+            var script = item.GetComponent<MapItem>();
+            script.Item = ItemStats.FromPacket(packet);
+
             var renderer = item.GetComponent<SpriteRenderer>();
             renderer.sprite = Helpers.GetSprite(packet.GraphicId, packet.GraphicFile);
             renderer.color = Color.white;
             renderer.material.SetColor("_Tint", ColorH.RGBA(packet.GraphicR, packet.GraphicG, packet.GraphicB, packet.GraphicA));
 
             item.transform.localPosition = new Vector3(packet.TileX + 0.5f, map.Height - packet.TileY - 0.5f);
+
+            mapObjects[packet.TileY * map.Height + packet.TileX] = item;
+        }
+
+        private void OnEraseMapObject(object packetObj)
+        {
+            var packet = (EraseObjectPacket)packetObj;
+
+            if (mapObjects.TryGetValue(packet.TileY * map.Height + packet.TileX, out var item))
+                Destroy(item);
         }
     }
 }

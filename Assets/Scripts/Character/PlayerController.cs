@@ -61,6 +61,11 @@ namespace Goose2Client
             SetInputLastPressed();
         }
 
+        private void OnPickup(InputValue value)
+        {
+            GameManager.Instance.NetworkClient.Pickup();
+        }
+
         private void Update()
         {
             MoveUpdate();
