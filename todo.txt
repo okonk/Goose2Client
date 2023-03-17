@@ -1,4 +1,4 @@
-fix colours in inventory
+
 
 show tooltips on items on the ground
 
@@ -19,11 +19,9 @@ toolbar ui
 player isn't centered
 built client is laggy
 
-
 character update
 
 chat bubbles
-
 
 
 cast spells
@@ -38,18 +36,17 @@ fix layer rendering of characters/map objects
 improve name heights
 fix dye colours to match illutia client -- everything looks to have extra white?
 
-tabbing and enter on login screen
-
 attack animation glitches out with punches
 -- looks like it's an issue with spritesheets being different sizes and the animation not syncing with the update code
 -- that moves the player sprite. maybe can put the movement of the sprite inside the animation
 
-can i fix it so when scripts are reloaded it works?
 
 item tooltips flashing when switching fast
 
 split stacks when holding ctrl in inventory
 
+
+can i fix it so when scripts are reloaded it works?
 
 Done:
 Fix sorting order of items
@@ -83,3 +80,5 @@ item tooltips
 drag from inventory to ground to drop
 items on the ground
 inventory UI
+fix colours in inventory
+tabbing and enter on login screen

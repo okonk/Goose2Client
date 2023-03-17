@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Goose2Client
 {
@@ -12,6 +15,29 @@ namespace Goose2Client
         [SerializeField] private GameObject passwordInput;
 
         [SerializeField] private GameObject messageOverlay;
+
+        public void Update()
+        {
+            if (Keyboard.current.tabKey.wasPressedThisFrame)
+            {
+                var selectables = Selectable.allSelectablesArray;
+                for (int i = 0; i < selectables.Length; i++)
+                {
+                    if (selectables[i].gameObject == EventSystem.current.currentSelectedGameObject)
+                    {
+                        var nextSelectable = selectables[(i + 1) % selectables.Length];
+                        nextSelectable.Select();
+                        break;
+                    }
+                }
+            }
+
+            if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)
+            {
+                if (EventSystem.current.currentSelectedGameObject == passwordInput)
+                    OnLoginClicked();
+            }
+        }
 
         public void Start()
         {

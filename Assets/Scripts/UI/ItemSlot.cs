@@ -29,10 +29,9 @@ namespace Goose2Client
         {
             this.stats = stats;
 
-
-            var sprite = Helpers.GetSprite(stats.GraphicId, stats.GraphicFile);
-            image.sprite = sprite;
+            image.sprite = Helpers.GetSprite(stats.GraphicId, stats.GraphicFile);
             image.color = Color.white;
+            image.material = Instantiate(image.material);
             image.material.SetColor("_Tint", ColorH.RGBA(stats.GraphicR, stats.GraphicG, stats.GraphicB, stats.GraphicA));
 
             countText.text = stats.StackSize.ToString();

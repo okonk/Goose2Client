@@ -36,10 +36,9 @@ namespace Goose2Client
 
         internal void SetItem(ItemStats itemStats)
         {
-            var idString = itemStats.GraphicId.ToString();
-            var sprite = Resources.LoadAll<Sprite>($"Spritesheets/{itemStats.GraphicFile}").FirstOrDefault(s => s.name == idString);
-            image.sprite = sprite;
+            image.sprite = image.sprite = Helpers.GetSprite(itemStats.GraphicId, itemStats.GraphicFile);
             image.color = Color.white;
+            image.material = Instantiate(image.material);
             image.material.SetColor("_Tint", ColorH.RGBA(itemStats.GraphicR, itemStats.GraphicG, itemStats.GraphicB, itemStats.GraphicA));
 
             nameText.text = itemStats.Name;
