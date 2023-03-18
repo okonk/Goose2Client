@@ -16,7 +16,7 @@ namespace Goose2Client
         public void OnBeginDrag(PointerEventData eventData)
         {
             var canvas = FindInParents<Canvas>(gameObject);
-            if (canvas == null)
+            if (canvas == null || imageSource.color.a == 0)
                 return;
 
             // We have clicked something that can be dragged.

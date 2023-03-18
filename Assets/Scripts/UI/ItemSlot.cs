@@ -9,7 +9,7 @@ using System;
 
 namespace Goose2Client
 {
-    public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
@@ -70,6 +70,16 @@ namespace Goose2Client
             if (fromSlot == null || !fromSlot.HasItem) return;
 
             OnDropItem?.Invoke(fromSlot.Window.WindowId, fromSlot.SlotNumber, SlotNumber);
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            DropTargetManager.Instance.gameObject.SetActive(true);
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            DropTargetManager.Instance.gameObject.SetActive(false);
         }
     }
 }

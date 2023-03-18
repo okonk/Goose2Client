@@ -101,6 +101,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/ClearInventorySlotPacket.cs" />
      <Compile Include="Assets/Scripts/GameManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EmotePacket.cs" />
+     <Compile Include="Assets/Scripts/UI/DropTargetManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MapObjectPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ChangeHeadingPacket.cs" />
      <Compile Include="Assets/Scripts/Character/PlayerController.cs" />
