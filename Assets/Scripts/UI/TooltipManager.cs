@@ -53,5 +53,11 @@ namespace Goose2Client
         {
             mapItemTooltip.gameObject.SetActive(false);
         }
+
+        public void HideMapItemTooltipIfMatching(ItemStats stats)
+        {
+            if (mapItemTooltip.Item == stats)
+                HideMapItemTooltip();
+        }
     }
 }

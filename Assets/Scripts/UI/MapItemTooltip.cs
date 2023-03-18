@@ -14,6 +14,8 @@ namespace Goose2Client
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI bindText;
 
+        public ItemStats Item { get; private set; }
+
         private RectTransform rectTransform;
 
         private void Start()
@@ -23,6 +25,8 @@ namespace Goose2Client
 
         internal void SetItem(ItemStats itemStats)
         {
+            Item = itemStats;
+
             nameText.text = $"{itemStats.Title} {itemStats.Name} {itemStats.Surname}".Trim();
 
             bindText.gameObject.SetActive(itemStats.Flags.HasFlag(ItemFlags.BindOnPickup));

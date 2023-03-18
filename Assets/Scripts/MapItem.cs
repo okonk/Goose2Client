@@ -18,5 +18,10 @@ namespace Goose2Client
         {
             TooltipManager.Instance.HideMapItemTooltip();
         }
+
+        private void OnDestroy()
+        {
+            TooltipManager.Instance.HideMapItemTooltipIfMatching(Item);
+        }
     }
 }
