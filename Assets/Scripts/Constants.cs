@@ -4,6 +4,8 @@ namespace Goose2Client
 {
     public static class Constants
     {
+        public const int SpellbookSlotsPerPage = 30;
+
         public const string Walking = "Walking";
         public const string Direction = "Direction";
         public const string BodyState = "Body State";

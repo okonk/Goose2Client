@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7312976034576384417}
   - component: {fileID: 2897531613934573683}
+  - component: {fileID: 4911087484694639851}
   m_Layer: 5
   m_Name: SpellSlot
   m_TagString: Untagged
@@ -51,6 +52,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 6717150837475791227}
+--- !u!114 &4911087484694639851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707792176322939745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7ac3a7815e7dd17902afd9cea991ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragOnSurfaces: 1
+  imageSource: {fileID: 6717150837475791227}
 --- !u!1 &6425918242335285856
 GameObject:
   m_ObjectHideFlags: 0

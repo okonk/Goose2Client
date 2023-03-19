@@ -108,6 +108,8 @@ namespace Goose2Client
                 this.roofLayer.SetActive(false);
 
             this.character = characterScript;
+
+            GameManager.Instance.Character = characterScript;
         }
 
         private void OnMoveCharacter(object packet)

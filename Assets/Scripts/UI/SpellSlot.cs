@@ -9,7 +9,7 @@ using System;
 
 namespace Goose2Client
 {
-    public class SpellSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class SpellSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private Image image;
 
@@ -21,6 +21,7 @@ namespace Goose2Client
         public IWindow Window { get; set; }
 
         public Action<SpellInfo> OnDoubleClick { get; set; }
+        public Action<int, int> OnMoveSpell { get; set; }
 
         internal void SetSpell(SpellInfo info)
         {
@@ -59,6 +60,14 @@ namespace Goose2Client
 
             if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount >= 2)
                 OnDoubleClick?.Invoke(this.info);
+        }
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            var fromSlot = eventData.pointerDrag?.GetComponent<SpellSlot>();
+            if (fromSlot == null || !fromSlot.HasSpell) return;
+
+            OnMoveSpell?.Invoke(fromSlot.SlotNumber, SlotNumber);
         }
     }
 }

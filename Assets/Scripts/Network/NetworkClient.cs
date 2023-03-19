@@ -174,5 +174,15 @@ namespace Goose2Client
         {
             Send($"GET");
         }
+
+        public void MoveSpell(int fromSlot, int toSlot)
+        {
+            Send($"SWAP{fromSlot},{toSlot}");
+        }
+
+        public void CastSpell(int slot, int targetId)
+        {
+            Send($"CAST{slot},{targetId}");
+        }
     }
 }

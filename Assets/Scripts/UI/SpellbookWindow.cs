@@ -31,6 +31,7 @@ namespace Goose2Client
                     slot.SlotNumber = page.startSlotIndex + j;
                     slot.Window = this;
                     slot.OnDoubleClick += UseSpell;
+                    slot.OnMoveSpell += MoveSpell;
                 }
 
                 pages[i].gameObject.SetActive(pageIndex == i);
@@ -66,8 +67,7 @@ namespace Goose2Client
 
         private void UseSpell(SpellInfo info)
         {
-            Debug.Log($"Use spell {info.SlotNumber}/{info.Name}");
-            //GameManager.Instance.NetworkClient.UseItem(stats.SlotNumber + 1);
+            GameManager.Instance.NetworkClient.CastSpell(info.SlotNumber + 1, GameManager.Instance.Character.LoginId);
         }
 
         public void OnBackClicked()
@@ -93,6 +93,36 @@ namespace Goose2Client
 
             backButton.SetActive(pageIndex != 0);
             nextButton.SetActive(pageIndex != pages.Length - 1);
+        }
+
+        public void MoveSpell(int fromIndex, bool forward)
+        {
+            var pageIndex = fromIndex / Constants.SpellbookSlotsPerPage;
+
+            int startPage = 0;
+            int endPage = pageIndex;
+            if (forward)
+            {
+                startPage = pageIndex + 1;
+                endPage = pages.Length;
+            }
+
+            for (int i = startPage; i < endPage; i++)
+            {
+                var page = pages[i];
+                for (int j = 0; j < page.slots.Length; j++)
+                {
+                    var slot = page.slots[j];
+                    if (slot.HasSpell) continue;
+
+                    MoveSpell(fromIndex, page.startSlotIndex + j);
+                }
+            }
+        }
+
+        public void MoveSpell(int fromIndex, int toIndex)
+        {
+            GameManager.Instance.NetworkClient.MoveSpell(fromIndex + 1, toIndex + 1);
         }
     }
 }

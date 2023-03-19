@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Goose2Client
 {
-    class Character : MonoBehaviour
+    public class Character : MonoBehaviour
     {
+        public int LoginId { get; private set; }
         public int X { get; private set; }
         public int Y { get; private set; }
         public float MoveSpeed { get; set; }
@@ -57,6 +58,7 @@ namespace Goose2Client
 
             SetBodyState(packet.BodyState);
 
+            this.LoginId = packet.LoginId;
             this.MoveSpeed = packet.MoveSpeed;
             this.X = packet.MapX;
             this.Y = packet.MapY;

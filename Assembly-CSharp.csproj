@@ -103,6 +103,7 @@
      <Compile Include="Assets/Scripts/MapFile.cs" />
      <Compile Include="Assets/Scripts/UI/InventoryWindow.cs" />
      <Compile Include="Assets/Scripts/UI/TooltipManager.cs" />
+     <Compile Include="Assets/Scripts/UI/SpellbookButton.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClearInventorySlotPacket.cs" />
      <Compile Include="Assets/Scripts/GameManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EmotePacket.cs" />

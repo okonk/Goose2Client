@@ -1,5 +1,4 @@
 
-move spells
 
 come up with some way for windows to be hidden but still receive packets
 
@@ -98,3 +97,4 @@ block tooltip if window is on top
 fix tooltips not disappearing when item destroyed
 hp/mp bar UI
 spellbook UI
+move spells
