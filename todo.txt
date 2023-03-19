@@ -1,9 +1,9 @@
 
-fix tooltips not disappearing when item destroyed
+spellbook UI
 
 
 chat UI
-spellbook UI
+
 hotbar UI
 character UI
 bank UI
@@ -11,7 +11,7 @@ combine bag UI
 shop UI
 message UI
 quest UI
-hp/mp/xp bar UI
+xp bar UI
 party UI
 buff bar UI
 toolbar ui
@@ -31,6 +31,7 @@ mounts
 emotes
 
 save char name
+save window positions
 
 fix layer rendering of characters/map objects
 improve name heights
@@ -84,3 +85,5 @@ fix colours in inventory
 tabbing and enter on login screen
 show tooltips on items on the ground
 block tooltip if window is on top
+fix tooltips not disappearing when item destroyed
+hp/mp bar UI

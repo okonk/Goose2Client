@@ -18,6 +18,8 @@ namespace Goose2Client
 
         [SerializeField] private MapItemTooltip mapItemTooltip;
 
+        [SerializeField] private TextTooltip textTooltip;
+
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -58,6 +60,18 @@ namespace Goose2Client
         {
             if (mapItemTooltip.Item == stats)
                 HideMapItemTooltip();
+        }
+
+        public void ShowTextTooltip(string text)
+        {
+            textTooltip.SetText(text);
+
+            textTooltip.gameObject.SetActive(true);
+        }
+
+        public void HideTextTooltip()
+        {
+            textTooltip.gameObject.SetActive(false);
         }
     }
 }

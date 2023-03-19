@@ -40,6 +40,7 @@
     <Analyzer Include="/home/hayden/Unity/Hub/Editor/2022.2.11f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets/Scripts/UI/VitalsWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SpellbookSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Character/CharacterAnimation.cs" />
      <Compile Include="Assets/Scripts/UI/IWindow.cs" />
@@ -56,6 +57,7 @@
      <Compile Include="Assets/Scripts/UI/ItemSlot.cs" />
      <Compile Include="Assets/Scripts/Character/CharacterHealthBar.cs" />
      <Compile Include="Assets/Scripts/UI/MapItemTooltip.cs" />
+     <Compile Include="Assets/Scripts/UI/TextTooltipEventHandler.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginSuccessPacket.cs" />
      <Compile Include="Assets/Scripts/UI/WindowTransparency.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeWindowPacket.cs" />
@@ -105,6 +107,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/MapObjectPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ChangeHeadingPacket.cs" />
      <Compile Include="Assets/Scripts/Character/PlayerController.cs" />
+     <Compile Include="Assets/Scripts/UI/TextTooltip.cs" />
      <Compile Include="Assets/Scripts/MapManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EndWindowPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SetYourPositionPacket.cs" />
