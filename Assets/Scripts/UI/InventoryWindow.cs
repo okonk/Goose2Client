@@ -37,6 +37,8 @@ namespace Goose2Client
         {
             var packet = (InventorySlotPacket)packetObj;
 
+            if (packet.SlotNumber >= slots.Length) return;
+
             var stats = ItemStats.FromPacket(packet);
             slots[packet.SlotNumber].SetItem(stats);
         }
@@ -44,6 +46,8 @@ namespace Goose2Client
         private void OnClearInventorySlot(object packetObj)
         {
             var packet = (ClearInventorySlotPacket)packetObj;
+
+            if (packet.SlotNumber >= slots.Length) return;
 
             slots[packet.SlotNumber].ClearItem();
         }

@@ -49,6 +49,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/StatusInfoPacket.cs" />
      <Compile Include="Assets/Scripts/UI/NonDrawingGraphic.cs" />
      <Compile Include="Assets/Scripts/AnimationSlot.cs" />
+     <Compile Include="Assets/Scripts/UI/SpellbookPage.cs" />
      <Compile Include="Assets/Scripts/UI/ItemTooltip.cs" />
      <Compile Include="Assets/Scripts/Network/PacketParser.cs" />
      <Compile Include="Assets/Scripts/Character.cs" />
@@ -73,6 +74,7 @@
      <Compile Include="Assets/Scripts/MapItem.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
+     <Compile Include="Assets/Scripts/SpellInfo.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/WeaponSpeedPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/VitalsPercentagePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/BattleTextPacket.cs" />
@@ -80,6 +82,7 @@
      <Compile Include="Assets/Scripts/Constants.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ExperienceBarPacket.cs" />
      <Compile Include="Assets/Scripts/UI/NonDrawingGraphicEditor.cs" />
+     <Compile Include="Assets/Scripts/UI/SpellbookWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SpellTilePacket.cs" />
      <Compile Include="Assets/Scripts/Network/PacketManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/WindowLinePacket.cs" />
@@ -115,6 +118,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/ServerMessagePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginFailPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/HashMessagePacket.cs" />
+     <Compile Include="Assets/Scripts/UI/SpellSlot.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ChatPacket.cs" />
      <Compile Include="Assets/Scripts/UI/TitleBar.cs" />
      <Compile Include="Assets/Scripts/Character/BattleText.cs" />

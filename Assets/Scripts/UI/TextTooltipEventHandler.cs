@@ -7,7 +7,7 @@ namespace Goose2Client
 {
     public class TextTooltipEventHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] public string TooltipText { get; set; }
+        [SerializeField] public string TooltipText;
 
         public void OnPointerEnter(PointerEventData eventData)
         {

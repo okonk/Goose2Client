@@ -84,7 +84,7 @@ namespace Goose2Client
                     string receivedString = System.Text.Encoding.ASCII.GetString(buffer, 0, received);
                     packetBuffer += receivedString;
 
-                    // Debug.Log($"Received: {receivedString.Replace('\x1', '\n')}");
+                    //Debug.Log($"Received: {receivedString.Replace('\x1', '\n')}");
 
                     if (packetBuffer.Length == 0) continue;
 
@@ -102,18 +102,19 @@ namespace Goose2Client
 
                     for (int i = 0; i < limit; i++)
                     {
-                        //Console.WriteLine($"P: {packets[i]}");
+                        // Debug.Log($"P: {packets[i]}");
                         GameManager.Instance.PacketManager.Handle(packets[i]);
 
                         if (Pause)
                         {
-                            packetBuffer = string.Join('\x1', packets.Skip(i + 1)) + packetBuffer;
+                            packetBuffer = string.Join('\x1', packets.Skip(i + 1).Take(limit - i)) + packetBuffer;
                             return;
                         }
                     }
                 }
                 catch (Exception e)
                 {
+                    Debug.Log($"Network Exception: {e}");
                     SocketError?.Invoke(e);
                 }
             }

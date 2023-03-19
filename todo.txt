@@ -1,5 +1,15 @@
 
-spellbook UI
+move spells
+
+come up with some way for windows to be hidden but still receive packets
+
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+Goose2Client.DropTargetManager:Start () (at Assets/Scripts/UI/DropTargetManager.cs:26)
+
+There are 2 event systems in the scene. Please ensure there is always exactly one event system in the scene
+UnityEngine.EventSystems.EventSystem:Update () (at ./Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs:543)
+
 
 
 chat UI
@@ -87,3 +97,4 @@ show tooltips on items on the ground
 block tooltip if window is on top
 fix tooltips not disappearing when item destroyed
 hp/mp bar UI
+spellbook UI
