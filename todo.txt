@@ -1,26 +1,21 @@
 
 
-come up with some way for windows to be hidden but still receive packets
+figure out killing of tooltips
 
-DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-Goose2Client.DropTargetManager:Start () (at Assets/Scripts/UI/DropTargetManager.cs:26)
+character update
 
-There are 2 event systems in the scene. Please ensure there is always exactly one event system in the scene
-UnityEngine.EventSystems.EventSystem:Update () (at ./Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs:543)
-
-
+xp bar UI
+hotbar UI
 
 chat UI
 
-hotbar UI
 character UI
 bank UI
 combine bag UI
 shop UI
 message UI
 quest UI
-xp bar UI
+
 party UI
 buff bar UI
 toolbar ui
@@ -28,12 +23,8 @@ toolbar ui
 player isn't centered
 built client is laggy
 
-character update
-
 chat bubbles
 
-
-cast spells
 spell targeting
 mounts
 
@@ -98,3 +89,11 @@ fix tooltips not disappearing when item destroyed
 hp/mp bar UI
 spellbook UI
 move spells
+come up with some way for windows to be hidden but still receive packets
+cast spells
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+Goose2Client.DropTargetManager:Start () (at Assets/Scripts/UI/DropTargetManager.cs:26)
+
+There are 2 event systems in the scene. Please ensure there is always exactly one event system in the scene
+UnityEngine.EventSystems.EventSystem:Update () (at ./Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs:543)

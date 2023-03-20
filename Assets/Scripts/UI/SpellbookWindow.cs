@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Goose2Client
 {
     public class SpellbookWindow : MonoBehaviour, IWindow
     {
+        [SerializeField] private GameObject panel;
         [SerializeField] private SpellbookPage[] pages;
 
         private int pageIndex = 0;
@@ -16,6 +18,11 @@ namespace Goose2Client
 
         public int WindowId => (int)WindowFrame;
         public WindowFrames WindowFrame => WindowFrames.Spellbook;
+
+        private void OnToggleSpellbook(InputValue value)
+        {
+            panel.SetActive(!panel.activeSelf);
+        }
 
         private void Start()
         {

@@ -2,15 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Goose2Client
 {
     public class InventoryWindow : MonoBehaviour, IWindow
     {
+        [SerializeField] private GameObject panel;
         [SerializeField] private ItemSlot[] slots;
 
         public int WindowId => (int)WindowFrame;
         public WindowFrames WindowFrame => WindowFrames.Inventory;
+
+        private void OnToggleInventory(InputValue value)
+        {
+            panel.SetActive(!panel.activeSelf);
+        }
 
         private void Start()
         {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
@@ -35,8 +36,12 @@ namespace Goose2Client
                 yield return null;
             }
 
+            var mapScene = SceneManager.GetSceneByName("MapScene");
+            var eventSystem = FindObjectOfType<EventSystem>();
+            SceneManager.MoveGameObjectToScene(eventSystem.gameObject, mapScene);
+
             var mapObj = ImportMap(map);
-            SceneManager.MoveGameObjectToScene(mapObj, SceneManager.GetSceneByName("MapScene"));
+            SceneManager.MoveGameObjectToScene(mapObj, mapScene);
             SceneManager.UnloadSceneAsync(currentScene);
 
             var mapManager = FindObjectOfType<MapManager>();
