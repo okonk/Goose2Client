@@ -9,6 +9,8 @@ public class CharacterAnimation : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private AnimatorOverrideController overrideController;
 
+    public int Id { get; private set; }
+    public Color Color { get; private set; }
     public int Height { get; private set; } = 64;
 
     private void Awake()
@@ -39,6 +41,8 @@ public class CharacterAnimation : MonoBehaviour
 
     public void SetGraphic(string type, int id)
     {
+        this.Id = id;
+
         var overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>();
         overrideController.GetOverrides(overrides);
 
@@ -70,6 +74,8 @@ public class CharacterAnimation : MonoBehaviour
 
     public void SetColor(Color color)
     {
+        this.Color = color;
+
         this.spriteRenderer.material.SetColor("_Color", Color.white);
         //color.a = 220 / 256f ;
         this.spriteRenderer.material.SetColor("_Tint", color);

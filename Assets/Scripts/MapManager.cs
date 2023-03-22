@@ -35,6 +35,7 @@ namespace Goose2Client
 
             GameManager.Instance.PacketManager.Listen<PingPacket>(this.OnPing);
             GameManager.Instance.PacketManager.Listen<MakeCharacterPacket>(this.OnMakeCharacter);
+            GameManager.Instance.PacketManager.Listen<UpdateCharacterPacket>(this.OnUpdateCharacter);
             GameManager.Instance.PacketManager.Listen<SetYourCharacterPacket>(this.OnSetYourCharacter);
             GameManager.Instance.PacketManager.Listen<MoveCharacterPacket>(this.OnMoveCharacter);
             GameManager.Instance.PacketManager.Listen<ChangeHeadingPacket>(this.OnChangeHeading);
@@ -56,6 +57,7 @@ namespace Goose2Client
         {
             GameManager.Instance.PacketManager.Remove<PingPacket>(this.OnPing);
             GameManager.Instance.PacketManager.Remove<MakeCharacterPacket>(this.OnMakeCharacter);
+            GameManager.Instance.PacketManager.Remove<UpdateCharacterPacket>(this.OnUpdateCharacter);
             GameManager.Instance.PacketManager.Remove<SetYourCharacterPacket>(this.OnSetYourCharacter);
             GameManager.Instance.PacketManager.Remove<MoveCharacterPacket>(this.OnMoveCharacter);
             GameManager.Instance.PacketManager.Remove<ChangeHeadingPacket>(this.OnChangeHeading);
@@ -84,6 +86,17 @@ namespace Goose2Client
 
             var characterScript = character.GetComponent<Character>();
             characterScript.MakeCharacter(makeCharacterPacket);
+        }
+
+        private void OnUpdateCharacter(object packet)
+        {
+            var updateCharacterPacket = (UpdateCharacterPacket)packet;
+
+            if (!characters.TryGetValue(updateCharacterPacket.LoginId, out var character))
+                return;
+
+            var characterScript = character.GetComponent<Character>();
+            characterScript.UpdateCharacter(updateCharacterPacket);
         }
 
         private void OnPing(object packet)

@@ -66,6 +66,47 @@ namespace Goose2Client
             this.battleText = GetComponentInChildren<BattleText>();
         }
 
+        public void UpdateCharacter(UpdateCharacterPacket packet)
+        {
+            UpdateAnimation(AnimationSlot.Body, "Body", packet.BodyId, ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA));
+
+            if (packet.BodyId < 100)
+            {
+                UpdateAnimation(AnimationSlot.Hair, "Hair", packet.HairId, ColorH.RGBA(packet.HairR, packet.HairG, packet.HairB, packet.HairA));
+
+                SetUnderwear(packet.BodyId, packet.DisplayedEquipment);
+
+                UpdateAnimation(AnimationSlot.Face, "Eyes", packet.FaceId, Color.clear);
+                UpdateAnimation(AnimationSlot.Chest, "Chest", packet.DisplayedEquipment[0][0], ColorH.RGBA(packet.DisplayedEquipment[0]));
+                UpdateAnimation(AnimationSlot.Head, "Helm", packet.DisplayedEquipment[1][0], ColorH.RGBA(packet.DisplayedEquipment[1]));
+                UpdateAnimation(AnimationSlot.Legs, "Legs", packet.DisplayedEquipment[2][0], ColorH.RGBA(packet.DisplayedEquipment[2]));
+                UpdateAnimation(AnimationSlot.Feet, "Feet", packet.DisplayedEquipment[3][0], ColorH.RGBA(packet.DisplayedEquipment[3]));
+                UpdateAnimation(AnimationSlot.Shield, "Hand", packet.DisplayedEquipment[4][0], ColorH.RGBA(packet.DisplayedEquipment[4]));
+                UpdateAnimation(AnimationSlot.Weapon, "Hand", packet.DisplayedEquipment[5][0], ColorH.RGBA(packet.DisplayedEquipment[5]));
+            }
+            else
+            {
+                DestroyAnimation(AnimationSlot.Hair);
+                DestroyAnimation(AnimationSlot.Face);
+                DestroyAnimation(AnimationSlot.Chest);
+                DestroyAnimation(AnimationSlot.Head);
+                DestroyAnimation(AnimationSlot.Legs);
+                DestroyAnimation(AnimationSlot.Feet);
+                DestroyAnimation(AnimationSlot.Shield);
+                DestroyAnimation(AnimationSlot.Weapon);
+            }
+
+            SetFacing(Facing);
+
+            var equipped = packet.BodyState == 3 ? 0 : 1;
+            foreach (var animation in animations.Values)
+                animation.SetFloat(Constants.Equipped, equipped);
+
+            SetBodyState(packet.BodyState);
+
+            this.MoveSpeed = packet.MoveSpeed;
+        }
+
         private void CreateName(string name, string title, string surname, int bodyHeight, float yOffset)
         {
             var textObject = new GameObject("Name Text");
@@ -104,7 +145,7 @@ namespace Goose2Client
             }
 
             // female
-            if (bodyId == 2)
+            if (bodyId == 11)
             {
                 if (equips[0][0] == 0)
                     equips[0][0] = 8;
@@ -129,6 +170,38 @@ namespace Goose2Client
             this.animations[slot] = characterAnimationScript;
 
             return characterAnimationScript;
+        }
+
+        private void UpdateAnimation(AnimationSlot slot, string type, int id, Color color)
+        {
+            if (!this.animations.TryGetValue(slot, out var animation))
+            {
+                CreateAnimation(slot, type, id, color);
+                return;
+            }
+
+            if (id <= 0)
+            {
+                this.animations.Remove(slot);
+                Destroy(animation.gameObject);
+                return;
+            }
+
+            if (animation.Id == id && animation.Color == color)
+                return;
+
+            animation.SetGraphic(type, id);
+            animation.SetColor(color);
+            animation.SetSortOrder(GetSortOrder(slot, Facing));
+        }
+
+        private void DestroyAnimation(AnimationSlot slot)
+        {
+            if (!this.animations.TryGetValue(slot, out var animation))
+                return;
+
+            this.animations.Remove(slot);
+            Destroy(animation.gameObject);
         }
 
         private int GetSortOrder(AnimationSlot slot, Direction direction)
