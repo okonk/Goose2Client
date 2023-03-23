@@ -3,32 +3,24 @@ using System.Collections.Generic;
 
 namespace Goose2Client
 {
-    class ExperienceBarPacket : PacketHandler
+    public class ExperienceBarPacket : PacketHandler
     {
-        public int Percentage { get; set; }
-
+        public float Percentage { get; set; }
         public long Experience { get; set; }
-
         public long ExperienceToNextLevel { get; set; }
+        public long ExperienceSold { get; set; }
 
         public override string Prefix { get; } = "TNL";
 
         public override object Parse(PacketParser p)
         {
-            var packet = new ExperienceBarPacket()
+            return new ExperienceBarPacket()
             {
-                Percentage = p.GetInt32(),
+                Percentage = p.GetInt32() / 100.0f,
                 Experience = p.GetInt64(),
-                ExperienceToNextLevel = p.GetInt64()
+                ExperienceToNextLevel = p.GetInt64(),
+                ExperienceSold = p.GetInt64(),
             };
-
-            // My extension to display uncapped experience value on newer clients
-            if (p.LengthRemaining() > 0)
-            {
-                packet.ExperienceToNextLevel = p.GetInt64();
-            }
-
-            return packet;
         }
     }
 }

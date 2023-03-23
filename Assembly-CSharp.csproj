@@ -52,6 +52,7 @@
      <Compile Include="Assets/Scripts/UI/SpellbookPage.cs" />
      <Compile Include="Assets/Scripts/UI/ItemTooltip.cs" />
      <Compile Include="Assets/Scripts/Network/PacketParser.cs" />
+     <Compile Include="Assets/Scripts/UI/HotbarWindow.cs" />
      <Compile Include="Assets/Scripts/Character.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MoveCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/BuffBarPacket.cs" />
@@ -73,6 +74,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/MakeCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/MapItem.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
+     <Compile Include="Assets/Scripts/UI/HotbarSlot.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
      <Compile Include="Assets/Scripts/SpellInfo.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/WeaponSpeedPacket.cs" />

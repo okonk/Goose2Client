@@ -13,7 +13,7 @@ namespace Goose2Client
     {
         [SerializeField] private Image image;
 
-        [SerializeField] private SpellInfo info;
+        [SerializeField] public SpellInfo info;
 
         public bool HasSpell => info != null;
 

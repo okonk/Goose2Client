@@ -11,7 +11,8 @@ namespace Goose2Client
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            TooltipManager.Instance.ShowTextTooltip(TooltipText);
+            if (!string.IsNullOrWhiteSpace(TooltipText))
+                TooltipManager.Instance.ShowTextTooltip(TooltipText);
         }
 
         public void OnPointerExit(PointerEventData eventData)

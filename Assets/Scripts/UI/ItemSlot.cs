@@ -14,7 +14,7 @@ namespace Goose2Client
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
 
-        [SerializeField] private ItemStats stats;
+        [SerializeField] public ItemStats stats;
 
         public bool HasItem => stats != null;
         public int StackSize => stats?.StackSize ?? 0;

@@ -537,6 +537,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4877364375913958749}
+  - component: {fileID: 5170889944458376371}
   m_Layer: 5
   m_Name: HP Bar
   m_TagString: Untagged
@@ -566,6 +567,19 @@ RectTransform:
   m_AnchoredPosition: {x: 24, y: 9}
   m_SizeDelta: {x: 133, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5170889944458376371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773955211337433174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b3866e4609511f69d5bc1a313f4f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipText: 
 --- !u!1 &3126292147002637466
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +589,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3504156388306926328}
+  - component: {fileID: 1455489701564385466}
   m_Layer: 5
   m_Name: MP Bar
   m_TagString: Untagged
@@ -604,6 +619,19 @@ RectTransform:
   m_AnchoredPosition: {x: 11.5, y: -9}
   m_SizeDelta: {x: 108, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1455489701564385466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126292147002637466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b3866e4609511f69d5bc1a313f4f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipText: 
 --- !u!1 &4591484188938042800
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,7 +692,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &8872443332456500003
 MonoBehaviour:
@@ -715,6 +743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5390708767778541427}
+  - component: {fileID: 6441522296715240661}
   m_Layer: 5
   m_Name: Level
   m_TagString: Untagged
@@ -744,6 +773,19 @@ RectTransform:
   m_AnchoredPosition: {x: -44.5, y: -18.5}
   m_SizeDelta: {x: 19, y: 19}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6441522296715240661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4795302533224999728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b3866e4609511f69d5bc1a313f4f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipText: 
 --- !u!1 &5422626790320934336
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,6 +998,9 @@ MonoBehaviour:
   hpBarText: {fileID: 1712815960793014270}
   mpBarText: {fileID: 9018030619639483878}
   levelText: {fileID: 8896846263800861843}
+  hpBarTooltip: {fileID: 5170889944458376371}
+  mpBarTooltip: {fileID: 1455489701564385466}
+  levelTooltip: {fileID: 6441522296715240661}
 --- !u!114 &2146758649854368428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,6 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 5732743665883382896}
+  transformToMove: {fileID: 9202836716561189463}
 --- !u!1 &8087226406673467068
 GameObject:
   m_ObjectHideFlags: 0
