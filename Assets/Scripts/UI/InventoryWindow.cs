@@ -59,7 +59,7 @@ namespace Goose2Client
             slots[packet.SlotNumber].ClearItem();
         }
 
-        private void UseItem(ItemStats stats)
+        public void UseItem(ItemStats stats)
         {
             GameManager.Instance.NetworkClient.UseItem(stats.SlotNumber + 1);
         }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 namespace Goose2Client
 {
@@ -17,6 +18,8 @@ namespace Goose2Client
         public Character Character { get; set; }
 
         public Dictionary<int, string> Classes { get; private set; } = new Dictionary<int, string>();
+
+        public SpellCooldownManager SpellCooldownManager { get; private set; }
 
         public MapFile CurrentMap { get; set; }
 
@@ -39,6 +42,7 @@ namespace Goose2Client
             NetworkClient = new NetworkClient();
             PacketManager = new PacketManager();
             AnimationManager = new AnimationManager();
+            SpellCooldownManager = new SpellCooldownManager();
         }
 
         private void Start()

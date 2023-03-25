@@ -245,74 +245,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3700469870273070191, guid: 0e823bbffb7af7282b8b78ea2884a36f, type: 3}
   m_PrefabInstance: {fileID: 4381052492464670249}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &635197601
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 635197604}
-  - component: {fileID: 635197603}
-  - component: {fileID: 635197602}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &635197602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635197601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
---- !u!114 &635197603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635197601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &635197604
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635197601}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &653327114
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +718,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 547833290683790676, guid: 1817cf7eb10d63ba69a1b02ade949c5e, type: 3}
   m_PrefabInstance: {fileID: 547833291910948958}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &547833291910948960 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1409813525108520863, guid: 1817cf7eb10d63ba69a1b02ade949c5e, type: 3}
+  m_PrefabInstance: {fileID: 547833291910948958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9224c0096cbbe4599d6716bc79589db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1899423900010751791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -887,6 +830,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d43bf4a13003b96169bca97239688b48, type: 3}
+--- !u!114 &1899423900010751792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4786071446494694539, guid: d43bf4a13003b96169bca97239688b48, type: 3}
+  m_PrefabInstance: {fileID: 1899423900010751791}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783000453040cf7e9b4ecf611fb3c318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2326317512140048761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1123,6 +1077,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 52
       objectReference: {fileID: 0}
+    - target: {fileID: 6120102557653866282, guid: 34210d8e758af60a485f10f5068fb277, type: 3}
+      propertyPath: inventoryWindow
+      value: 
+      objectReference: {fileID: 547833291910948960}
+    - target: {fileID: 6120102557653866282, guid: 34210d8e758af60a485f10f5068fb277, type: 3}
+      propertyPath: spellbookWindow
+      value: 
+      objectReference: {fileID: 1899423900010751792}
     - target: {fileID: 6280226613659820772, guid: 34210d8e758af60a485f10f5068fb277, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 17

@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNext: 0
-  window: {fileID: 0}
+  window: {fileID: 4786071446494694539}
 --- !u!1 &3116804403803579701
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,7 +617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNext: 1
-  window: {fileID: 0}
+  window: {fileID: 4786071446494694539}
 --- !u!1 &9074868423422807028
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +671,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0

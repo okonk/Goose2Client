@@ -1523,6 +1523,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7529194655558168635}
     m_Modifications:
+    - target: {fileID: 1565387334471769816, guid: 97f315aed48de690d88f730d1b94ca9c, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+    - target: {fileID: 1565387334471769822, guid: 97f315aed48de690d88f730d1b94ca9c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1565387335169870338, guid: 97f315aed48de690d88f730d1b94ca9c, type: 3}
       propertyPath: m_Name
       value: ItemSlot

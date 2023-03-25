@@ -1,11 +1,14 @@
-
+hotbar double click to use
+hotbar hold button to spam
+test hotbar drag dropping
+test hotbar when item runs out
+test hotbar when spell is moved to empty slot
 
 figure out killing of tooltips
 
-character update
 
-xp bar UI
-hotbar UI
+
+
 
 chat UI
 
@@ -32,6 +35,7 @@ emotes
 
 save char name
 save window positions
+save hotbar items
 
 fix layer rendering of characters/map objects
 improve name heights
@@ -94,6 +98,8 @@ cast spells
 DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
 UnityEngine.StackTraceUtility:ExtractStackTrace ()
 Goose2Client.DropTargetManager:Start () (at Assets/Scripts/UI/DropTargetManager.cs:26)
-
 There are 2 event systems in the scene. Please ensure there is always exactly one event system in the scene
 UnityEngine.EventSystems.EventSystem:Update () (at ./Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs:543)
+xp bar UI
+hotbar UI
+character update

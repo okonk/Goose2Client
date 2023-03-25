@@ -74,6 +74,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/MakeCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/MapItem.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
+     <Compile Include="Assets/Scripts/UI/BackgroundTransparency.cs" />
      <Compile Include="Assets/Scripts/UI/HotbarSlot.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
      <Compile Include="Assets/Scripts/SpellInfo.cs" />
@@ -87,6 +88,7 @@
      <Compile Include="Assets/Scripts/UI/SpellbookWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SpellTilePacket.cs" />
      <Compile Include="Assets/Scripts/Network/PacketManager.cs" />
+     <Compile Include="Assets/Scripts/SpellCooldownManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/WindowLinePacket.cs" />
      <Compile Include="Assets/Scripts/ItemStats.cs" />
      <Compile Include="Assets/Scripts/AnimationManager.cs" />
