@@ -75,6 +75,11 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<EraseObjectPacket>(this.OnEraseMapObject);
         }
 
+        private void OnApplicationQuit()
+        {
+            GameManager.Instance.NetworkClient.Quit();
+        }
+
         private void OnMakeCharacter(object packet)
         {
             var makeCharacterPacket = (MakeCharacterPacket)packet;

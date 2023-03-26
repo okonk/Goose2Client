@@ -1,15 +1,3 @@
-hotbar double click to use
-hotbar hold button to spam
-test hotbar drag dropping
-test hotbar when item runs out
-test hotbar when spell is moved to empty slot
-
-figure out killing of tooltips
-
-
-
-
-
 chat UI
 
 character UI
@@ -22,6 +10,10 @@ quest UI
 party UI
 buff bar UI
 toolbar ui
+
+figure out killing of tooltips
+
+render character head in vitals window
 
 player isn't centered
 built client is laggy
@@ -36,6 +28,8 @@ emotes
 save char name
 save window positions
 save hotbar items
+
+resize spell slots?
 
 fix layer rendering of characters/map objects
 improve name heights
@@ -103,3 +97,9 @@ UnityEngine.EventSystems.EventSystem:Update () (at ./Library/PackageCache/com.un
 xp bar UI
 hotbar UI
 character update
+hotbar double click to use
+hotbar hold button to spam
+test hotbar when item runs out
+test hotbar when spell is moved to empty slot
+test hotbar drag dropping
+add cooldown fill to spell slots

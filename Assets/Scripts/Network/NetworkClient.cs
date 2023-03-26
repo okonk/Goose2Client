@@ -107,7 +107,7 @@ namespace Goose2Client
 
                         if (Pause)
                         {
-                            packetBuffer = string.Join('\x1', packets.Skip(i + 1).Take(limit - i)) + packetBuffer;
+                            packetBuffer = string.Join('\x1', packets.Skip(i + 1).Take(limit - i - 1)) + packetBuffer;
                             return;
                         }
                     }
@@ -160,7 +160,7 @@ namespace Goose2Client
             Send($"USE{slot}");
         }
 
-        public void Change(int fromSlot, int toSlot)
+        public void MoveItemInInventory(int fromSlot, int toSlot)
         {
             Send($"CHANGE{fromSlot},{toSlot}");
         }
@@ -183,6 +183,11 @@ namespace Goose2Client
         public void CastSpell(int slot, int targetId)
         {
             Send($"CAST{slot},{targetId}");
+        }
+
+        public void Quit()
+        {
+            Send($"QUIT");
         }
     }
 }

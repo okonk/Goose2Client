@@ -68,7 +68,7 @@ namespace Goose2Client
         {
             if (fromWindowId == this.WindowId)
             {
-                GameManager.Instance.NetworkClient.Change(fromSlot + 1, toSlot + 1);
+                GameManager.Instance.NetworkClient.MoveItemInInventory(fromSlot + 1, toSlot + 1);
             }
             else
             {

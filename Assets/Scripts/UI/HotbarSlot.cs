@@ -9,12 +9,13 @@ using System;
 
 namespace Goose2Client
 {
-    public class HotbarSlot : MonoBehaviour, IDropHandler
+    public class HotbarSlot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
         [SerializeField] private Image cooldownOverlay;
-        [SerializeField] private TextTooltipEventHandler tooltip;
+
+        public Action<int> OnUseSlot { get; set; }
 
         public int SlotNumber { get; set; }
         public IWindow Window { get; set; }
@@ -32,14 +33,16 @@ namespace Goose2Client
             if (IsEmpty)
                 return false;
 
-            TimeSpan remaining;
-            if (SpellInfo != null && (remaining = GameManager.Instance.SpellCooldownManager.GetCooldownRemaining(SpellInfo)) > TimeSpan.Zero)
-            {
-                Debug.Log($"Remaining: {remaining}");
+            if (SpellInfo != null && GameManager.Instance.SpellCooldownManager.GetCooldownRemaining(SpellInfo) > TimeSpan.Zero)
                 return false;
-            }
 
             return true;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount >= 2)
+                OnUseSlot?.Invoke(SlotNumber);
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -71,8 +74,10 @@ namespace Goose2Client
 
                 if (currentItem != null)
                     fromHotbar.SetItem(currentItem);
-                else
+                else if (currentSpell != null)
                     fromHotbar.SetSpell(currentSpell);
+                else
+                    fromHotbar.Clear();
 
                 return;
             }
@@ -88,7 +93,6 @@ namespace Goose2Client
             image.color = Color.white;
             image.material = Instantiate(image.material);
             image.material.SetColor("_Tint", ColorH.RGBA(ItemStats.GraphicR, ItemStats.GraphicG, ItemStats.GraphicB, ItemStats.GraphicA));
-            tooltip.TooltipText = $"Item: {ItemStats.Name}";
             countText.text = ItemStats.StackSize.ToString();
             countText.gameObject.SetActive(ItemStats.StackSize > 1);
         }
@@ -104,7 +108,6 @@ namespace Goose2Client
             spellSlot = spell.SlotNumber;
             image.sprite = Helpers.GetSprite(SpellInfo.GraphicId, SpellInfo.GraphicFile);
             image.color = Color.white;
-            tooltip.TooltipText = $"Spell: {SpellInfo.Name}";
             cooldownOverlay.fillAmount = GetCooldownRemainingPercent();
             cooldownOverlay.gameObject.SetActive(true);
         }
@@ -116,7 +119,6 @@ namespace Goose2Client
             countText.gameObject.SetActive(false);
             ItemStats = null;
             SpellInfo = null;
-            tooltip.TooltipText = null;
             itemSlot = keepItemSlot;
             spellSlot = keepSpellSlot;
         }
@@ -161,6 +163,27 @@ namespace Goose2Client
                 return 0;
 
             return (float)(remaining.TotalMilliseconds / SpellInfo.Cooldown.TotalMilliseconds);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (SpellInfo != null)
+            {
+                var remaining = GameManager.Instance.SpellCooldownManager.GetCooldownRemaining(SpellInfo);
+                if (remaining == TimeSpan.Zero)
+                    TooltipManager.Instance.ShowTextTooltip(SpellInfo.Name);
+                else
+                    TooltipManager.Instance.ShowTextTooltip($"{SpellInfo.Name} ({remaining.FormatDuration()} remaining)");
+            }
+            else if (ItemStats != null)
+            {
+                TooltipManager.Instance.ShowTextTooltip(ItemStats.Name);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            TooltipManager.Instance.HideTextTooltip();
         }
     }
 }

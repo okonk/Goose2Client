@@ -18,6 +18,9 @@ namespace Goose2Client
         [SerializeField] private InventoryWindow inventoryWindow;
         [SerializeField] private SpellbookWindow spellbookWindow;
 
+        private bool[] buttonPressed;
+        private float buttonRepeatDelayTime;
+
         public int WindowId => (int)WindowFrame;
         public WindowFrames WindowFrame => WindowFrames.Hotbar;
 
@@ -33,7 +36,10 @@ namespace Goose2Client
                 var slot = slots[i];
                 slot.SlotNumber = i;
                 slot.Window = this;
+                slot.OnUseSlot = UseSlot;
             }
+
+            buttonPressed = new bool[slots.Length];
         }
 
         private void OnDestroy()
@@ -108,53 +114,54 @@ namespace Goose2Client
         }
 
         private void OnHotkey0(InputValue value)
-        {
-            UseSlot(9);
-        }
+            => OnButtonPressed(9, value);
 
         private void OnHotkey1(InputValue value)
-        {
-            UseSlot(0);
-        }
+            => OnButtonPressed(0, value);
 
         private void OnHotkey2(InputValue value)
-        {
-            UseSlot(1);
-        }
+            => OnButtonPressed(1, value);
 
         private void OnHotkey3(InputValue value)
-        {
-            UseSlot(2);
-        }
+            => OnButtonPressed(2, value);
 
         private void OnHotkey4(InputValue value)
-        {
-            UseSlot(3);
-        }
+            => OnButtonPressed(3, value);
 
         private void OnHotkey5(InputValue value)
-        {
-            UseSlot(4);
-        }
+            => OnButtonPressed(4, value);
 
         private void OnHotkey6(InputValue value)
-        {
-            UseSlot(5);
-        }
+            => OnButtonPressed(5, value);
 
         private void OnHotkey7(InputValue value)
-        {
-            UseSlot(6);
-        }
+            => OnButtonPressed(6, value);
 
         private void OnHotkey8(InputValue value)
-        {
-            UseSlot(7);
-        }
+            => OnButtonPressed(7, value);
 
         private void OnHotkey9(InputValue value)
+            => OnButtonPressed(8, value);
+
+        private void OnButtonPressed(int index, InputValue value)
         {
-            UseSlot(8);
+            if (value.isPressed) buttonRepeatDelayTime = 0.1f;
+            buttonPressed[index] = value.isPressed;
+        }
+
+        private void Update()
+        {
+            buttonRepeatDelayTime += Time.deltaTime;
+
+            if (buttonRepeatDelayTime < 0.1) return;
+
+            buttonRepeatDelayTime = 0;
+
+            for (int i = 0; i < buttonPressed.Length; i++)
+            {
+                if (buttonPressed[i])
+                    UseSlot(i);
+            }
         }
     }
 }

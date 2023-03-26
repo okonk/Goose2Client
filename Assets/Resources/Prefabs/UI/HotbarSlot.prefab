@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5604278248786484633}
   - component: {fileID: 5482619614142760997}
-  - component: {fileID: 3758954834888566691}
+  - component: {fileID: 7511216806153108780}
   m_Layer: 5
   m_Name: HotbarSlot
   m_TagString: Untagged
@@ -134,8 +134,8 @@ MonoBehaviour:
   image: {fileID: 8668289246638447086}
   countText: {fileID: 8434856251054083348}
   cooldownOverlay: {fileID: 1852859193094935242}
-  tooltip: {fileID: 3758954834888566691}
---- !u!114 &3758954834888566691
+  tooltip: {fileID: 0}
+--- !u!114 &7511216806153108780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,10 +144,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1267541062074440749}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b3866e4609511f69d5bc1a313f4f32, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b7ac3a7815e7dd17902afd9cea991ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TooltipText: 
+  dragOnSurfaces: 1
+  imageSource: {fileID: 8668289246638447086}
 --- !u!1 &2685823259247944720
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ namespace Goose2Client
     public class SpellSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private Image image;
+        [SerializeField] private Image cooldownOverlay;
 
         [SerializeField] public SpellInfo info;
 
@@ -45,8 +46,13 @@ namespace Goose2Client
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (HasSpell)
+            if (!HasSpell) return;
+
+            var remaining = GameManager.Instance.SpellCooldownManager.GetCooldownRemaining(info);
+            if (remaining == TimeSpan.Zero)
                 TooltipManager.Instance.ShowTextTooltip(info.Name);
+            else
+                TooltipManager.Instance.ShowTextTooltip($"{info.Name} ({remaining.FormatDuration()} remaining)");
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -59,7 +65,12 @@ namespace Goose2Client
             if (!HasSpell) return;
 
             if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount >= 2)
+            {
+                if (GameManager.Instance.SpellCooldownManager.GetCooldownRemaining(info) > TimeSpan.Zero)
+                    return;
+
                 OnDoubleClick?.Invoke(this.info);
+            }
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -68,6 +79,30 @@ namespace Goose2Client
             if (fromSlot == null || !fromSlot.HasSpell) return;
 
             OnMoveSpell?.Invoke(fromSlot.SlotNumber, SlotNumber);
+        }
+
+        private void Update()
+        {
+            if (!HasSpell) return;
+
+            UpdateSpellCooldown();
+        }
+
+        private void UpdateSpellCooldown()
+        {
+            if (info.Cooldown == TimeSpan.Zero) return;
+
+            cooldownOverlay.fillAmount = GetCooldownRemainingPercent();
+        }
+
+        private float GetCooldownRemainingPercent()
+        {
+            var remaining = GameManager.Instance.SpellCooldownManager.GetCooldownRemaining(info);
+
+            if (remaining == TimeSpan.Zero)
+                return 0;
+
+            return (float)(remaining.TotalMilliseconds / info.Cooldown.TotalMilliseconds);
         }
     }
 }
