@@ -92,7 +92,9 @@ namespace Goose2Client
         {
             var packet = (StatusInfoPacket)packetObj;
 
-            //nameText.text = GameManager.Instance.Character.FullName;
+            if (GameManager.Instance.Character != null)
+                nameText.text = GameManager.Instance.Character.FullName;
+
             levelClassText.text = $"Level {packet.Level} {packet.ClassName}";
             guildText.text = string.IsNullOrWhiteSpace(packet.GuildName) ? "No Guild" : packet.GuildName;
 
@@ -107,6 +109,8 @@ namespace Goose2Client
             earthResistText.text = packet.EarthResist.ToString();
             airResistText.text = packet.AirResist.ToString();
             spiritResistText.text = packet.SpiritResist.ToString();
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(nameText.gameObject.GetComponentInParent<RectTransform>());
         }
 
         private void OnExperienceBar(object packetObj)

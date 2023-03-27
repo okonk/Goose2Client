@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ namespace Goose2Client
     {
         [SerializeField] private GameObject panel;
         [SerializeField] private ItemSlot[] slots;
+
+        [SerializeField] private TextMeshProUGUI goldText;
 
         public int WindowId => (int)WindowFrame;
         public WindowFrames WindowFrame => WindowFrames.Inventory;
@@ -23,6 +26,7 @@ namespace Goose2Client
         {
             GameManager.Instance.PacketManager.Listen<InventorySlotPacket>(this.OnInventorySlot);
             GameManager.Instance.PacketManager.Listen<ClearInventorySlotPacket>(this.OnClearInventorySlot);
+            GameManager.Instance.PacketManager.Listen<StatusInfoPacket>(this.OnStatusInfo);
 
             for (int i = 0; i < slots.Length; i++)
             {
@@ -38,6 +42,14 @@ namespace Goose2Client
         {
             GameManager.Instance.PacketManager.Remove<InventorySlotPacket>(this.OnInventorySlot);
             GameManager.Instance.PacketManager.Remove<ClearInventorySlotPacket>(this.OnClearInventorySlot);
+            GameManager.Instance.PacketManager.Remove<StatusInfoPacket>(this.OnStatusInfo);
+        }
+
+        private void OnStatusInfo(object packetObj)
+        {
+            var packet = (StatusInfoPacket)packetObj;
+
+            goldText.text = $"{packet.Gold:N0}";
         }
 
         private void OnInventorySlot(object packetObj)

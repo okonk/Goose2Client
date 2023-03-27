@@ -1,6 +1,4 @@
-character ui fix name
-add colours to character ui
-redo inventory ui images
+
 
 chat UI
 
@@ -11,12 +9,16 @@ message UI
 quest UI
 
 party UI
-buff bar UI
+
 toolbar ui
 
 figure out killing of tooltips
 
 render character head in vitals window
+
+make x buttons in windows work
+
+update cooldowns in tooltips every second if tooltip open
 
 player isn't centered
 built client is laggy
@@ -27,6 +29,8 @@ spell targeting
 mounts
 
 emotes
+
+add a timer to buff bar items
 
 save char name
 save window positions
@@ -107,3 +111,7 @@ test hotbar when spell is moved to empty slot
 test hotbar drag dropping
 add cooldown fill to spell slots
 character UI
+character ui fix name
+redo inventory ui images
+add colours to character ui
+buff bar UI

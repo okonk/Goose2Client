@@ -189,5 +189,10 @@ namespace Goose2Client
         {
             Send($"QUIT");
         }
+
+        public void KillBuff(int id)
+        {
+            Send($"KBUF{id}");
+        }
     }
 }
