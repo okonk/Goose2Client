@@ -1,6 +1,9 @@
+character ui fix name
+add colours to character ui
+redo inventory ui images
+
 chat UI
 
-character UI
 bank UI
 combine bag UI
 shop UI
@@ -103,3 +106,4 @@ test hotbar when item runs out
 test hotbar when spell is moved to empty slot
 test hotbar drag dropping
 add cooldown fill to spell slots
+character UI

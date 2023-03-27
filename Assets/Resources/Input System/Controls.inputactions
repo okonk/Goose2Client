@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToggleCharacterWindow",
+                    "type": "Button",
+                    "id": "f366308b-9608-4ff2-90e8-7db4ac5f91fd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ToggleInventory",
                     "type": "Button",
                     "id": "4c548ef5-8ed0-4700-ad8b-251f87f928f6",
@@ -535,6 +544,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hotkey9",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ac7974d-aef1-4257-ad16-81d0211b5655",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleCharacterWindow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -7,10 +7,15 @@ namespace Goose2Client
     public class Character : MonoBehaviour
     {
         public int LoginId { get; private set; }
+        public string Name { get; private set; }
+        public string Title { get; private set; }
+        public string Surname { get; private set; }
         public int X { get; private set; }
         public int Y { get; private set; }
         public float MoveSpeed { get; set; }
         public Direction Facing { get; private set; }
+
+        public string FullName { get { return $"{Title} {Name} {Surname}".Trim(); } }
 
         private Dictionary<AnimationSlot, CharacterAnimation> animations = new();
 
@@ -62,6 +67,9 @@ namespace Goose2Client
             this.MoveSpeed = packet.MoveSpeed;
             this.X = packet.MapX;
             this.Y = packet.MapY;
+            this.Name = packet.Name;
+            this.Title = packet.Title;
+            this.Surname = packet.Surname;
 
             this.battleText = GetComponentInChildren<BattleText>();
         }
