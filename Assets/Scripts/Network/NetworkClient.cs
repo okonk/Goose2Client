@@ -194,5 +194,10 @@ namespace Goose2Client
         {
             Send($"KBUF{id}");
         }
+
+        public void OpenCombineBag()
+        {
+            Send($"OCB");
+        }
     }
 }

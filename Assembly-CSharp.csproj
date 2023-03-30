@@ -73,6 +73,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/SpellCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/UI/DropTarget.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeCharacterPacket.cs" />
+     <Compile Include="Assets/Scripts/UI/ToolbarItem.cs" />
      <Compile Include="Assets/Scripts/MapItem.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
      <Compile Include="Assets/Scripts/UI/BackgroundTransparency.cs" />

@@ -10,8 +10,6 @@ quest UI
 
 party UI
 
-toolbar ui
-
 figure out killing of tooltips
 
 render character head in vitals window
@@ -30,7 +28,7 @@ mounts
 
 emotes
 
-add a timer to buff bar items
+add a timer to buff bar items (needs server)
 
 save char name
 save window positions
@@ -115,3 +113,4 @@ character ui fix name
 redo inventory ui images
 add colours to character ui
 buff bar UI
+toolbar ui
