@@ -16,12 +16,14 @@ namespace Goose2Client
         Exit
     }
 
-    public class ToolbarItem : MonoBehaviour
+    public class ToolbarItem : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private ToolbarItemType itemType;
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            Debug.Log("Toolbar clicked");
+
             if (eventData.button != PointerEventData.InputButton.Left) return;
 
             var action = itemType switch
@@ -38,6 +40,7 @@ namespace Goose2Client
 
         public void OpenCombineBag()
         {
+            Debug.Log("open combine bag");
             GameManager.Instance.NetworkClient.OpenCombineBag();
         }
 

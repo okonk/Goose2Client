@@ -157,17 +157,32 @@ namespace Goose2Client
 
         public void UseItem(int slot)
         {
-            Send($"USE{slot}");
+            Send($"USE{slot + 1}");
         }
 
         public void MoveItemInInventory(int fromSlot, int toSlot)
         {
-            Send($"CHANGE{fromSlot},{toSlot}");
+            Send($"CHANGE{fromSlot + 1},{toSlot + 1}");
+        }
+
+        public void MoveInventoryToWindow(int fromSlot, int windowId, int toSlot)
+        {
+            Send($"ITW{fromSlot + 1},{windowId},{toSlot + 1}");
+        }
+
+        public void MoveWindowToInventory(int windowId, int fromSlot, int toSlot)
+        {
+            Send($"WTI{windowId},{fromSlot + 1},{toSlot + 1}");
+        }
+
+        public void MoveWindowToWindow(int fromWindowId, int fromSlot, int toWindowId, int toSlot)
+        {
+            Send($"WTW{fromWindowId},{fromSlot + 1},{toWindowId},{toSlot + 1}");
         }
 
         public void Drop(int fromSlot, int amount)
         {
-            Send($"DRP{fromSlot},{amount}");
+            Send($"DRP{fromSlot + 1},{amount}");
         }
 
         public void Pickup()
@@ -177,12 +192,12 @@ namespace Goose2Client
 
         public void MoveSpell(int fromSlot, int toSlot)
         {
-            Send($"SWAP{fromSlot},{toSlot}");
+            Send($"SWAP{fromSlot + 1},{toSlot + 1}");
         }
 
         public void CastSpell(int slot, int targetId)
         {
-            Send($"CAST{slot},{targetId}");
+            Send($"CAST{slot + 1},{targetId}");
         }
 
         public void Quit()
@@ -198,6 +213,21 @@ namespace Goose2Client
         public void OpenCombineBag()
         {
             Send($"OCB");
+        }
+
+        public void WindowButtonClick(WindowButtons button, int windowId, int npcId, int unknownId1 = 0, int unknownId2 = 0)
+        {
+            Send($"WBC{(int)button + 1},{windowId},{npcId},{unknownId1},{unknownId2}");
+        }
+
+        public void VendorPurchaseItem(int npcId, int slotId)
+        {
+            Send($"VPI{npcId},{slotId + 1}");
+        }
+
+        public void VendorSellItem(int npcId, int slotId, int stackSize)
+        {
+            Send($"VSI{npcId},{slotId + 1},{stackSize}");
         }
     }
 }

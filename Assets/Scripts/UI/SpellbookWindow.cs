@@ -76,7 +76,7 @@ namespace Goose2Client
         {
             GameManager.Instance.SpellCooldownManager.Cast(info.SlotNumber);
 
-            GameManager.Instance.NetworkClient.CastSpell(info.SlotNumber + 1, GameManager.Instance.Character.LoginId);
+            GameManager.Instance.NetworkClient.CastSpell(info.SlotNumber, GameManager.Instance.Character.LoginId);
         }
 
         public void OnBackClicked()
@@ -133,7 +133,12 @@ namespace Goose2Client
         {
             GameManager.Instance.SpellCooldownManager.Swap(fromIndex, toIndex);
 
-            GameManager.Instance.NetworkClient.MoveSpell(fromIndex + 1, toIndex + 1);
+            GameManager.Instance.NetworkClient.MoveSpell(fromIndex, toIndex);
+        }
+
+        public void CloseWindow()
+        {
+            panel.SetActive(false);
         }
     }
 }

@@ -1,10 +1,8 @@
-
+shop UI
 
 chat UI
 
 bank UI
-combine bag UI
-shop UI
 message UI
 quest UI
 
@@ -14,9 +12,9 @@ figure out killing of tooltips
 
 render character head in vitals window
 
-make x buttons in windows work
-
 update cooldowns in tooltips every second if tooltip open
+
+render dragged icons in a higher layer above other windows
 
 player isn't centered
 built client is laggy
@@ -114,3 +112,5 @@ redo inventory ui images
 add colours to character ui
 buff bar UI
 toolbar ui
+combine bag UI
+make x buttons in windows work

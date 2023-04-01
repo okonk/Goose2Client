@@ -85,7 +85,7 @@ namespace Goose2Client
 
         public void UseItem(ItemStats stats)
         {
-            GameManager.Instance.NetworkClient.UseItem(stats.SlotNumber + 1);
+            GameManager.Instance.NetworkClient.UseItem(stats.SlotNumber);
         }
 
         private void OnStatusInfo(object packetObj)
@@ -119,6 +119,11 @@ namespace Goose2Client
 
             experienceText.text = $"{packet.Experience:N0}";
             experienceSoldText.text = $"{packet.ExperienceSold:N0}";
+        }
+
+        public void CloseWindow()
+        {
+            panel.SetActive(false);
         }
     }
 }

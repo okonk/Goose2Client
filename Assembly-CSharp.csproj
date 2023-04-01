@@ -67,6 +67,8 @@
      <Compile Include="Assets/Scripts/Network/Packets/CastPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SetYourCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/SpellAnimation.cs" />
+     <Compile Include="Assets/Scripts/UI/CombineBagContainerWindow.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/CombineBagSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Character/BattleTextLine.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/UpdateCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Helpers.cs" />
@@ -95,6 +97,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/WindowLinePacket.cs" />
      <Compile Include="Assets/Scripts/ItemStats.cs" />
      <Compile Include="Assets/Scripts/AnimationManager.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/ClearCombineBagSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Network/PacketHandler.cs" />
      <Compile Include="Assets/Scripts/UI/BuffEffect.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClassUpdatePacket.cs" />

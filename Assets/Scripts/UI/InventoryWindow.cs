@@ -73,19 +73,24 @@ namespace Goose2Client
 
         public void UseItem(ItemStats stats)
         {
-            GameManager.Instance.NetworkClient.UseItem(stats.SlotNumber + 1);
+            GameManager.Instance.NetworkClient.UseItem(stats.SlotNumber);
         }
 
         private void DropItem(int fromWindowId, int fromSlot, int toSlot)
         {
             if (fromWindowId == this.WindowId)
             {
-                GameManager.Instance.NetworkClient.MoveItemInInventory(fromSlot + 1, toSlot + 1);
+                GameManager.Instance.NetworkClient.MoveItemInInventory(fromSlot, toSlot);
             }
             else
             {
-                // window to inventory
+                GameManager.Instance.NetworkClient.MoveWindowToInventory(fromWindowId, fromSlot, toSlot);
             }
+        }
+
+        public void CloseWindow()
+        {
+            panel.SetActive(false);
         }
     }
 }
