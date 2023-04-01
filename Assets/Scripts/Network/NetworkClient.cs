@@ -217,7 +217,7 @@ namespace Goose2Client
 
         public void WindowButtonClick(WindowButtons button, int windowId, int npcId, int unknownId1 = 0, int unknownId2 = 0)
         {
-            Send($"WBC{(int)button + 1},{windowId},{npcId},{unknownId1},{unknownId2}");
+            Send($"WBC{(int)button},{windowId},{npcId},{unknownId1},{unknownId2}");
         }
 
         public void VendorPurchaseItem(int npcId, int slotId)

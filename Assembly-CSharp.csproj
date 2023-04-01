@@ -101,6 +101,7 @@
      <Compile Include="Assets/Scripts/Network/PacketHandler.cs" />
      <Compile Include="Assets/Scripts/UI/BuffEffect.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClassUpdatePacket.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/VendorSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendMapNamePacket.cs" />
      <Compile Include="Assets/Scripts/ColorExtensions.cs" />
      <Compile Include="Assets/Scripts/WindowButtons.cs" />
@@ -118,6 +119,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/ClearInventorySlotPacket.cs" />
      <Compile Include="Assets/Scripts/GameManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EmotePacket.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/ClearVendorPacket.cs" />
      <Compile Include="Assets/Scripts/UI/DropTargetManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MapObjectPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ChangeHeadingPacket.cs" />
@@ -133,6 +135,7 @@
      <Compile Include="Assets/Scripts/UI/SpellSlot.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ChatPacket.cs" />
      <Compile Include="Assets/Scripts/UI/TitleBar.cs" />
+     <Compile Include="Assets/Scripts/UI/VendorWindow.cs" />
      <Compile Include="Assets/Scripts/Character/BattleText.cs" />
      <Compile Include="Assets/Scripts/LoadingMapScene/LoadingMapScene.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/AdminModeActivatePacket.cs" />

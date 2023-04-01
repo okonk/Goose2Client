@@ -23,7 +23,7 @@ namespace Goose2Client
         public IWindow Window { get; set; }
 
         public Action<ItemStats> OnDoubleClick { get; set; }
-        public Action<int, int, int> OnDropItem { get; set; }
+        public Action<IWindow, int, int> OnDropItem { get; set; }
 
         internal void SetItem(ItemStats stats)
         {
@@ -69,7 +69,7 @@ namespace Goose2Client
             var fromSlot = eventData.pointerDrag?.GetComponent<ItemSlot>();
             if (fromSlot == null || !fromSlot.HasItem) return;
 
-            OnDropItem?.Invoke(fromSlot.Window.WindowId, fromSlot.SlotNumber, SlotNumber);
+            OnDropItem?.Invoke(fromSlot.Window, fromSlot.SlotNumber, SlotNumber);
         }
 
         public void OnBeginDrag(PointerEventData eventData)

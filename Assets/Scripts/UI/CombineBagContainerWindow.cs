@@ -61,15 +61,15 @@ namespace Goose2Client
             slots[packet.SlotNumber].ClearItem();
         }
 
-        private void DropItem(int fromWindowId, int fromSlot, int toSlot)
+        private void DropItem(IWindow fromWindow, int fromSlot, int toSlot)
         {
-            if (fromWindowId == (int)WindowFrames.Inventory)
+            if (fromWindow.WindowFrame == WindowFrames.Inventory)
             {
                 GameManager.Instance.NetworkClient.MoveInventoryToWindow(fromSlot, this.WindowId, toSlot);
             }
-            else
+            else if (fromWindow.WindowFrame != WindowFrames.Vendor)
             {
-                GameManager.Instance.NetworkClient.MoveWindowToWindow(fromWindowId, fromSlot, this.WindowId, toSlot);
+                GameManager.Instance.NetworkClient.MoveWindowToWindow(fromWindow.WindowId, fromSlot, this.WindowId, toSlot);
             }
         }
 

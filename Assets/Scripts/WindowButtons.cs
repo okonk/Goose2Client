@@ -2,7 +2,8 @@ namespace Goose2Client
 {
     public enum WindowButtons
     {
-        Combine = 0,
+        Exit = 0,
+        Combine,
         Close,
         Back,
         Next,
