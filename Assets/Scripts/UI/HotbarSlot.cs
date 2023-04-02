@@ -9,7 +9,7 @@ using System;
 
 namespace Goose2Client
 {
-    public class HotbarSlot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public class HotbarSlot : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
@@ -184,6 +184,16 @@ namespace Goose2Client
         public void OnPointerExit(PointerEventData eventData)
         {
             TooltipManager.Instance.HideTextTooltip();
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            DropTargetManager.Instance.gameObject.SetActive(true);
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            DropTargetManager.Instance.gameObject.SetActive(false);
         }
     }
 }

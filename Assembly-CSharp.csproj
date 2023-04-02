@@ -60,11 +60,13 @@
      <Compile Include="Assets/Scripts/UI/ItemSlot.cs" />
      <Compile Include="Assets/Scripts/Character/CharacterHealthBar.cs" />
      <Compile Include="Assets/Scripts/UI/MapItemTooltip.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/BankSlotPacket.cs" />
      <Compile Include="Assets/Scripts/UI/TextTooltipEventHandler.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginSuccessPacket.cs" />
      <Compile Include="Assets/Scripts/UI/WindowTransparency.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeWindowPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/CastPacket.cs" />
+     <Compile Include="Assets/Scripts/UI/BankWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SetYourCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/SpellAnimation.cs" />
      <Compile Include="Assets/Scripts/UI/CombineBagContainerWindow.cs" />
@@ -102,6 +104,7 @@
      <Compile Include="Assets/Scripts/Network/PacketHandler.cs" />
      <Compile Include="Assets/Scripts/UI/BuffEffect.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClassUpdatePacket.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/ClearBankSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/VendorSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendMapNamePacket.cs" />
      <Compile Include="Assets/Scripts/ColorExtensions.cs" />

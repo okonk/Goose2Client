@@ -2,11 +2,12 @@
 
 chat UI
 
-bank UI
 message UI
 quest UI
 
 party UI
+
+fix packet bug
 
 figure out killing of tooltips
 
@@ -15,8 +16,6 @@ render character head in vitals window
 update cooldowns in tooltips every second if tooltip open
 
 render dragged icons in a higher layer above other windows
-
-drag from hotbar to world to remove from hotbar
 
 player isn't centered
 built client is laggy
@@ -117,3 +116,5 @@ toolbar ui
 combine bag UI
 make x buttons in windows work
 shop UI
+drag from hotbar to world to remove from hotbar
+bank UI

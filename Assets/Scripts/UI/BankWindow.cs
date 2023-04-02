@@ -7,15 +7,19 @@ using UnityEngine.InputSystem;
 
 namespace Goose2Client
 {
-    public class VendorWindow : MonoBehaviour, IWindow
+    public class BankWindow : MonoBehaviour, IWindow
     {
         [SerializeField] private GameObject panel;
         [SerializeField] private ItemSlot[] slots;
 
         [SerializeField] private TextMeshProUGUI titleText;
 
+        [SerializeField] private GameObject backButton;
+        [SerializeField] private GameObject nextButton;
+
         public int WindowId { get; private set; }
-        public WindowFrames WindowFrame => WindowFrames.Vendor;
+
+        public WindowFrames WindowFrame => WindowFrames.Bank;
 
         public int NpcId { get; private set; }
 
@@ -23,15 +27,14 @@ namespace Goose2Client
         {
             GameManager.Instance.PacketManager.Listen<MakeWindowPacket>(this.OnMakeWindow);
             GameManager.Instance.PacketManager.Listen<EndWindowPacket>(this.OnEndWindow);
-            GameManager.Instance.PacketManager.Listen<VendorSlotPacket>(this.OnVendorSlot);
-            GameManager.Instance.PacketManager.Listen<ClearVendorPacket>(this.OnClearVendor);
+            GameManager.Instance.PacketManager.Listen<BankSlotPacket>(this.OnBankSlot);
+            GameManager.Instance.PacketManager.Listen<ClearBankSlotPacket>(this.OnClearBankSlot);
 
             for (int i = 0; i < slots.Length; i++)
             {
                 var slot = slots[i];
                 slot.SlotNumber = i;
                 slot.Window = this;
-                slot.OnDoubleClick += BuyItem;
                 slot.OnDropItem += DropItem;
             }
         }
@@ -40,19 +43,22 @@ namespace Goose2Client
         {
             GameManager.Instance.PacketManager.Remove<MakeWindowPacket>(this.OnMakeWindow);
             GameManager.Instance.PacketManager.Remove<EndWindowPacket>(this.OnEndWindow);
-            GameManager.Instance.PacketManager.Remove<VendorSlotPacket>(this.OnVendorSlot);
-            GameManager.Instance.PacketManager.Remove<ClearVendorPacket>(this.OnClearVendor);
+            GameManager.Instance.PacketManager.Remove<BankSlotPacket>(this.OnBankSlot);
+            GameManager.Instance.PacketManager.Remove<ClearBankSlotPacket>(this.OnClearBankSlot);
         }
 
         private void OnMakeWindow(object packetObj)
         {
             var packet = (MakeWindowPacket)packetObj;
 
-            if (packet.WindowFrame != WindowFrames.Vendor) return;
+            if (packet.WindowFrame != WindowFrames.Bank) return;
 
             NpcId = packet.NpcId;
             titleText.text = packet.Title;
             WindowId = packet.WindowId;
+
+            backButton.SetActive(packet.Buttons[(int)WindowButtons.Back - 1]);
+            nextButton.SetActive(packet.Buttons[(int)WindowButtons.Next - 1]);
         }
 
         private void OnEndWindow(object packetObj)
@@ -63,35 +69,47 @@ namespace Goose2Client
                 panel.SetActive(true);
         }
 
-        private void OnVendorSlot(object packetObj)
+        private void OnBankSlot(object packetObj)
         {
-            var packet = (VendorSlotPacket)packetObj;
+            var packet = (BankSlotPacket)packetObj;
 
             var stats = ItemStats.FromPacket(packet);
             slots[packet.SlotNumber].SetItem(stats);
         }
 
-        private void OnClearVendor(object packetObj)
+        private void OnClearBankSlot(object packetObj)
         {
-            foreach (var slot in slots)
-                slot.ClearItem();
-        }
+            var packet = (ClearBankSlotPacket)packetObj;
 
-        public void BuyItem(ItemStats stats)
-        {
-            GameManager.Instance.NetworkClient.VendorPurchaseItem(NpcId, stats.SlotNumber);
+            slots[packet.SlotNumber].ClearItem();
         }
 
         private void DropItem(IWindow fromWindow, int fromSlot, int toSlot)
         {
             if (fromWindow.WindowFrame == WindowFrames.Inventory)
-                GameManager.Instance.NetworkClient.VendorSellItem(NpcId, fromSlot, 1);
+            {
+                GameManager.Instance.NetworkClient.MoveInventoryToWindow(fromSlot, this.WindowId, toSlot);
+            }
+            else if (fromWindow.WindowFrame != WindowFrames.Vendor)
+            {
+                GameManager.Instance.NetworkClient.MoveWindowToWindow(fromWindow.WindowId, fromSlot, this.WindowId, toSlot);
+            }
         }
 
         public void CloseWindow()
         {
             GameManager.Instance.NetworkClient.WindowButtonClick(WindowButtons.Close, this.WindowId, NpcId);
             panel.SetActive(false);
+        }
+
+        public void NextClicked()
+        {
+            GameManager.Instance.NetworkClient.WindowButtonClick(WindowButtons.Next, this.WindowId, NpcId);
+        }
+
+        public void BackClicked()
+        {
+            GameManager.Instance.NetworkClient.WindowButtonClick(WindowButtons.Back, this.WindowId, NpcId);
         }
     }
 }

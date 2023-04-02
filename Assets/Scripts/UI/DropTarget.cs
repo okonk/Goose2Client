@@ -11,9 +11,18 @@ namespace Goose2Client
         public void OnDrop(PointerEventData eventData)
         {
             var fromSlot = eventData.pointerDrag?.GetComponent<ItemSlot>();
-            if (fromSlot == null || !fromSlot.HasItem) return;
+            if (fromSlot != null && fromSlot.HasItem && fromSlot.Window.WindowFrame == WindowFrames.Inventory)
+            {
+                GameManager.Instance.NetworkClient.Drop(fromSlot.SlotNumber, fromSlot.StackSize);
+                return;
+            }
 
-            GameManager.Instance.NetworkClient.Drop(fromSlot.SlotNumber, fromSlot.StackSize);
+            var hotbarSlot = eventData.pointerDrag?.GetComponent<HotbarSlot>();
+            if (hotbarSlot != null && !hotbarSlot.IsEmpty)
+            {
+                hotbarSlot.Clear();
+                return;
+            }
         }
     }
 }
