@@ -35,6 +35,8 @@ namespace Goose2Client
             this.targetPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
 
             this.body = CreateAnimation(AnimationSlot.Body, "Body", packet.BodyId, ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA));
+            this.body.gameObject.AddComponent<BoxCollider2D>();
+            this.body.gameObject.AddComponent<CharacterClickHandler>();
 
             CreateName(packet.Name, packet.Title, packet.Surname, body.Height, body.transform.localPosition.y);
             UpdateHealthBarPosition(body.Height, body.transform.localPosition.y);

@@ -47,8 +47,6 @@ namespace Goose2Client
             var mapManager = FindObjectOfType<MapManager>();
             mapManager.OnMapLoaded(mapObj);
 
-            Debug.Log("done loading map");
-
             GameManager.Instance.NetworkClient.DoneLoadingMap();
 
             GameManager.Instance.NetworkClient.Pause = false;
@@ -78,6 +76,12 @@ namespace Goose2Client
                 var renderer = obj.AddComponent<TilemapRenderer>();
                 renderer.sortingLayerID = SortingLayer.NameToID(layerName);
                 renderer.sortOrder = TilemapRenderer.SortOrder.TopRight;
+
+                if (i == 0)
+                {
+                    obj.AddComponent<TilemapCollider2D>();
+                    obj.AddComponent<MapClickHandler>();
+                }
 
                 if (i == 5)
                     renderer.enabled = false;

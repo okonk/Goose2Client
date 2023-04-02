@@ -90,6 +90,7 @@ namespace Goose2Client
 
         public void CloseWindow()
         {
+            GameManager.Instance.NetworkClient.WindowButtonClick(WindowButtons.Close, this.WindowId, NpcId);
             panel.SetActive(false);
         }
     }

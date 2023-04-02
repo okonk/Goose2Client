@@ -76,6 +76,7 @@
      <Compile Include="Assets/Scripts/UI/DropTarget.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/UI/ToolbarItem.cs" />
+     <Compile Include="Assets/Scripts/UI/MapClickHandler.cs" />
      <Compile Include="Assets/Scripts/MapItem.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
      <Compile Include="Assets/Scripts/UI/BackgroundTransparency.cs" />
@@ -121,6 +122,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/EmotePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClearVendorPacket.cs" />
      <Compile Include="Assets/Scripts/UI/DropTargetManager.cs" />
+     <Compile Include="Assets/Scripts/UI/CharacterClickHandler.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MapObjectPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ChangeHeadingPacket.cs" />
      <Compile Include="Assets/Scripts/Character/PlayerController.cs" />

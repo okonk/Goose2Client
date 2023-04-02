@@ -55,7 +55,7 @@ namespace Goose2Client
             }
 
             var fromItem = eventData.pointerDrag?.GetComponent<ItemSlot>();
-            if (fromItem != null && fromItem.HasItem)
+            if (fromItem != null && fromItem.HasItem && (fromItem.Window.WindowFrame == WindowFrames.Inventory || fromItem.Window.WindowFrame == WindowFrames.Equipped))
             {
                 SetItem(fromItem.stats);
                 return;

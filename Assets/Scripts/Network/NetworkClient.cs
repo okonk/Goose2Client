@@ -229,5 +229,15 @@ namespace Goose2Client
         {
             Send($"VSI{npcId},{slotId + 1},{stackSize}");
         }
+
+        public void LeftClick(int x, int y)
+        {
+            Send($"LC{x + 1},{y + 1}");
+        }
+
+        public void RightClick(int x, int y)
+        {
+            Send($"RC{x + 1},{y + 1}");
+        }
     }
 }
