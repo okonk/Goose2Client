@@ -19,6 +19,8 @@ namespace Goose2Client
 
         private void OnToggleInventory(InputValue value)
         {
+            if (GameManager.Instance.IsTyping) return;
+
             panel.SetActive(!panel.activeSelf);
         }
 

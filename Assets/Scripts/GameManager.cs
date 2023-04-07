@@ -23,6 +23,10 @@ namespace Goose2Client
 
         public MapFile CurrentMap { get; set; }
 
+        public ChatWindow ChatWindow { get; set; }
+
+        public bool IsTyping { get { return ChatWindow?.Typing ?? false; } }
+
         public static GameManager Instance
         {
             get { return instance; }
@@ -88,6 +92,11 @@ namespace Goose2Client
             var packet = (ClassUpdatePacket)packetObj;
 
             this.Classes[packet.ClassId] = packet.Name;
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
         }
     }
 }

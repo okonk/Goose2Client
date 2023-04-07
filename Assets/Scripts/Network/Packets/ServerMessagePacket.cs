@@ -5,7 +5,7 @@ namespace Goose2Client
 {
     class ServerMessagePacket : PacketHandler
     {
-        public int ChatType { get; set; }
+        public ChatType ChatType { get; set; }
 
         public string Message { get; set; }
 
@@ -15,7 +15,7 @@ namespace Goose2Client
         {
             return new ServerMessagePacket()
             {
-                ChatType = Convert.ToInt32(p.GetSubstring(1)),
+                ChatType = (ChatType)Convert.ToInt32(p.GetSubstring(1)),
                 Message = p.GetRemaining()
             };
         }

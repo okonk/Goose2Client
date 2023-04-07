@@ -49,6 +49,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/PingPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/StatusInfoPacket.cs" />
      <Compile Include="Assets/Scripts/UI/NonDrawingGraphic.cs" />
+     <Compile Include="Assets/Scripts/UI/ChatWindow.cs" />
      <Compile Include="Assets/Scripts/AnimationSlot.cs" />
      <Compile Include="Assets/Scripts/UI/SpellbookPage.cs" />
      <Compile Include="Assets/Scripts/UI/ItemTooltip.cs" />
@@ -73,6 +74,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/CombineBagSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Character/BattleTextLine.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/UpdateCharacterPacket.cs" />
+     <Compile Include="Assets/Scripts/Colors.cs" />
      <Compile Include="Assets/Scripts/Helpers.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SpellCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/UI/DropTarget.cs" />
@@ -84,6 +86,7 @@
      <Compile Include="Assets/Scripts/UI/BackgroundTransparency.cs" />
      <Compile Include="Assets/Scripts/UI/HotbarSlot.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/TellPacket.cs" />
      <Compile Include="Assets/Scripts/SpellInfo.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/WeaponSpeedPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/VitalsPercentagePacket.cs" />

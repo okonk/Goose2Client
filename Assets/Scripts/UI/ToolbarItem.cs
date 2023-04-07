@@ -46,7 +46,7 @@ namespace Goose2Client
 
         public void Exit()
         {
-            Application.Quit();
+            GameManager.Instance.Quit();
         }
     }
 }

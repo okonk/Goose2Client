@@ -97,4 +97,16 @@ namespace Goose2Client
         BindOnEquip = 128,
         BreakOnDeath = 256,
     }
+
+    public enum ChatType
+    {
+        Chat = 1,
+        Guild,
+        Group,
+        Melee,
+        Spells,
+        Tell,
+        Server,
+        Client = 8,
+    }
 }

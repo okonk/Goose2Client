@@ -31,11 +31,15 @@ namespace Goose2Client
 
         private void OnAttack(InputValue value)
         {
+            if (GameManager.Instance.IsTyping && value.isPressed) return;
+
             attackPressed = value.isPressed;
         }
 
         private void OnMove(InputValue value)
         {
+            if (GameManager.Instance.IsTyping) return;
+
             var lastInput = moveInput;
 
             moveInput = value.Get<Vector2>();
@@ -63,6 +67,8 @@ namespace Goose2Client
 
         private void OnPickup(InputValue value)
         {
+            if (GameManager.Instance.IsTyping) return;
+
             GameManager.Instance.NetworkClient.Pickup();
         }
 

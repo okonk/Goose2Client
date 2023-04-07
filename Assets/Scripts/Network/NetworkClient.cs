@@ -239,5 +239,15 @@ namespace Goose2Client
         {
             Send($"RC{x + 1},{y + 1}");
         }
+
+        public void ChatMessage(string message)
+        {
+            Send($";{message}");
+        }
+
+        public void Command(string command)
+        {
+            Send(command);
+        }
     }
 }

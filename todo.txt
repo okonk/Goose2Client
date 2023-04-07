@@ -1,7 +1,5 @@
 
 
-chat UI
-
 message UI
 quest UI
 
@@ -37,11 +35,10 @@ resize spell slots?
 
 fix layer rendering of characters/map objects
 improve name heights
-fix dye colours to match illutia client -- everything looks to have extra white?
 
 attack animation glitches out with punches
 -- looks like it's an issue with spritesheets being different sizes and the animation not syncing with the update code
--- that moves the player sprite. maybe can put the movement of the sprite inside the animation
+-- that moves the player sprite. maybe can put the movement of the sprite inside the animation or just fix all the animations to have a standard size..
 
 
 item tooltips flashing when switching fast
@@ -118,3 +115,5 @@ make x buttons in windows work
 shop UI
 drag from hotbar to world to remove from hotbar
 bank UI
+fix dye colours to match illutia client -- everything looks to have extra white? -- somehow fixed itself? unity update?
+chat UI
