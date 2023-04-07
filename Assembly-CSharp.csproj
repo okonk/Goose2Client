@@ -84,6 +84,7 @@
      <Compile Include="Assets/Scripts/MapItem.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
      <Compile Include="Assets/Scripts/UI/BackgroundTransparency.cs" />
+     <Compile Include="Assets/Scripts/UI/InfoWindow.cs" />
      <Compile Include="Assets/Scripts/UI/HotbarSlot.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/TellPacket.cs" />
@@ -144,6 +145,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/ChatPacket.cs" />
      <Compile Include="Assets/Scripts/UI/TitleBar.cs" />
      <Compile Include="Assets/Scripts/UI/VendorWindow.cs" />
+     <Compile Include="Assets/Scripts/UI/InfoWindowCreator.cs" />
      <Compile Include="Assets/Scripts/Character/BattleText.cs" />
      <Compile Include="Assets/Scripts/LoadingMapScene/LoadingMapScene.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/AdminModeActivatePacket.cs" />

@@ -15,6 +15,7 @@ namespace Goose2Client
 
         public int ItemId { get; set; }
 
+        public int GraphicSheet { get; set; }
         public int GraphicId { get; set; }
 
         public int GraphicR { get; set; }
@@ -26,8 +27,7 @@ namespace Goose2Client
 
         public override object Parse(PacketParser p)
         {
-            // WNF11,2, |0|0|0|*
-            // WNF11,4,Old Rags|1|5002|120241|0|0|0|0
+            // WNF1023,1,Experience Sold: 0|0|0|0|0|*
             p.Delimeter = ',';
             var packet = new WindowLinePacket()
             {
@@ -40,6 +40,7 @@ namespace Goose2Client
             packet.Text = p.GetString();
             packet.StackSize = p.GetInt32();
             packet.ItemId = p.GetInt32();
+            packet.GraphicSheet = p.GetInt32();
             packet.GraphicId = p.GetInt32();
 
             if (p.Peek() == '*')

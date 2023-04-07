@@ -1,6 +1,6 @@
 
 
-message UI
+
 quest UI
 
 party UI
@@ -117,3 +117,4 @@ drag from hotbar to world to remove from hotbar
 bank UI
 fix dye colours to match illutia client -- everything looks to have extra white? -- somehow fixed itself? unity update?
 chat UI
+message UI

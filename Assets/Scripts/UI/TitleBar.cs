@@ -7,7 +7,7 @@ namespace Goose2Client
 {
     public class TitleBar : MonoBehaviour, IDragHandler
     {
-        [SerializeField] private Canvas canvas;
+        [SerializeField] public Canvas canvas;
         [SerializeField] private Transform transformToMove;
 
         public void OnDrag(PointerEventData eventData)
