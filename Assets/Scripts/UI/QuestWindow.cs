@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 
 namespace Goose2Client
 {
-    public class InfoWindow : BaseMultipleWindow
+    public class QuestWindow : BaseMultipleWindow
     {
-        public override WindowFrames WindowFrame => WindowFrames.GenericInfo;
+        public override WindowFrames WindowFrame => WindowFrames.Quest;
     }
 }

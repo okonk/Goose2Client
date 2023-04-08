@@ -45,6 +45,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/SpellbookSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Character/CharacterAnimation.cs" />
      <Compile Include="Assets/Scripts/UI/IWindow.cs" />
+     <Compile Include="Assets/Scripts/UI/QuestWindowManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/PingPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/StatusInfoPacket.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/BankSlotPacket.cs" />
      <Compile Include="Assets/Scripts/UI/TextTooltipEventHandler.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginSuccessPacket.cs" />
+     <Compile Include="Assets/Scripts/UI/BaseMultipleWindowManager.cs" />
      <Compile Include="Assets/Scripts/UI/WindowTransparency.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MakeWindowPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/CastPacket.cs" />
@@ -109,6 +111,7 @@
      <Compile Include="Assets/Scripts/UI/BuffEffect.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClassUpdatePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClearBankSlotPacket.cs" />
+     <Compile Include="Assets/Scripts/UI/BaseMultipleWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/VendorSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendMapNamePacket.cs" />
      <Compile Include="Assets/Scripts/ColorExtensions.cs" />
@@ -139,6 +142,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/SetYourPositionPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/AttackPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ServerMessagePacket.cs" />
+     <Compile Include="Assets/Scripts/UI/QuestWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginFailPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/HashMessagePacket.cs" />
      <Compile Include="Assets/Scripts/UI/SpellSlot.cs" />
