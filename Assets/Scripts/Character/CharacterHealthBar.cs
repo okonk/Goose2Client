@@ -12,22 +12,22 @@ namespace Goose2Client
 
         private bool shouldHide = false;
 
-        public void SetHPPercent(int value)
+        public void SetHPPercent(float value)
         {
             SetBar(hpBar, value);
 
-            if (value > 66)
+            if (value > 0.66)
                 SetColor(hpBar, ColorH.RGBA(112, 232, 120)); // green
-            else if (value > 33)
+            else if (value > 0.33)
                 SetColor(hpBar, ColorH.RGBA(244, 133, 50)); // orange
             else
                 SetColor(hpBar, ColorH.RGBA(191, 64, 64)); // red
 
-            if (value == 100)
+            if (value == 1)
                 ScheduleHideBars();
         }
 
-        public void SetMPPercent(int value)
+        public void SetMPPercent(float value)
         {
             SetBar(mpBar, value);
         }
@@ -38,11 +38,11 @@ namespace Goose2Client
             spriteRenderer.color = color;
         }
 
-        private void SetBar(GameObject bar, int value)
+        private void SetBar(GameObject bar, float value)
         {
             var maxWidth = background.transform.localScale.x;
 
-            var newWidth = value / 100.0f * maxWidth;
+            var newWidth = value * maxWidth;
 
             bar.transform.localScale = new Vector3(newWidth, bar.transform.localScale.y);
             bar.transform.localPosition = new Vector3(-(maxWidth - newWidth) / 2, bar.transform.localPosition.y);

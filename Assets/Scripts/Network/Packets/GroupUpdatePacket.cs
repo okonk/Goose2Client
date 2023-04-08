@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Goose2Client
 {
-    class GroupUpdatePacket : PacketHandler
+    public class GroupUpdatePacket : PacketHandler
     {
         public int LineNumber { get; set; }
         public int LoginId { get; set; }

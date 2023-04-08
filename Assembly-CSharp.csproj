@@ -64,6 +64,7 @@
      <Compile Include="Assets/Scripts/UI/MapItemTooltip.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/BankSlotPacket.cs" />
      <Compile Include="Assets/Scripts/UI/TextTooltipEventHandler.cs" />
+     <Compile Include="Assets/Scripts/UI/PartyMember.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginSuccessPacket.cs" />
      <Compile Include="Assets/Scripts/UI/BaseMultipleWindowManager.cs" />
      <Compile Include="Assets/Scripts/UI/WindowTransparency.cs" />
@@ -89,6 +90,7 @@
      <Compile Include="Assets/Scripts/UI/InfoWindow.cs" />
      <Compile Include="Assets/Scripts/UI/HotbarSlot.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
+     <Compile Include="Assets/Scripts/UI/PartyWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/TellPacket.cs" />
      <Compile Include="Assets/Scripts/SpellInfo.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/WeaponSpeedPacket.cs" />

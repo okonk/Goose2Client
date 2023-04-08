@@ -15,6 +15,8 @@ namespace Goose2Client
         public PacketManager PacketManager { get; private set; }
         public AnimationManager AnimationManager { get; private set; }
 
+        public MapManager MapManager { get; set; }
+
         public Character Character { get; set; }
 
         public Dictionary<int, string> Classes { get; private set; } = new Dictionary<int, string>();

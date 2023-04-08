@@ -33,9 +33,12 @@ namespace Goose2Client
             titleText.text = packet.Title;
             WindowId = packet.WindowId;
 
-            backButton?.SetActive(packet.Buttons[(int)WindowButtons.Back - 1]);
-            nextButton?.SetActive(packet.Buttons[(int)WindowButtons.Next - 1]);
-            closeButton?.SetActive(packet.Buttons[(int)WindowButtons.Close - 1]);
+            if (packet.Buttons[(int)WindowButtons.Back - 1])
+                backButton.SetActive(true);
+            if (packet.Buttons[(int)WindowButtons.Next - 1])
+                nextButton.SetActive(true);
+            if (packet.Buttons[(int)WindowButtons.Close - 1])
+                closeButton.SetActive(true);
 
             foreach (var line in lines)
                 line.text = " ";

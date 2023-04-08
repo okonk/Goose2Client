@@ -1,11 +1,30 @@
+mvp:
 
 
 
-quest UI
+spell targeting
+mounts
 
-party UI
+chat bubbles
+
+emotes
 
 fix packet bug
+
+player isn't centered
+built client is laggy
+
+
+save char name
+save window positions
+save hotbar items
+
+
+
+
+other:
+
+toolbar
 
 figure out killing of tooltips
 
@@ -15,21 +34,7 @@ update cooldowns in tooltips every second if tooltip open
 
 render dragged icons in a higher layer above other windows
 
-player isn't centered
-built client is laggy
-
-chat bubbles
-
-spell targeting
-mounts
-
-emotes
-
 add a timer to buff bar items (needs server)
-
-save char name
-save window positions
-save hotbar items
 
 resize spell slots?
 
@@ -118,3 +123,5 @@ bank UI
 fix dye colours to match illutia client -- everything looks to have extra white? -- somehow fixed itself? unity update?
 chat UI
 message UI
+quest UI
+party UI

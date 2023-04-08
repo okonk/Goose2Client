@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace Goose2Client
 {
-    public class InfoWindowCreator : BaseMultipleWindowManager<QuestWindow>
+    public class InfoWindowCreator : BaseMultipleWindowManager<InfoWindow>
     {
         public override string PrefabPath => "Prefabs/UI/InfoWindow";
 

@@ -15,6 +15,9 @@ namespace Goose2Client
         public float MoveSpeed { get; set; }
         public Direction Facing { get; private set; }
 
+        public float HPPercent { get; private set; }
+        public float MPPercent { get; private set; }
+
         public string FullName { get { return $"{Title} {Name} {Surname}".Trim(); } }
 
         private Dictionary<AnimationSlot, CharacterAnimation> animations = new();
@@ -40,7 +43,7 @@ namespace Goose2Client
 
             CreateName(packet.Name, packet.Title, packet.Surname, body.Height, body.transform.localPosition.y);
             UpdateHealthBarPosition(body.Height, body.transform.localPosition.y);
-            UpdateHPMP(packet.HPPercent, 100);
+            UpdateHPMP(packet.HPPercent, 1);
 
             if (packet.BodyId < 100)
             {
@@ -333,10 +336,13 @@ namespace Goose2Client
             }
         }
 
-        public void UpdateHPMP(int hpPercent, int mpPercent)
+        public void UpdateHPMP(float hpPercent, float mpPercent)
         {
             this.healthBars.SetHPPercent(hpPercent);
             this.healthBars.SetMPPercent(mpPercent);
+
+            this.HPPercent = hpPercent;
+            this.MPPercent = mpPercent;
         }
 
         public void AddBattleText(BattleTextType textType, string text)

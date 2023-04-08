@@ -7,9 +7,9 @@ namespace Goose2Client
     {
         public int LoginId { get; set; }
 
-        public int HPPercentage { get; set; }
+        public float HPPercentage { get; set; }
 
-        public int MPPercentage { get; set; }
+        public float MPPercentage { get; set; }
 
         public override string Prefix { get; } = "VPU";
 
@@ -18,8 +18,8 @@ namespace Goose2Client
             return new VitalsPercentagePacket()
             {
                 LoginId = p.GetInt32(),
-                HPPercentage = p.GetInt32(),
-                MPPercentage = p.GetInt32()
+                HPPercentage = p.GetInt32() / 100.0f,
+                MPPercentage = p.GetInt32() / 100.0f
             };
         }
     }

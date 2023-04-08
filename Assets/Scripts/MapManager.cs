@@ -9,7 +9,7 @@ namespace Goose2Client
     public class MapManager : MonoBehaviour
     {
         [SerializeField] private GameObject cameraObject;
-        private Dictionary<int, GameObject> characters = new();
+        private Dictionary<int, Character> characters = new();
 
         private Dictionary<int, GameObject> mapObjects = new();
 
@@ -30,6 +30,8 @@ namespace Goose2Client
             CharacterAnimationPrefab = Resources.Load<GameObject>("Prefabs/CharacterAnimation");
             CharacterPrefab = Resources.Load<GameObject>("Prefabs/Character");
             SpellAnimationPrefab = Resources.Load<GameObject>("Prefabs/SpellAnimation");
+
+            GameManager.Instance.MapManager = this;
 
             this.map = GameManager.Instance.CurrentMap;
 
@@ -87,9 +89,11 @@ namespace Goose2Client
             var position = new Vector3(makeCharacterPacket.MapX, map.Height - makeCharacterPacket.MapY);
             var character = Instantiate(CharacterPrefab, position, Quaternion.identity);
             character.name = makeCharacterPacket.Name;
-            characters[makeCharacterPacket.LoginId] = character;
 
             var characterScript = character.GetComponent<Character>();
+
+            characters[makeCharacterPacket.LoginId] = characterScript;
+
             characterScript.MakeCharacter(makeCharacterPacket);
         }
 
@@ -100,8 +104,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(updateCharacterPacket.LoginId, out var character))
                 return;
 
-            var characterScript = character.GetComponent<Character>();
-            characterScript.UpdateCharacter(updateCharacterPacket);
+            character.UpdateCharacter(updateCharacterPacket);
         }
 
         private void OnPing(object packet)
@@ -116,18 +119,17 @@ namespace Goose2Client
             if (!characters.TryGetValue(setYourCharacter.LoginId, out var character))
                 return;
 
-            SetCameraFollow(character);
+            SetCameraFollow(character.gameObject);
 
             var playerController = character.gameObject.AddComponent<PlayerController>();
             playerController.MapManager = this;
 
-            var characterScript = character.GetComponent<Character>();
-            if (map[characterScript.X, characterScript.Y].IsRoof)
+            if (map[character.X, character.Y].IsRoof)
                 this.roofLayer.SetActive(false);
 
-            this.character = characterScript;
+            this.character = character;
 
-            GameManager.Instance.Character = characterScript;
+            GameManager.Instance.Character = character;
         }
 
         private void OnMoveCharacter(object packet)
@@ -137,9 +139,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(moveCharacter.LoginId, out var character))
                 return;
 
-            var characterScript = character.GetComponent<Character>();
-
-            characterScript.Move(moveCharacter.MapX, moveCharacter.MapY);
+            character.Move(moveCharacter.MapX, moveCharacter.MapY);
         }
 
         private void OnChangeHeading(object packet)
@@ -149,9 +149,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(changeHeadingPacket.LoginId, out var character))
                 return;
 
-            var characterScript = character.GetComponent<Character>();
-
-            characterScript.SetFacing(changeHeadingPacket.Direction);
+            character.SetFacing(changeHeadingPacket.Direction);
         }
 
         private void OnEraseCharacter(object packet)
@@ -161,7 +159,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(eraseCharacter.LoginId, out var character))
                 return;
 
-            Destroy(character);
+            Destroy(character.gameObject);
             characters.Remove(eraseCharacter.LoginId);
         }
 
@@ -225,8 +223,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(vitalsPercentage.LoginId, out var character))
                 return;
 
-            var characterScript = character.GetComponent<Character>();
-            characterScript.UpdateHPMP(vitalsPercentage.HPPercentage, vitalsPercentage.MPPercentage);
+            character.UpdateHPMP(vitalsPercentage.HPPercentage, vitalsPercentage.MPPercentage);
         }
 
         private void OnAttack(object packet)
@@ -236,8 +233,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(attack.LoginId, out var character))
                 return;
 
-            var characterScript = character.GetComponent<Character>();
-            characterScript.Attack();
+            character.Attack();
         }
 
         private void OnCast(object packet)
@@ -247,8 +243,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(cast.LoginId, out var character))
                 return;
 
-            var characterScript = character.GetComponent<Character>();
-            characterScript.Cast();
+            character.Cast();
         }
 
         private void OnWeaponSpeed(object packet)
@@ -272,7 +267,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(spellCharacter.LoginId, out var character))
                 return;
 
-            ShowSpell(spellCharacter.AnimationId, character.transform);
+            ShowSpell(spellCharacter.AnimationId, character.gameObject.transform);
         }
 
         private void OnSpellTile(object packet)
@@ -289,8 +284,7 @@ namespace Goose2Client
             if (!characters.TryGetValue(battleText.LoginId, out var character))
                 return;
 
-            var characterScript = character.GetComponent<Character>();
-            characterScript.AddBattleText(battleText.BattleTextType, battleText.Text);
+            character.AddBattleText(battleText.BattleTextType, battleText.Text);
         }
 
         private void OnMapObject(object packetObj)
@@ -320,6 +314,14 @@ namespace Goose2Client
 
             if (mapObjects.TryGetValue(packet.TileY * map.Height + packet.TileX, out var item))
                 Destroy(item);
+        }
+
+        public Character GetCharacter(int loginId)
+        {
+            if (characters.TryGetValue(loginId, out var character))
+                return character;
+
+            return null;
         }
     }
 }

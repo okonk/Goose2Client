@@ -14,7 +14,7 @@ namespace Goose2Client
         public int MapX { get; set; }
         public int MapY { get; set; }
         public Direction Facing { get; set; }
-        public int HPPercent { get; set; }
+        public float HPPercent { get; set; }
         public int BodyId { get; set; }
         public int BodyR { get; set; }
         public int BodyG { get; set; }
@@ -47,7 +47,7 @@ namespace Goose2Client
                 MapX = p.GetInt32() - 1,
                 MapY = p.GetInt32() - 1,
                 Facing = (Direction)(p.GetInt32() - 1),
-                HPPercent = p.GetInt32(),
+                HPPercent = p.GetInt32() / 100.0f,
                 BodyId = p.GetInt32(),
                 BodyR = p.GetInt32(),
                 BodyG = p.GetInt32(),
