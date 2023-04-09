@@ -117,7 +117,6 @@ namespace Goose2Client
 
         public void OnButtonPressed(int index, bool pressed)
         {
-            Debug.Log($"{index} is pressed: {pressed}");
             if (pressed) buttonRepeatDelayTime = 0.1f;
             buttonPressed[index] = pressed;
         }

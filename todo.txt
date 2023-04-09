@@ -1,7 +1,6 @@
 mvp:
 
 spell targeting
-mounts
 
 fix packet bug
 
@@ -10,10 +9,12 @@ save hotbar items
 changing map clears the chat history
 changing map clears the spellbook
 
-
 when clicking chat input field disable movement
 
+
 other:
+
+mounts
 
 chat bubbles
 
@@ -38,6 +39,8 @@ render dragged icons in a higher layer above other windows
 add a timer to buff bar items (needs server)
 
 resize spell slots?
+
+in spell targeting implement target filtering
 
 fix layer rendering of characters/map objects
 improve name heights
