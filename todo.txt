@@ -1,28 +1,29 @@
 mvp:
 
-
-
 spell targeting
 mounts
+
+fix packet bug
+
+save hotbar items
+
+changing map clears the chat history
+changing map clears the spellbook
+
+
+when clicking chat input field disable movement
+
+other:
 
 chat bubbles
 
 emotes
 
-fix packet bug
+save char name
+save window positions
 
 player isn't centered
 built client is laggy
-
-
-save char name
-save window positions
-save hotbar items
-
-
-
-
-other:
 
 toolbar
 

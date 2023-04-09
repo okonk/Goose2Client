@@ -16,7 +16,7 @@ namespace Goose2Client
 
         public int SpellIndex { get; set; } // not sure what this means
 
-        public int TargetType { get; set; }
+        public SpellTargetType TargetType { get; set; }
 
         public int GraphicId { get; set; }
 
@@ -39,7 +39,7 @@ namespace Goose2Client
                 packet.AnimationId = p.GetInt32();
                 packet.Unknown1 = p.GetInt32();
                 packet.SpellIndex = p.GetInt32();
-                packet.TargetType = p.GetInt32();
+                packet.TargetType = (SpellTargetType)p.GetInt32();
                 packet.GraphicId = p.GetInt32();
                 packet.GraphicFile = p.GetInt32();
                 packet.Cooldown = p.GetInt64();

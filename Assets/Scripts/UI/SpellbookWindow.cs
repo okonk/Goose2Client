@@ -21,14 +21,14 @@ namespace Goose2Client
 
         private void OnToggleSpellbook(InputValue value)
         {
-            if (GameManager.Instance.IsTyping) return;
-
             panel.SetActive(!panel.activeSelf);
         }
 
         private void Start()
         {
             GameManager.Instance.PacketManager.Listen<SpellbookSlotPacket>(this.OnSpellbookSlot);
+
+            PlayerInputManager.Instance.ToggleSpellbook = OnToggleSpellbook;
 
             for (int i = 0; i < pages.Length; i++)
             {
@@ -76,9 +76,18 @@ namespace Goose2Client
 
         public void UseSpell(SpellInfo info)
         {
-            GameManager.Instance.SpellCooldownManager.Cast(info.SlotNumber);
+            if (GameManager.Instance.IsTargeting) return;
 
-            GameManager.Instance.NetworkClient.CastSpell(info.SlotNumber, GameManager.Instance.Character.LoginId);
+            if (info.TargetType == SpellTargetType.None)
+            {
+                GameManager.Instance.SpellCooldownManager.Cast(info.SlotNumber);
+
+                GameManager.Instance.NetworkClient.CastSpell(info.SlotNumber, GameManager.Instance.Character.LoginId);
+            }
+            else
+            {
+                GameManager.Instance.SpellTargetManager?.Cast(info);
+            }
         }
 
         public void OnBackClicked()

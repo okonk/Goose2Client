@@ -24,22 +24,18 @@ namespace Goose2Client
         {
             this.character = GetComponent<Character>();
 
-            var playerInput = gameObject.AddComponent<PlayerInput>();
-            playerInput.actions = Resources.Load<InputActionAsset>("Input System/Controls");
-            playerInput.actions.Enable();
+            PlayerInputManager.Instance.Attack = OnAttack;
+            PlayerInputManager.Instance.Move = OnMove;
+            PlayerInputManager.Instance.PickUp = OnPickUp;
         }
 
-        private void OnAttack(InputValue value)
+        private void OnAttack(bool pressed)
         {
-            if (GameManager.Instance.IsTyping && value.isPressed) return;
-
-            attackPressed = value.isPressed;
+            attackPressed = pressed;
         }
 
         private void OnMove(InputValue value)
         {
-            if (GameManager.Instance.IsTyping) return;
-
             var lastInput = moveInput;
 
             moveInput = value.Get<Vector2>();
@@ -65,10 +61,8 @@ namespace Goose2Client
             SetInputLastPressed();
         }
 
-        private void OnPickup(InputValue value)
+        private void OnPickUp(InputValue value)
         {
-            if (GameManager.Instance.IsTyping) return;
-
             GameManager.Instance.NetworkClient.Pickup();
         }
 

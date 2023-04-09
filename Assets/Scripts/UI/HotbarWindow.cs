@@ -31,6 +31,8 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<ClearInventorySlotPacket>(this.OnClearInventorySlot);
             GameManager.Instance.PacketManager.Listen<SpellbookSlotPacket>(this.OnSpellbookSlot);
 
+            PlayerInputManager.Instance.Hotkey = OnButtonPressed;
+
             for (int i = 0; i < slots.Length; i++)
             {
                 var slot = slots[i];
@@ -113,40 +115,11 @@ namespace Goose2Client
                 spellbookWindow.UseSpell(slot.SpellInfo);
         }
 
-        private void OnHotkey0(InputValue value)
-            => OnButtonPressed(9, value);
-
-        private void OnHotkey1(InputValue value)
-            => OnButtonPressed(0, value);
-
-        private void OnHotkey2(InputValue value)
-            => OnButtonPressed(1, value);
-
-        private void OnHotkey3(InputValue value)
-            => OnButtonPressed(2, value);
-
-        private void OnHotkey4(InputValue value)
-            => OnButtonPressed(3, value);
-
-        private void OnHotkey5(InputValue value)
-            => OnButtonPressed(4, value);
-
-        private void OnHotkey6(InputValue value)
-            => OnButtonPressed(5, value);
-
-        private void OnHotkey7(InputValue value)
-            => OnButtonPressed(6, value);
-
-        private void OnHotkey8(InputValue value)
-            => OnButtonPressed(7, value);
-
-        private void OnHotkey9(InputValue value)
-            => OnButtonPressed(8, value);
-
-        private void OnButtonPressed(int index, InputValue value)
+        public void OnButtonPressed(int index, bool pressed)
         {
-            if (value.isPressed) buttonRepeatDelayTime = 0.1f;
-            buttonPressed[index] = value.isPressed;
+            Debug.Log($"{index} is pressed: {pressed}");
+            if (pressed) buttonRepeatDelayTime = 0.1f;
+            buttonPressed[index] = pressed;
         }
 
         private void Update()

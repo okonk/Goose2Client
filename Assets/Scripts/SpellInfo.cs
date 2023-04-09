@@ -6,7 +6,7 @@ namespace Goose2Client
     {
         public int SlotNumber { get; set; }
         public string Name { get; set; }
-        public int TargetType { get; set; }
+        public SpellTargetType TargetType { get; set; }
         public int GraphicId { get; set; }
         public int GraphicFile { get; set; }
         public TimeSpan Cooldown { get; set; }

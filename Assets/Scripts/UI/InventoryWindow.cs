@@ -19,8 +19,6 @@ namespace Goose2Client
 
         private void OnToggleInventory(InputValue value)
         {
-            if (GameManager.Instance.IsTyping) return;
-
             panel.SetActive(!panel.activeSelf);
         }
 
@@ -38,6 +36,8 @@ namespace Goose2Client
                 slot.OnDoubleClick += UseItem;
                 slot.OnDropItem += DropItem;
             }
+
+            PlayerInputManager.Instance.ToggleInventory = OnToggleInventory;
         }
 
         private void OnDestroy()

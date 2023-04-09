@@ -37,8 +37,6 @@ namespace Goose2Client
 
         private void OnToggleCharacterWindow(InputValue value)
         {
-            if (GameManager.Instance.IsTyping) return;
-
             panel.SetActive(!panel.activeSelf);
         }
 
@@ -48,6 +46,8 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<ClearInventorySlotPacket>(this.OnClearInventorySlot);
             GameManager.Instance.PacketManager.Listen<StatusInfoPacket>(this.OnStatusInfo);
             GameManager.Instance.PacketManager.Listen<ExperienceBarPacket>(this.OnExperienceBar);
+
+            PlayerInputManager.Instance.ToggleCharacterWindow = OnToggleCharacterWindow;
 
             for (int i = 0; i < slots.Length; i++)
             {

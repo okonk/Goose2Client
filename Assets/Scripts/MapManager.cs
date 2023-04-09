@@ -13,6 +13,8 @@ namespace Goose2Client
 
         private Dictionary<int, GameObject> mapObjects = new();
 
+        public IEnumerable<Character> Characters => characters.Values;
+
         private MapFile map;
 
         public static GameObject CharacterAnimationPrefab;

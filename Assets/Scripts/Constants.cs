@@ -109,4 +109,12 @@ namespace Goose2Client
         Server,
         Client = 8,
     }
+
+    public enum SpellTargetType
+    {
+        None = 0,
+        NPC = 1,
+        NPCPlayer = 2,
+        Player = 3,
+    }
 }

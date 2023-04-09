@@ -43,6 +43,10 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<ServerMessagePacket>(this.OnServerMessage);
             GameManager.Instance.PacketManager.Listen<TellPacket>(this.OnTell);
 
+            SetAlpha(0.7f);
+
+            GameManager.Instance.ChatWindow = this;
+
             chatTypeToColor[ChatType.Chat] = Colors.White;
             chatTypeToColor[ChatType.Guild] = Colors.Yellow;
             chatTypeToColor[ChatType.Group] = Colors.Yellow;
@@ -61,10 +65,6 @@ namespace Goose2Client
             commandAliases["/"] = "/who";
             commandAliases["/r"] = "/random 1000";
             commandAliases["/h"] = "Hello there!";
-
-            SetAlpha(0.7f);
-
-            GameManager.Instance.ChatWindow = this;
         }
 
         private void OnDestroy()
@@ -196,6 +196,8 @@ namespace Goose2Client
             var eventSystem = EventSystem.current;
             if (!eventSystem.alreadySelecting)
                 eventSystem.SetSelectedGameObject(null);
+
+            PlayerInputManager.Instance.SwitchToMapping("Player");
         }
 
         public void ChatUpPressed()
@@ -262,6 +264,8 @@ namespace Goose2Client
             inputField.text = text;
             inputField.caretPosition = inputField.text.Length;
             inputField.ActivateInputField();
+
+            PlayerInputManager.Instance.SwitchToMapping("UI");
         }
 
         public void Update()

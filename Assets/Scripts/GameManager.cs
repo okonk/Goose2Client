@@ -17,6 +17,8 @@ namespace Goose2Client
 
         public MapManager MapManager { get; set; }
 
+        public SpellTargetManager SpellTargetManager { get; set; }
+
         public Character Character { get; set; }
 
         public Dictionary<int, string> Classes { get; private set; } = new Dictionary<int, string>();
@@ -28,6 +30,8 @@ namespace Goose2Client
         public ChatWindow ChatWindow { get; set; }
 
         public bool IsTyping { get { return ChatWindow?.Typing ?? false; } }
+
+        public bool IsTargeting { get { return SpellTargetManager?.IsTargeting ?? false; } }
 
         public static GameManager Instance
         {

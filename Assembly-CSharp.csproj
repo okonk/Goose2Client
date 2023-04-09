@@ -87,11 +87,13 @@
      <Compile Include="Assets/Scripts/MapItem.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
      <Compile Include="Assets/Scripts/UI/BackgroundTransparency.cs" />
+     <Compile Include="Assets/Scripts/PlayerInputManager.cs" />
      <Compile Include="Assets/Scripts/UI/InfoWindow.cs" />
      <Compile Include="Assets/Scripts/UI/HotbarSlot.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseObjectPacket.cs" />
      <Compile Include="Assets/Scripts/UI/PartyWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/TellPacket.cs" />
+     <Compile Include="Assets/Scripts/SpellTargetManager.cs" />
      <Compile Include="Assets/Scripts/SpellInfo.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/WeaponSpeedPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/VitalsPercentagePacket.cs" />
@@ -140,6 +142,7 @@
      <Compile Include="Assets/Scripts/Character/PlayerController.cs" />
      <Compile Include="Assets/Scripts/UI/TextTooltip.cs" />
      <Compile Include="Assets/Scripts/MapManager.cs" />
+     <Compile Include="Assets/Scripts/SpellTarget.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EndWindowPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SetYourPositionPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/AttackPacket.cs" />
