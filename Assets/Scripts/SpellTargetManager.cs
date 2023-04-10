@@ -66,6 +66,8 @@ namespace Goose2Client
 
             var prefab = Resources.Load<GameObject>("Prefabs/SpellTarget");
             var target = Instantiate(prefab, Target.gameObject.transform);
+
+            ResizeTarget(target);
         }
 
         private void SwitchTarget(Character nextTarget)
@@ -80,6 +82,18 @@ namespace Goose2Client
             existingTarget.transform.SetParent(nextTarget.transform, false);
 
             Target = nextTarget;
+
+            ResizeTarget(existingTarget.gameObject);
+        }
+
+        private void ResizeTarget(GameObject target)
+        {
+            var heightScaled = Math.Max(1, Target.Height / 32f);
+            var widthScaled = Math.Max(1, heightScaled * 0.75f);
+            var yOffset = (heightScaled - 1) * 0.5f;
+
+            target.transform.localPosition = new Vector3(0.5f, yOffset);
+            target.transform.localScale = new Vector3(widthScaled, heightScaled, 1);
         }
 
         private void RemoveTarget()

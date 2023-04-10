@@ -20,6 +20,8 @@ namespace Goose2Client
 
         public string FullName { get { return $"{Title} {Name} {Surname}".Trim(); } }
 
+        public int Height => body.Height;
+
         private Dictionary<AnimationSlot, CharacterAnimation> animations = new();
 
         private Vector2Int targetPosition;

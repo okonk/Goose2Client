@@ -49,7 +49,7 @@ namespace Goose2Client
 
             ShowBars();
 
-            if (value != 100)
+            if (value != 1)
                 shouldHide = false;
         }
 

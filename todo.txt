@@ -1,6 +1,6 @@
 mvp:
 
-spell targeting
+
 
 fix packet bug
 
@@ -53,6 +53,8 @@ attack animation glitches out with punches
 item tooltips flashing when switching fast
 
 split stacks when holding ctrl in inventory
+
+fix spell target box colours
 
 
 can i fix it so when scripts are reloaded it works?
@@ -129,3 +131,4 @@ chat UI
 message UI
 quest UI
 party UI
+spell targeting
