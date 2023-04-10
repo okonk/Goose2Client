@@ -34,8 +34,6 @@ namespace Goose2Client
         private List<string> inputHistory = new();
         private int inputHistoryIndex = 0;
 
-        private bool chatSubmitted = false;
-
         private void Start()
         {
             GameManager.Instance.PacketManager.Listen<ChatPacket>(this.OnChat);
@@ -65,6 +63,12 @@ namespace Goose2Client
             commandAliases["/"] = "/who";
             commandAliases["/r"] = "/random 1000";
             commandAliases["/h"] = "Hello there!";
+
+            PlayerInputManager.Instance.StartChat = (i) => ChatFocused("");
+            PlayerInputManager.Instance.SlashCommand = (i) => ChatFocused("/");
+            PlayerInputManager.Instance.GuildCommand = (i) => ChatFocused("/guild ");
+            PlayerInputManager.Instance.TellCommand = (i) => ChatFocused("/tell ");
+            PlayerInputManager.Instance.ReplyCommand = (i) => ChatFocused($"/tell {(replyToName == null ? "" : replyToName + " ")}");
         }
 
         private void OnDestroy()
@@ -163,8 +167,6 @@ namespace Goose2Client
                 ClearAndRemoveFocus();
                 return;
             }
-
-            chatSubmitted = true;
 
             string message = inputField.text;
             if (!string.IsNullOrWhiteSpace(message))
@@ -270,35 +272,15 @@ namespace Goose2Client
 
         public void Update()
         {
-            if (Typing && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (!Typing) return;
+
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
                 ChatEscapePressed();
 
-            if (Typing && Keyboard.current.upArrowKey.wasPressedThisFrame)
+            if (Keyboard.current.upArrowKey.wasPressedThisFrame)
                 ChatUpPressed();
-            else if (Typing && Keyboard.current.downArrowKey.wasPressedThisFrame)
+            else if (Keyboard.current.downArrowKey.wasPressedThisFrame)
                 ChatDownPressed();
-
-            if (chatSubmitted)
-            {
-                chatSubmitted = false;
-                return;
-            }
-
-            if (Typing) return;
-
-            var enterPressed = Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame;
-
-            if (enterPressed)
-                ChatFocused("");
-
-            if (Keyboard.current.slashKey.wasPressedThisFrame)
-                ChatFocused("/");
-            else if (Keyboard.current.gKey.wasPressedThisFrame)
-                ChatFocused("/guild ");
-            else if (Keyboard.current.tKey.wasPressedThisFrame)
-                ChatFocused("/tell ");
-            else if (Keyboard.current.rKey.wasPressedThisFrame)
-                ChatFocused($"/tell {(replyToName == null ? "" : replyToName + " ")}");
         }
     }
 }

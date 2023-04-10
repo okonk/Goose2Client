@@ -66,6 +66,12 @@ namespace Goose2Client
         public Action<InputValue> ConfirmTarget { get; set; }
         public Action<InputValue> CancelTarget { get; set; }
 
+        public Action<InputValue> StartChat { get; set; }
+        public Action<InputValue> GuildCommand { get; set; }
+        public Action<InputValue> SlashCommand { get; set; }
+        public Action<InputValue> TellCommand { get; set; }
+        public Action<InputValue> ReplyCommand { get; set; }
+
         private void OnMove(InputValue value)
             => Move?.Invoke(value);
 
@@ -91,5 +97,16 @@ namespace Goose2Client
             => ConfirmTarget?.Invoke(value);
         private void OnCancelTarget(InputValue value)
             => CancelTarget?.Invoke(value);
+
+        private void OnStartChat(InputValue value)
+            => StartChat?.Invoke(value);
+        private void OnGuildCommand(InputValue value)
+            => GuildCommand?.Invoke(value);
+        private void OnSlashCommand(InputValue value)
+            => SlashCommand?.Invoke(value);
+        private void OnTellCommand(InputValue value)
+            => TellCommand?.Invoke(value);
+        private void OnReplyCommand(InputValue value)
+            => ReplyCommand?.Invoke(value);
     }
 }
