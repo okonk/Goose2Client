@@ -282,5 +282,10 @@ namespace Goose2Client
             else if (Keyboard.current.downArrowKey.wasPressedThisFrame)
                 ChatDownPressed();
         }
+
+        public void OnSelect()
+        {
+            ChatFocused("");
+        }
     }
 }

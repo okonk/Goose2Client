@@ -9,7 +9,7 @@ save hotbar items
 changing map clears the chat history
 changing map clears the spellbook
 
-when clicking chat input field disable movement
+
 
 
 other:
@@ -132,3 +132,4 @@ message UI
 quest UI
 party UI
 spell targeting
+when clicking chat input field disable movement
