@@ -2,7 +2,7 @@ mvp:
 
 
 
-fix packet bug
+
 
 save hotbar items
 
@@ -133,3 +133,4 @@ quest UI
 party UI
 spell targeting
 when clicking chat input field disable movement
+fix packet bug

@@ -89,11 +89,12 @@ namespace Goose2Client
                     if (packetBuffer.Length == 0) continue;
 
                     string[] packets = packetBuffer.Split("\x1".ToCharArray());
-                    int limit = packets.Length - 1;
+                    int limit = packets.Length;
 
                     if (!packetBuffer.EndsWith("\x1"))
                     {
                         packetBuffer = packets[packets.Length - 1];
+                        limit--;
                     }
                     else
                     {
@@ -107,7 +108,7 @@ namespace Goose2Client
 
                         if (Pause)
                         {
-                            packetBuffer = string.Join('\x1', packets.Skip(i + 1).Take(limit - i - 1)) + packetBuffer;
+                            packetBuffer = string.Join('\x1', packets.Skip(i + 1).Take(limit - i - 1)) + (packetBuffer.Length > 0 ? $"\x1{packetBuffer}" : "");
                             return;
                         }
                     }
