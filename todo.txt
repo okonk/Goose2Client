@@ -1,14 +1,7 @@
 mvp:
 
 
-
-
-
 save hotbar items
-
-changing map clears the chat history
-changing map clears the spellbook
-
 
 
 
@@ -134,3 +127,5 @@ party UI
 spell targeting
 when clicking chat input field disable movement
 fix packet bug
+changing map clears the chat history
+changing map clears the spellbook

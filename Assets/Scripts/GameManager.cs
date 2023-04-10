@@ -79,7 +79,13 @@ namespace Goose2Client
 
         private IEnumerator LoadMapAsync(string mapFile, string mapName)
         {
-            var asyncLoad = SceneManager.LoadSceneAsync("LoadingMapScene");
+            var ui = SceneManager.GetActiveScene().GetRootGameObjects().FirstOrDefault(o => o.name == "UI");
+            Debug.Log($"Moving UI to map loading: {ui != null}");
+            ui?.SetActive(false);
+
+            var lastScene = SceneManager.GetActiveScene();
+
+            var asyncLoad = SceneManager.LoadSceneAsync("LoadingMapScene", LoadSceneMode.Additive);
 
             while (!asyncLoad.isDone)
             {
@@ -87,6 +93,16 @@ namespace Goose2Client
             }
 
             var mapLoadScene = SceneManager.GetSceneByName("LoadingMapScene");
+
+            if (ui != null)
+                SceneManager.MoveGameObjectToScene(ui, mapLoadScene);
+
+            var unload = SceneManager.UnloadSceneAsync(lastScene);
+            while (!unload.isDone)
+            {
+                yield return null;
+            }
+
             var canvas = mapLoadScene.GetRootGameObjects().FirstOrDefault(o => o.name == "Canvas");
             var loadingMapScript = canvas.GetComponentInChildren<LoadingMapScene>();
 

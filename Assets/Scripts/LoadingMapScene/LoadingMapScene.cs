@@ -28,7 +28,10 @@ namespace Goose2Client
         {
             var map = GetMap($"Maps/{mapFile.Replace(".map", "")}");
 
-            var currentScene = SceneManager.GetActiveScene();
+            var lastScene = SceneManager.GetActiveScene();
+
+            var ui = lastScene.GetRootGameObjects().FirstOrDefault(o => o.name == "UI");
+
             var asyncLoad = SceneManager.LoadSceneAsync("MapScene", LoadSceneMode.Additive);
 
             while (!asyncLoad.isDone)
@@ -40,9 +43,23 @@ namespace Goose2Client
             var eventSystem = FindObjectOfType<EventSystem>();
             SceneManager.MoveGameObjectToScene(eventSystem.gameObject, mapScene);
 
+            if (ui != null)
+            {
+                SceneManager.MoveGameObjectToScene(ui, mapScene);
+                ui.SetActive(true);
+            }
+
             var mapObj = ImportMap(map);
             SceneManager.MoveGameObjectToScene(mapObj, mapScene);
-            SceneManager.UnloadSceneAsync(currentScene);
+
+            SceneManager.UnloadSceneAsync(lastScene);
+
+            if (ui == null)
+            {
+                var uiPrefab = Resources.Load<GameObject>("Prefabs/UI/UI");
+                ui = Instantiate(uiPrefab, null);
+                ui.name = "UI";
+            }
 
             var mapManager = FindObjectOfType<MapManager>();
             mapManager.OnMapLoaded(mapObj);
