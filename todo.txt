@@ -2,10 +2,6 @@ mvp:
 
 
 
-set window positions to better defaults
-
-
-
 other:
 
 mounts

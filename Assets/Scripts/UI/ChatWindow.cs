@@ -285,7 +285,7 @@ namespace Goose2Client
 
         public void OnSelect()
         {
-            ChatFocused("");
+            PlayerInputManager.Instance.SwitchToMapping("UI");
         }
     }
 }
