@@ -33,12 +33,16 @@ namespace Goose2Client
 
             PlayerInputManager.Instance.Hotkey = OnButtonPressed;
 
+            var settings = GameManager.Instance.CharacterSettings.Hotkeys;
+
             for (int i = 0; i < slots.Length; i++)
             {
                 var slot = slots[i];
                 slot.SlotNumber = i;
                 slot.Window = this;
                 slot.OnUseSlot = UseSlot;
+
+                LoadSlot(slot, settings[i]);
             }
 
             buttonPressed = new bool[slots.Length];
@@ -50,6 +54,68 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<InventorySlotPacket>(this.OnInventorySlot);
             GameManager.Instance.PacketManager.Remove<ClearInventorySlotPacket>(this.OnClearInventorySlot);
             GameManager.Instance.PacketManager.Remove<SpellbookSlotPacket>(this.OnSpellbookSlot);
+        }
+
+        private void LoadSlot(HotbarSlot slot, HotkeySetting setting)
+        {
+            if (setting == null || setting.SlotNumber == -1) return;
+
+            if (setting.Type == HotkeySetting.SlotType.Item)
+            {
+                slot.SetItem(new ItemStats
+                {
+                    SlotNumber = setting.SlotNumber,
+                    Name = "Loaded slot",
+                    GraphicId = 3002,
+                    GraphicFile = 13,
+                });
+            }
+            else
+            {
+                slot.SetSpell(new SpellInfo
+                {
+                    SlotNumber = setting.SlotNumber,
+                    Name = "Loaded slot",
+                    GraphicId = 3002,
+                    GraphicFile = 13,
+                });
+            }
+        }
+
+        private void SaveSlots()
+        {
+            var settings = GameManager.Instance.CharacterSettings.Hotkeys;
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                var slot = slots[i];
+
+                HotkeySetting setting = null;
+                if (slot.ItemStats != null)
+                    setting = new(slot.ItemStats.SlotNumber, HotkeySetting.SlotType.Item);
+                else if (slot.SpellInfo != null)
+                    setting = new(slot.SpellInfo.SlotNumber, HotkeySetting.SlotType.Spell);
+                else
+                    setting = new(-1, HotkeySetting.SlotType.Item);
+
+                settings[i] = setting;
+            }
+
+            GameManager.Instance.CharacterSettings.Save();
+        }
+
+        public void SaveSlotsDelayed()
+        {
+            StopCoroutine(nameof(SaveSlotsDelayedInternal));
+
+            StartCoroutine(nameof(SaveSlotsDelayedInternal));
+        }
+
+        private IEnumerator SaveSlotsDelayedInternal()
+        {
+            yield return new WaitForSecondsRealtime(5);
+
+            SaveSlots();
         }
 
         private void OnExperienceBar(object packetObj)

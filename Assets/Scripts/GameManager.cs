@@ -11,6 +11,8 @@ namespace Goose2Client
     {
         private static GameManager instance;
 
+        public CharacterSettings CharacterSettings { get; private set; }
+
         public NetworkClient NetworkClient { get; private set; }
         public PacketManager PacketManager { get; private set; }
         public AnimationManager AnimationManager { get; private set; }
@@ -68,6 +70,11 @@ namespace Goose2Client
         public void Update()
         {
             this.NetworkClient.Update();
+        }
+
+        public void LoadSettings(string characterName)
+        {
+            this.CharacterSettings = new CharacterSettings(characterName);
         }
 
         public void ChangeMap(string mapFile, string mapName)

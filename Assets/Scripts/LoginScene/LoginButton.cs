@@ -50,6 +50,9 @@ namespace Goose2Client
             GameManager.Instance.NetworkClient.SocketError += this.OnError;
             GameManager.Instance.NetworkClient.ConnectionError += this.OnError;
 
+            nameInput.GetComponent<TMP_InputField>().text = PlayerPrefs.GetString("CharacterName", "");
+            passwordInput.GetComponent<TMP_InputField>().text = PlayerPrefs.GetString("CharacterPassword", "");
+
             messageOverlay.SetActive(false);
         }
 
@@ -113,6 +116,12 @@ namespace Goose2Client
             Debug.Log("Login success");
 
             this.SetMessage("Connected!");
+
+            var name = GetName();
+            PlayerPrefs.SetString("CharacterName", name);
+            PlayerPrefs.SetString("CharacterPassword", GetPassword());
+
+            GameManager.Instance.LoadSettings(name);
 
             GameManager.Instance.NetworkClient.LoginContinued();
         }

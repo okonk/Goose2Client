@@ -52,6 +52,7 @@
      <Compile Include="Assets/Scripts/UI/NonDrawingGraphic.cs" />
      <Compile Include="Assets/Scripts/UI/ChatWindow.cs" />
      <Compile Include="Assets/Scripts/AnimationSlot.cs" />
+     <Compile Include="Assets/Scripts/CharacterSettings.cs" />
      <Compile Include="Assets/Scripts/UI/SpellbookPage.cs" />
      <Compile Include="Assets/Scripts/UI/ItemTooltip.cs" />
      <Compile Include="Assets/Scripts/Network/PacketParser.cs" />

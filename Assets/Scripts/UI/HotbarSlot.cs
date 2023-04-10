@@ -51,6 +51,7 @@ namespace Goose2Client
             if (fromSpell != null && fromSpell.HasSpell)
             {
                 SetSpell(fromSpell.info);
+                SaveSlots();
                 return;
             }
 
@@ -58,6 +59,7 @@ namespace Goose2Client
             if (fromItem != null && fromItem.HasItem && (fromItem.Window.WindowFrame == WindowFrames.Inventory || fromItem.Window.WindowFrame == WindowFrames.Equipped))
             {
                 SetItem(fromItem.stats);
+                SaveSlots();
                 return;
             }
 
@@ -79,6 +81,7 @@ namespace Goose2Client
                 else
                     fromHotbar.Clear();
 
+                SaveSlots();
                 return;
             }
         }
@@ -121,6 +124,12 @@ namespace Goose2Client
             SpellInfo = null;
             itemSlot = keepItemSlot;
             spellSlot = keepSpellSlot;
+        }
+
+        private void SaveSlots()
+        {
+            var hotbarWindow = (HotbarWindow)Window;
+            hotbarWindow.SaveSlotsDelayed();
         }
 
         public void OnInventorySlot(ItemStats stats)

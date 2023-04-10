@@ -1,7 +1,8 @@
 mvp:
 
 
-save hotbar items
+
+set window positions to better defaults
 
 
 
@@ -13,7 +14,6 @@ chat bubbles
 
 emotes
 
-save char name
 save window positions
 
 player isn't centered
@@ -48,6 +48,8 @@ item tooltips flashing when switching fast
 split stacks when holding ctrl in inventory
 
 fix spell target box colours
+
+refactor login screen/button code
 
 
 can i fix it so when scripts are reloaded it works?
@@ -129,3 +131,5 @@ when clicking chat input field disable movement
 fix packet bug
 changing map clears the chat history
 changing map clears the spellbook
+save char name
+save hotbar items
