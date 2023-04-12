@@ -4,6 +4,8 @@ mvp:
 
 other:
 
+chat didn't auto scroll...
+
 mounts
 
 chat bubbles
