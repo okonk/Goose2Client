@@ -20,6 +20,18 @@ namespace Goose2Client
 
     public class ToolsMenu
     {
+        [MenuItem("Tools/Build AssetBundles")]
+        private static void BuildAllAssetBundles()
+        {
+            string assetBundleDirectory = "Assets/StreamingAssets";
+            if (!Directory.Exists(assetBundleDirectory))
+            {
+                Directory.CreateDirectory(assetBundleDirectory);
+            }
+
+            BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, BuildTarget.StandaloneLinux64);
+        }
+
         //[MenuItem("Tools/Remap Animations")]
         private static void RemapAnimations()
         {
@@ -67,36 +79,36 @@ namespace Goose2Client
             var dataDir = $"{illutiaDir}/data";
             var mapDir = $"{illutiaDir}/maps";
 
-            var idsThatDontHaveSprites = new[] { 3150, 3151, 3156, 3159, 3160, 3161, 3162, 3168, 35504, 35505, 35506, 35507, 35508, 35509, 35510, 35511, 35512, 35513, 35514, 35515, 35516, 35517, 35518, 35519,
-                35520, 35521, 35522, 35523, 3170, 3172, 3176, 3177, 3178, 50457, 50467, 50477, 50487, 50497, 50507, 50517, 50527, 50537,
-                50538, 50539, 50540, 50541, 50542, 50543, 50544, 50545, 50546, 50547, 3179, 3180, 3187 };
+            // var idsThatDontHaveSprites = new[] { 3150, 3151, 3156, 3159, 3160, 3161, 3162, 3168, 35504, 35505, 35506, 35507, 35508, 35509, 35510, 35511, 35512, 35513, 35514, 35515, 35516, 35517, 35518, 35519,
+            //     35520, 35521, 35522, 35523, 3170, 3172, 3176, 3177, 3178, 50457, 50467, 50477, 50487, 50497, 50507, 50517, 50527, 50537,
+            //     50538, 50539, 50540, 50541, 50542, 50543, 50544, 50545, 50546, 50547, 3179, 3180, 3187 };
 
-            var adfs = new Dictionary<int, ADFFile>();
+            // var adfs = new Dictionary<int, ADFFile>();
 
-            foreach (var file in Directory.EnumerateFiles(dataDir, "*.adf"))
-            {
-                //Debug.Log($"Loading {file}");
+            // foreach (var file in Directory.EnumerateFiles(dataDir, "*.adf"))
+            // {
+            //     //Debug.Log($"Loading {file}");
 
-                var adf = new ADFFile(file);
-                adfs[adf.FileNumber] = adf;
+            //     var adf = new ADFFile(file);
+            //     adfs[adf.FileNumber] = adf;
 
-                // if (adf.Type != ADFType.Graphic) continue;
+            //     // if (adf.Type != ADFType.Graphic) continue;
 
-                // var asset = (TextureImporter)TextureImporter.GetAtPath($"Assets/Resources/Spritesheets/{adf.FileNumber}.png");
-                // asset.GetSourceTextureWidthAndHeight(out int totalWidth, out int totalHeight);
+            //     // var asset = (TextureImporter)TextureImporter.GetAtPath($"Assets/Resources/Spritesheets/{adf.FileNumber}.png");
+            //     // asset.GetSourceTextureWidthAndHeight(out int totalWidth, out int totalHeight);
 
-                // foreach (var id in idsThatDontHaveSprites)
-                // {
-                //     if (adf.FirstFrameIndex <= id && adf.EndFrameIndex >= id)
-                //     {
-                //         var frame = adf.Frames.FirstOrDefault(f => f.Index == id);
-                //         Debug.Log($"{adf.FileNumber}/{id}: {frame.X} {frame.Y} {frame.W} {frame.H} vs {totalWidth} {totalHeight}");
-                //     }
-                // }
+            //     // foreach (var id in idsThatDontHaveSprites)
+            //     // {
+            //     //     if (adf.FirstFrameIndex <= id && adf.EndFrameIndex >= id)
+            //     //     {
+            //     //         var frame = adf.Frames.FirstOrDefault(f => f.Index == id);
+            //     //         Debug.Log($"{adf.FileNumber}/{id}: {frame.X} {frame.Y} {frame.W} {frame.H} vs {totalWidth} {totalHeight}");
+            //     //     }
+            //     // }
 
-                // if (adf.Type == ADFType.Graphic)
-                //     ConvertToPng(adf);
-            }
+            //     // if (adf.Type == ADFType.Graphic)
+            //     //     ConvertToPng(adf);
+            // }
 
             // AssetDatabase.SaveAssets();
             // AssetDatabase.Refresh();
@@ -111,14 +123,41 @@ namespace Goose2Client
             // AssetDatabase.SaveAssets();
             // AssetDatabase.Refresh();
 
-            var compiledEnc = new CompiledEnc($"{dataDir}/compiled.enc");
+            //var compiledEnc = new CompiledEnc($"{dataDir}/compiled.enc");
             // ImportCompiledAnimations(compiledEnc, adfs);
             // ImportIdleAnimations(compiledEnc, adfs);
             // ImportOtherAnimations(compiledEnc, adfs);
             //ImportAnimationNames(compiledEnc, adfs);
-            AddAttackFinishedAnimationEvents(compiledEnc, adfs);
+            //AddAttackFinishedAnimationEvents(compiledEnc, adfs);
+            LabelAnimations();
 
             //ImportMap($"{mapDir}/Map2.map");
+        }
+
+        private static void LabelAnimations()
+        {
+            foreach (var animationFile in Directory.EnumerateFiles("Assets/Resources/Animations", $"*.anim"))
+            {
+                var fileName = Path.GetFileNameWithoutExtension(animationFile);
+                if (fileName == "Blank") continue;
+
+                if (int.TryParse(fileName, out int _))
+                {
+                    LabelAnimation(animationFile, $"Spell-{fileName}");
+                }
+                else
+                {
+                    var firstDash = fileName.IndexOf('-');
+                    var secondDash = fileName.IndexOf('-', firstDash + 1);
+
+                    LabelAnimation(animationFile, fileName.Substring(0, secondDash));
+                }
+            }
+        }
+
+        private static void LabelAnimation(string path, string label)
+        {
+            AssetImporter.GetAtPath(path).SetAssetBundleNameAndVariant(label, "");
         }
 
         //[MenuItem("Tools/Copy Maps")]

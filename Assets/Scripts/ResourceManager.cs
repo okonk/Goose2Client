@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -20,17 +21,37 @@ namespace Goose2Client
             return resource;
         }
 
-        public static T Load<T>(string path, string id) where T: UnityEngine.Object
+        public static Sprite LoadSprite(string id)
         {
-            var key = path + "/" + id;
-            if (cache.TryGetValue(key, out var obj))
+            if (cache.TryGetValue(id, out var obj))
+                return (Sprite)obj;
+
+            var sprite = GameManager.Instance.atlas.GetSprite(id);
+            cache[id] = sprite;
+
+            return sprite;
+        }
+
+        public static AssetBundle LoadAssetBundle(string path)
+        {
+            if (cache.TryGetValue(path, out var obj))
+                return (AssetBundle)obj;
+
+            var resource = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, path));
+            cache[path] = resource;
+
+            return resource;
+        }
+
+        public static T Load<T>(AssetBundle bundle, string path) where T: UnityEngine.Object
+        {
+            if (cache.TryGetValue(path, out var obj))
                 return (T)obj;
 
-            var resources = Resources.LoadAll<T>(path);
-            foreach (var resource in resources)
-                cache[path + "/" + resource.name] = resource;
+            var resource = bundle.LoadAsset<T>(path);
+            cache[path] = resource;
 
-            return (T)cache[key];
+            return resource;
         }
     }
 }

@@ -31,6 +31,10 @@ public class SpellAnimation : MonoBehaviour
 
         var o = overrides[0];
 
+        //var assetBundle = ResourceManager.LoadAssetBundle($"spell-{id}");
+
+        //var clip = ResourceManager.Load<AnimationClip>(assetBundle, $"{id}");
+
         var clip = ResourceManager.Load<AnimationClip>($"Animations/{id}");
 
         if (clip == null)
@@ -39,6 +43,8 @@ public class SpellAnimation : MonoBehaviour
         overrides[0] = new KeyValuePair<AnimationClip, AnimationClip>(o.Key, clip);
 
         overrideController.ApplyOverrides(overrides);
+
+        //assetBundle.Unload(false);
 
         this.spriteRenderer.material.SetColor("_Color", Color.white);
         this.spriteRenderer.material.SetColor("_Tint", new Color(0,0,0,0));

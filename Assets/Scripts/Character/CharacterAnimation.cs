@@ -43,6 +43,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         this.Id = id;
 
+        //var assetBundle = ResourceManager.LoadAssetBundle($"{type.ToLowerInvariant()}-{id}");
+
         var overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>();
         overrideController.GetOverrides(overrides);
 
@@ -56,6 +58,7 @@ public class CharacterAnimation : MonoBehaviour
                 var splits = o.Key.name.Split('-', 3);
                 splits[0] = type;
                 splits[1] = id.ToString();
+                //clip = ResourceManager.Load<AnimationClip>(assetBundle, $"{string.Join('-', splits)}");
                 clip = ResourceManager.Load<AnimationClip>($"Animations/{string.Join('-', splits)}");
             }
 
@@ -64,6 +67,8 @@ public class CharacterAnimation : MonoBehaviour
 
             overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(o.Key, clip);
         }
+
+        //assetBundle.Unload(false);
 
         overrideController.ApplyOverrides(overrides);
 

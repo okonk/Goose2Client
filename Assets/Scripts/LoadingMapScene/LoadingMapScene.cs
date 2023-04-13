@@ -147,8 +147,7 @@ namespace Goose2Client
             if (tileCache.TryGetValue(graphicId, out Tile tile))
                 return tile;
 
-            var name = graphicId.ToString();
-            var sprite = ResourceManager.Load<Sprite>($"Spritesheets/{sheetNumber}", name);
+            var sprite = Helpers.GetSprite(graphicId, sheetNumber);
             tile = ScriptableObject.CreateInstance<Tile>();
             tile.sprite = sprite;
 

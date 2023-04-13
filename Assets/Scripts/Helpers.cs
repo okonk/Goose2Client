@@ -9,7 +9,7 @@ namespace Goose2Client
         public static Sprite GetSprite(int id, int file)
         {
             var idString = id.ToString();
-            var sprite = ResourceManager.Load<Sprite>($"Spritesheets/{file}", idString);
+            var sprite = ResourceManager.LoadSprite(idString);
 
             return sprite;
         }

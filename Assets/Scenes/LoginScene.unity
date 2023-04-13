@@ -3091,3 +3091,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398752bed279aeb6eb45a2a643c08c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atlas: {fileID: 100100200, guid: c5471545af0bf4b529690b41c4b6a9e5, type: 3}

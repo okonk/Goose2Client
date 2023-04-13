@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.U2D;
 
 namespace Goose2Client
 {
     public class GameManager : MonoBehaviour
     {
+        [SerializeField] public SpriteAtlas atlas;
+
         private static GameManager instance;
 
         public CharacterSettings CharacterSettings { get; private set; }
