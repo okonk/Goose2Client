@@ -20,15 +20,17 @@ namespace Goose2Client
             return resource;
         }
 
-        public static T[] LoadAll<T>(string path) where T: UnityEngine.Object
+        public static T Load<T>(string path, string id) where T: UnityEngine.Object
         {
-            if (cache.TryGetValue(path, out var obj))
-                return (T[])obj;
+            var key = path + "/" + id;
+            if (cache.TryGetValue(key, out var obj))
+                return (T)obj;
 
             var resources = Resources.LoadAll<T>(path);
-            cache[path] = resources;
+            foreach (var resource in resources)
+                cache[path + "/" + resource.name] = resource;
 
-            return resources;
+            return (T)cache[key];
         }
     }
 }

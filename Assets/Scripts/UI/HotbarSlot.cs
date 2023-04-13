@@ -20,8 +20,8 @@ namespace Goose2Client
         public int SlotNumber { get; set; }
         public IWindow Window { get; set; }
 
-        private int itemSlot = -1;
-        private int spellSlot = -1;
+        public int itemSlot = -1;
+        public int spellSlot = -1;
 
         public ItemStats ItemStats { get; private set; }
         public SpellInfo SpellInfo { get; private set; }

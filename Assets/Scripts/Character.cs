@@ -134,7 +134,7 @@ namespace Goose2Client
             text.text = $"{title} {name} {surname}".Trim();
             text.sortingLayerID = SortingLayer.NameToID(Constants.NamesLayer);
             text.fontSize = 2.5f;
-            text.fontMaterial = Resources.Load<Material>("Materials/NameFont");
+            text.fontMaterial = ResourceManager.Load<Material>("Materials/NameFont");
 
             var contentSizeFitter = textObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
             contentSizeFitter.horizontalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;

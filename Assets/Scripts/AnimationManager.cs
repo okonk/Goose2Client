@@ -14,7 +14,7 @@ namespace Goose2Client
         {
             animationHeights = new Dictionary<string, int>();
 
-            var data = Resources.Load<TextAsset>($"Animations/AnimationHeights");
+            var data = ResourceManager.Load<TextAsset>($"Animations/AnimationHeights");
             foreach (var line in data.text.Split('\n'))
             {
                 if (line.Length == 0) continue;

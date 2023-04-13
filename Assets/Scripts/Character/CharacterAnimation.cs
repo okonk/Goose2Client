@@ -56,11 +56,11 @@ public class CharacterAnimation : MonoBehaviour
                 var splits = o.Key.name.Split('-', 3);
                 splits[0] = type;
                 splits[1] = id.ToString();
-                clip = Resources.Load<AnimationClip>($"Animations/{string.Join('-', splits)}");
+                clip = ResourceManager.Load<AnimationClip>($"Animations/{string.Join('-', splits)}");
             }
 
             if (clip == null)
-                clip = Resources.Load<AnimationClip>($"Animations/Blank");
+                clip = ResourceManager.Load<AnimationClip>($"Animations/Blank");
 
             overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(o.Key, clip);
         }

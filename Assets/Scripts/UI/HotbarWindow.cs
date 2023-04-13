@@ -68,6 +68,7 @@ namespace Goose2Client
                     Name = "Loaded slot",
                     GraphicId = 3002,
                     GraphicFile = 13,
+                    GraphicR = 1
                 });
             }
             else
@@ -77,7 +78,7 @@ namespace Goose2Client
                     SlotNumber = setting.SlotNumber,
                     Name = "Loaded slot",
                     GraphicId = 3002,
-                    GraphicFile = 13,
+                    GraphicFile = 13
                 });
             }
         }
@@ -91,10 +92,10 @@ namespace Goose2Client
                 var slot = slots[i];
 
                 HotkeySetting setting = null;
-                if (slot.ItemStats != null)
-                    setting = new(slot.ItemStats.SlotNumber, HotkeySetting.SlotType.Item);
-                else if (slot.SpellInfo != null)
-                    setting = new(slot.SpellInfo.SlotNumber, HotkeySetting.SlotType.Spell);
+                if (slot.itemSlot != -1)
+                    setting = new(slot.itemSlot, HotkeySetting.SlotType.Item);
+                else if (slot.spellSlot != -1)
+                    setting = new(slot.spellSlot, HotkeySetting.SlotType.Spell);
                 else
                     setting = new(-1, HotkeySetting.SlotType.Item);
 

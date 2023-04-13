@@ -29,9 +29,9 @@ namespace Goose2Client
 
         private void Start()
         {
-            CharacterAnimationPrefab = Resources.Load<GameObject>("Prefabs/CharacterAnimation");
-            CharacterPrefab = Resources.Load<GameObject>("Prefabs/Character");
-            SpellAnimationPrefab = Resources.Load<GameObject>("Prefabs/SpellAnimation");
+            CharacterAnimationPrefab = ResourceManager.Load<GameObject>("Prefabs/CharacterAnimation");
+            CharacterPrefab = ResourceManager.Load<GameObject>("Prefabs/Character");
+            SpellAnimationPrefab = ResourceManager.Load<GameObject>("Prefabs/SpellAnimation");
 
             GameManager.Instance.MapManager = this;
 
@@ -293,7 +293,7 @@ namespace Goose2Client
         {
             var packet = (MapObjectPacket)packetObj;
 
-            var itemPrefab = Resources.Load<GameObject>("Prefabs/MapItem");
+            var itemPrefab = ResourceManager.Load<GameObject>("Prefabs/MapItem");
             var item = Instantiate(itemPrefab, gameObject.transform);
             item.name = $"MapItem {packet.Name} ({packet.GraphicId})";
 

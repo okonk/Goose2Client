@@ -37,7 +37,7 @@ namespace Goose2Client
 
             if (!windows.TryGetValue(packet.WindowId, out var windowScript))
             {
-                var prefab = Resources.Load<GameObject>(PrefabPath);
+                var prefab = ResourceManager.Load<GameObject>(PrefabPath);
                 var window = Instantiate(prefab, gameObject.transform);
 
                 windowScript = window.GetComponent<T>();

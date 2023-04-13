@@ -12,7 +12,6 @@ namespace Goose2Client
     public class LoadingMapScene : MonoBehaviour
     {
         private Dictionary<int, Tile> tileCache = new Dictionary<int, Tile>();
-        private Dictionary<int, Sprite[]> sheetCache = new Dictionary<int, Sprite[]>();
 
         public void Load(string mapFile, string mapName)
         {
@@ -56,7 +55,7 @@ namespace Goose2Client
 
             if (ui == null)
             {
-                var uiPrefab = Resources.Load<GameObject>("Prefabs/UI/UI");
+                var uiPrefab = ResourceManager.Load<GameObject>("Prefabs/UI/UI");
                 ui = Instantiate(uiPrefab, null);
                 ui.name = "UI";
             }
@@ -71,7 +70,7 @@ namespace Goose2Client
 
         private MapFile GetMap(string path)
         {
-            var mapFile = Resources.Load<TextAsset>(path);
+            var mapFile = ResourceManager.Load<TextAsset>(path);
 
             var map = new MapFile(mapFile.bytes);
             GameManager.Instance.CurrentMap = map;
@@ -128,7 +127,6 @@ namespace Goose2Client
             }
 
             tileCache.Clear();
-            sheetCache.Clear();
 
             return grid;
         }
@@ -149,14 +147,8 @@ namespace Goose2Client
             if (tileCache.TryGetValue(graphicId, out Tile tile))
                 return tile;
 
-            if (!sheetCache.TryGetValue(sheetNumber, out Sprite[] sprites))
-            {
-                sprites = Resources.LoadAll<Sprite>($"Spritesheets/{sheetNumber}");
-                sheetCache[sheetNumber] = sprites;
-            }
-
             var name = graphicId.ToString();
-            var sprite = sprites.FirstOrDefault(s => s.name == name);
+            var sprite = ResourceManager.Load<Sprite>($"Spritesheets/{sheetNumber}", name);
             tile = ScriptableObject.CreateInstance<Tile>();
             tile.sprite = sprite;
 

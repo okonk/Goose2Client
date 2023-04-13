@@ -53,7 +53,7 @@ namespace Goose2Client
             tmp.text = text;
             tmp.color = color;
             tmp.sortingLayerID = SortingLayer.NameToID(Constants.NamesLayer);
-            tmp.fontMaterial = Resources.Load<Material>("Materials/NameFont");
+            tmp.fontMaterial = ResourceManager.Load<Material>("Materials/NameFont");
 
             tmp.transform.localPosition = new Vector3(x, y);
         }

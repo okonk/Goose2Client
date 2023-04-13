@@ -31,10 +31,10 @@ public class SpellAnimation : MonoBehaviour
 
         var o = overrides[0];
 
-        var clip = Resources.Load<AnimationClip>($"Animations/{id}");
+        var clip = ResourceManager.Load<AnimationClip>($"Animations/{id}");
 
         if (clip == null)
-            clip = Resources.Load<AnimationClip>($"Animations/Blank");
+            clip = ResourceManager.Load<AnimationClip>($"Animations/Blank");
 
         overrides[0] = new KeyValuePair<AnimationClip, AnimationClip>(o.Key, clip);
 

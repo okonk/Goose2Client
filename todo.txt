@@ -49,6 +49,7 @@ fix spell target box colours
 
 refactor login screen/button code
 
+future: Show title/surname effects in item stats somehow. needs server support
 
 can i fix it so when scripts are reloaded it works?
 
@@ -131,3 +132,6 @@ changing map clears the chat history
 changing map clears the spellbook
 save char name
 save hotbar items
+fix item amount number wrapping
+fix hotkeys saving/reloding with equipment slots
+fix item slot 0
