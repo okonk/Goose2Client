@@ -39,7 +39,6 @@ namespace Goose2Client
 
         public void Start()
         {
-            GameManager.Instance.PacketManager.Clear();
             GameManager.Instance.PacketManager.Listen<LoginSuccessPacket>(this.OnLoginSuccess);
             GameManager.Instance.PacketManager.Listen<LoginFailPacket>(this.OnLoginFail);
             GameManager.Instance.PacketManager.Listen<SendCurrentMapPacket>(this.OnSendCurrentMap);
@@ -60,6 +59,8 @@ namespace Goose2Client
             GameManager.Instance.NetworkClient.SocketError -= this.OnError;
             GameManager.Instance.NetworkClient.ConnectionError -= this.OnError;
 
+            GameManager.Instance.PacketManager.Remove<LoginSuccessPacket>(this.OnLoginSuccess);
+            GameManager.Instance.PacketManager.Remove<LoginFailPacket>(this.OnLoginFail);
             GameManager.Instance.PacketManager.Remove<SendCurrentMapPacket>(this.OnSendCurrentMap);
         }
 

@@ -161,7 +161,7 @@ namespace Goose2Client
             if (attackDelayTime >= MapManager.WeaponSpeed)
                 attackDelayTime = 0;
 
-            if (attackPressed && canAttack)
+            if (attackPressed && canAttack && !character.IsMounted)
             {
                 character.Attack();
                 GameManager.Instance.NetworkClient.Attack();

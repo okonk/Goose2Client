@@ -2,6 +2,7 @@ namespace Goose2Client
 {
     public enum AnimationSlot
     {
+        Mount,
         Body,
         Face,
         Feet,
@@ -11,6 +12,5 @@ namespace Goose2Client
         Head,
         Shield,
         Weapon,
-        Mount
     }
 }

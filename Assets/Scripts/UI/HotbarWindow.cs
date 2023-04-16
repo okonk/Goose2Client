@@ -172,6 +172,8 @@ namespace Goose2Client
 
         private void UseSlot(int slotNumber)
         {
+            if (GameManager.Instance.IsTargeting) return;
+
             var slot = slots[slotNumber];
             if (!slot.CanUse())
                 return;

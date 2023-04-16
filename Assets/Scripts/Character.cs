@@ -22,6 +22,8 @@ namespace Goose2Client
 
         public int Height => body.Height;
 
+        public bool IsMounted => animations.ContainsKey(AnimationSlot.Mount);
+
         private Dictionary<AnimationSlot, CharacterAnimation> animations = new();
 
         private Vector2Int targetPosition;
@@ -60,15 +62,30 @@ namespace Goose2Client
                 CreateAnimation(AnimationSlot.Feet, "Feet", packet.DisplayedEquipment[3][0], ColorH.RGBA(packet.DisplayedEquipment[3]));
                 CreateAnimation(AnimationSlot.Shield, "Hand", packet.DisplayedEquipment[4][0], ColorH.RGBA(packet.DisplayedEquipment[4]));
                 CreateAnimation(AnimationSlot.Weapon, "Hand", packet.DisplayedEquipment[5][0], ColorH.RGBA(packet.DisplayedEquipment[5]));
+                CreateAnimation(AnimationSlot.Mount, "Body", packet.DisplayedEquipment[6][0], ColorH.RGBA(packet.DisplayedEquipment[6]));
             }
 
             SetFacing(packet.Facing);
 
+            bool mounted = packet.DisplayedEquipment != null && packet.DisplayedEquipment[6][0] != 0;
             var equipped = packet.BodyState == 3 ? 0 : 1;
-            foreach (var animation in animations.Values)
-                animation.SetFloat(Constants.Equipped, equipped);
+            foreach (var kvp in animations)
+            {
+                var animation = kvp.Value;
 
-            SetBodyState(packet.BodyState);
+                if (kvp.Key == AnimationSlot.Mount)
+                {
+                    animation.SetFloat(Constants.Equipped, 0);
+                    animation.SetBool(Constants.Mounted, false);
+                    animation.SetFloat(Constants.BodyState, 3);
+                }
+                else
+                {
+                    animation.SetFloat(Constants.Equipped, equipped);
+                    animation.SetBool(Constants.Mounted, mounted);
+                    animation.SetFloat(Constants.BodyState, packet.BodyState);
+                }
+            }
 
             this.LoginId = packet.LoginId;
             this.MoveSpeed = packet.MoveSpeed;
@@ -98,6 +115,7 @@ namespace Goose2Client
                 UpdateAnimation(AnimationSlot.Feet, "Feet", packet.DisplayedEquipment[3][0], ColorH.RGBA(packet.DisplayedEquipment[3]));
                 UpdateAnimation(AnimationSlot.Shield, "Hand", packet.DisplayedEquipment[4][0], ColorH.RGBA(packet.DisplayedEquipment[4]));
                 UpdateAnimation(AnimationSlot.Weapon, "Hand", packet.DisplayedEquipment[5][0], ColorH.RGBA(packet.DisplayedEquipment[5]));
+                UpdateAnimation(AnimationSlot.Mount, "Body", packet.DisplayedEquipment[6][0], ColorH.RGBA(packet.DisplayedEquipment[6]));
             }
             else
             {
@@ -109,15 +127,30 @@ namespace Goose2Client
                 DestroyAnimation(AnimationSlot.Feet);
                 DestroyAnimation(AnimationSlot.Shield);
                 DestroyAnimation(AnimationSlot.Weapon);
+                DestroyAnimation(AnimationSlot.Mount);
             }
 
             SetFacing(Facing);
 
+            bool mounted = packet.DisplayedEquipment != null && packet.DisplayedEquipment[6][0] != 0;
             var equipped = packet.BodyState == 3 ? 0 : 1;
-            foreach (var animation in animations.Values)
-                animation.SetFloat(Constants.Equipped, equipped);
+            foreach (var kvp in animations)
+            {
+                var animation = kvp.Value;
 
-            SetBodyState(packet.BodyState);
+                if (kvp.Key == AnimationSlot.Mount)
+                {
+                    animation.SetFloat(Constants.Equipped, 0);
+                    animation.SetBool(Constants.Mounted, false);
+                    animation.SetFloat(Constants.BodyState, 3);
+                }
+                else
+                {
+                    animation.SetFloat(Constants.Equipped, equipped);
+                    animation.SetBool(Constants.Mounted, mounted);
+                    animation.SetFloat(Constants.BodyState, packet.BodyState);
+                }
+            }
 
             this.MoveSpeed = packet.MoveSpeed;
         }

@@ -113,7 +113,7 @@ namespace Goose2Client
             int id = p.GetInt32();   // item graphic id
             equipped[i][j++] = id;
 
-            if (id == 0 && i == 6) return; // hack for mounts -- more illutia hacks
+            if (id == 0 && i == 6) return; // hack for mounts for npc characters, server used to send only 4 ints instead of 5
 
             if (p.Peek() == '*')
             {

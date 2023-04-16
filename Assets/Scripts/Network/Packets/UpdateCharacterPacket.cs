@@ -21,11 +21,6 @@ namespace Goose2Client
         public int Invisible { get; set; }
         public int FaceId { get; set; }
         public int MoveSpeed { get; set; }
-        public int MountId { get; set; }
-        public int MountR { get; set; }
-        public int MountG { get; set; }
-        public int MountB { get; set; }
-        public int MountA { get; set; }
 
         public override string Prefix { get; } = "CHP";
 
@@ -40,32 +35,39 @@ namespace Goose2Client
                 BodyB = p.GetInt32(),
                 BodyA = p.GetInt32(),
                 BodyState = p.GetInt32(),
-                HairId = p.GetInt32(),
-                DisplayedEquipment = ParseEquippedItems(p),
-                HairR = p.GetInt32(),
-                HairG = p.GetInt32(),
-                HairB = p.GetInt32(),
-                HairA = p.GetInt32(),
-                Invisible = p.GetInt32(),
-                FaceId = p.GetInt32(),
-                MoveSpeed = p.GetInt32(),
-                MountId = p.GetInt32(),
             };
 
-            if (p.Peek() == '*')
+            if (packet.BodyId < 100)
             {
-                p.GetString(); // eat the string
-                packet.MountR = 0;
-                packet.MountG = 0;
-                packet.MountB = 0;
-                packet.MountA = 0;
+                packet.HairId = p.GetInt32();
+                packet.DisplayedEquipment = ParseEquippedItems(p);
+                packet.HairR = p.GetInt32();
+                packet.HairG = p.GetInt32();
+                packet.HairB = p.GetInt32();
+                packet.HairA = p.GetInt32();
+                packet.Invisible = p.GetInt32();
+                packet.FaceId = p.GetInt32();
+                packet.MoveSpeed = p.GetInt32();
+
+                // mount
+                ParseItem(packet.DisplayedEquipment, 6, p);
+
+                // Fixes bug in the server sending the wrong state
+                if (packet.DisplayedEquipment[4][0] == 0 && packet.DisplayedEquipment[5][0] == 0)
+                    packet.BodyState = 3;
             }
-            else
-            {
-                packet.MountR = p.GetInt32();
-                packet.MountG = p.GetInt32();
-                packet.MountB = p.GetInt32();
-                packet.MountA = p.GetInt32();
+            else {
+                // monster so skip stuff..
+                // hairid
+                // equipment doesn't exist
+                // hair r
+                // hair g
+                // hair b
+                // hair a
+                p.GetString(); // invisible
+                // face id
+                packet.MoveSpeed = p.GetInt32();
+                // mount stuff
             }
 
             return packet;
@@ -73,32 +75,40 @@ namespace Goose2Client
 
         public int[][] ParseEquippedItems(PacketParser p)
         {
-            // Chest, Head, Legs, Feet, Shield, Weapon
-            var equipped = new int[6][];
+            // Chest, Head, Legs, Feet, Shield, Weapon, Mount
+            var equipped = new int[7][];
             for (int i = 0; i < 6; i++)
             {
-                equipped[i] = new int[5];
-                int j = 0;
-                equipped[i][j++] = p.GetInt32(); // item graphic id
-
-                if (p.Peek() == '*')
-                {
-                    p.GetString(); // eat the string
-                    equipped[i][j++] = 0; // r
-                    equipped[i][j++] = 0; // g
-                    equipped[i][j++] = 0; // b
-                    equipped[i][j++] = 0; // a
-                }
-                else
-                {
-                    equipped[i][j++] = p.GetInt32(); // r
-                    equipped[i][j++] = p.GetInt32(); // g
-                    equipped[i][j++] = p.GetInt32(); // b
-                    equipped[i][j++] = p.GetInt32(); // a
-                }
+                ParseItem(equipped, i, p);
             }
 
             return equipped;
+        }
+
+        private void ParseItem(int[][] equipped, int i, PacketParser p)
+        {
+            equipped[i] = new int[5];
+            int j = 0;
+            int id = p.GetInt32();   // item graphic id
+            equipped[i][j++] = id;
+
+            if (id == 0 && i == 6) return; // hack for mounts for npc characters, server used to send only 4 ints instead of 5
+
+            if (p.Peek() == '*')
+            {
+                p.GetString(); // eat the string
+                equipped[i][j++] = 0; // r
+                equipped[i][j++] = 0; // g
+                equipped[i][j++] = 0; // b
+                equipped[i][j++] = 0; // a
+            }
+            else
+            {
+                equipped[i][j++] = p.GetInt32(); // r
+                equipped[i][j++] = p.GetInt32(); // g
+                equipped[i][j++] = p.GetInt32(); // b
+                equipped[i][j++] = p.GetInt32(); // a
+            }
         }
     }
 }

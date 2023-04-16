@@ -1,12 +1,5 @@
-mvp:
-
-
-
-other:
 
 chat didn't auto scroll...
-
-mounts
 
 chat bubbles
 
@@ -16,7 +9,13 @@ save window positions
 
 player isn't centered
 
+look at mount speed
+
 toolbar
+
+m button to toggle mount
+
+alternate hotbars
 
 figure out killing of tooltips
 
@@ -135,3 +134,5 @@ fix item amount number wrapping
 fix hotkeys saving/reloding with equipment slots
 fix item slot 0
 built client is laggy
+fix ui showing on loading screen
+mounts

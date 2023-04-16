@@ -76,7 +76,7 @@ namespace Goose2Client
 
         public void UseSpell(SpellInfo info)
         {
-            if (GameManager.Instance.IsTargeting) return;
+            if (GameManager.Instance.IsTargeting || GameManager.Instance.Character.IsMounted) return;
 
             if (info.TargetType == SpellTargetType.None)
             {

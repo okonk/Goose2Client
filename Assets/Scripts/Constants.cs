@@ -12,6 +12,7 @@ namespace Goose2Client
         public const string Equipped = "Equipped";
         public const string Cast = "DoCast";
         public const string Attack = "DoAttack";
+        public const string Mounted = "Mounted";
 
         public const string NamesLayer = "Names";
         public const string HealthBarsLayer = "HealthBars";
