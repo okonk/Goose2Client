@@ -33,7 +33,7 @@ namespace Goose2Client
 
         private IEnumerator LoadAsync()
         {
-            var bundlesToLoad = new[] { "spriteatlas", "prefabs", "ui-prefabs", "maps", "body-1" };
+            var bundlesToLoad = new[] { "spriteatlas", "prefabs", "ui-prefabs", "maps", "body-1", "spell-1080" };
 
             foreach (var name in bundlesToLoad)
             {

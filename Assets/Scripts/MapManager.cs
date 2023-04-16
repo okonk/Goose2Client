@@ -47,6 +47,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<CastPacket>(this.OnCast);
             GameManager.Instance.PacketManager.Listen<MapObjectPacket>(this.OnMapObject);
             GameManager.Instance.PacketManager.Listen<EraseObjectPacket>(this.OnEraseMapObject);
+            GameManager.Instance.PacketManager.Listen<EmotePacket>(this.OnEmote);
         }
 
         private void OnDestroy()
@@ -69,6 +70,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<CastPacket>(this.OnCast);
             GameManager.Instance.PacketManager.Remove<MapObjectPacket>(this.OnMapObject);
             GameManager.Instance.PacketManager.Remove<EraseObjectPacket>(this.OnEraseMapObject);
+            GameManager.Instance.PacketManager.Remove<EmotePacket>(this.OnEmote);
         }
 
         private void OnApplicationQuit()
@@ -318,6 +320,30 @@ namespace Goose2Client
                 return character;
 
             return null;
+        }
+
+        private void OnEmote(object packet)
+        {
+            var emote = (EmotePacket)packet;
+
+            if (!characters.TryGetValue(emote.LoginId, out var character))
+                return;
+
+            ShowEmote(emote.AnimationId, character.gameObject.transform, 0, character.Height);
+        }
+
+        private void ShowEmote(int id, Transform parent, int x = 0, int y = 0)
+        {
+            var existingEmote = parent.gameObject.GetComponent<EmoteAnimation>();
+            if (existingEmote != null)
+                Destroy(existingEmote.gameObject);
+
+            var emoteAnimationPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "EmoteAnimation");
+            var animation = Instantiate(emoteAnimationPrefab, parent);
+            animation.name = $"Emote ({id})";
+
+            var emoteAnimationScript = animation.GetComponent<EmoteAnimation>();
+            emoteAnimationScript.SetAnimation(id, x, y);
         }
     }
 }

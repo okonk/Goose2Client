@@ -18,7 +18,7 @@ public class SpellAnimation : MonoBehaviour
         animator.runtimeAnimatorController = overrideController;
     }
 
-    private void SetPosition(int height, int x, int y)
+    protected virtual void SetPosition(int height, int x, int y)
     {
         int yOffset = -System.Math.Max((height - 48) / 2, 0) - 24;
         transform.localPosition = new Vector3(x + 0.5f, y + yOffset / 32f);

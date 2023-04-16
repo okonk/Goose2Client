@@ -22,6 +22,9 @@ namespace Goose2Client
 
         public int Height => body.Height;
 
+        public float BodyX => body.transform.localPosition.x;
+        public float BodyY => body.transform.localPosition.y;
+
         public bool IsMounted => animations.ContainsKey(AnimationSlot.Mount);
 
         private Dictionary<AnimationSlot, CharacterAnimation> animations = new();
@@ -308,12 +311,6 @@ namespace Goose2Client
         {
             foreach (var animation in animations.Values)
                 animation.TriggerCast();
-        }
-
-        private void SetBodyState(int bodyState)
-        {
-            foreach (var animation in animations.Values)
-                animation.SetFloat(Constants.BodyState, bodyState);
         }
 
         public void Move(int x, int y)

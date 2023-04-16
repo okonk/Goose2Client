@@ -208,6 +208,7 @@ namespace Goose2Client
 
             inputHistoryIndex = Math.Max(0, inputHistoryIndex - 1);
             inputField.text = inputHistory[inputHistoryIndex];
+            inputField.caretPosition = inputField.text.Length;
         }
 
         public void ChatDownPressed()
@@ -219,6 +220,7 @@ namespace Goose2Client
             if (inputHistoryIndex < inputHistory.Count)
             {
                 inputField.text = inputHistory[inputHistoryIndex];
+                inputField.caretPosition = inputField.text.Length;
             }
             else
             {
