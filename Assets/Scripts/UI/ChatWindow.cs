@@ -174,7 +174,7 @@ namespace Goose2Client
                 if (message[0] == '/')
                     HandleCommand(message);
                 else
-                    GameManager.Instance.NetworkClient.ChatMessage(message);
+                    GameManager.Instance.NetworkClient.ChatMessage(message.Substring(0, Math.Min(message.Length, 200)));
 
                 if (inputHistory.LastOrDefault() != message)
                     inputHistory.Add(message);

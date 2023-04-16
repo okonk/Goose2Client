@@ -27,6 +27,24 @@ namespace Goose2Client
             PlayerInputManager.Instance.Attack = OnAttack;
             PlayerInputManager.Instance.Move = OnMove;
             PlayerInputManager.Instance.PickUp = OnPickUp;
+
+            PlayerInputManager.Instance.EmoteHeart = i => OnEmote(1080, 8);
+            PlayerInputManager.Instance.EmoteQuestion = i => OnEmote(1081, 8);
+            PlayerInputManager.Instance.EmoteTrash = i => OnEmote(1082, 8);
+            PlayerInputManager.Instance.EmoteDots = i => OnEmote(1083, 8);
+            PlayerInputManager.Instance.EmotePoop = i => OnEmote(1084, 9);
+            PlayerInputManager.Instance.EmoteSurprised = i => OnEmote(1085, 9);
+            PlayerInputManager.Instance.EmoteSleep = i => OnEmote(1086, 9);
+            PlayerInputManager.Instance.EmoteAnnoyed = i => OnEmote(1087, 9);
+            PlayerInputManager.Instance.EmoteSweat = i => OnEmote(1088, 10);
+            PlayerInputManager.Instance.EmoteMusic = i => OnEmote(1089, 10);
+            PlayerInputManager.Instance.EmoteDollar = i => OnEmote(1090, 10);
+            PlayerInputManager.Instance.EmoteWink = i => OnEmote(1091, 10);
+        }
+
+        private void OnEmote(int animationId, int graphicId)
+        {
+            GameManager.Instance.NetworkClient.Emote(animationId, graphicId);
         }
 
         private void OnAttack(bool pressed)

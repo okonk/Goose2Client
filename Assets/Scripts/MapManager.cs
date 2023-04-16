@@ -334,7 +334,7 @@ namespace Goose2Client
 
         private void ShowEmote(int id, Transform parent, int x = 0, int y = 0)
         {
-            var existingEmote = parent.gameObject.GetComponent<EmoteAnimation>();
+            var existingEmote = parent.gameObject.GetComponentInChildren<EmoteAnimation>();
             if (existingEmote != null)
                 Destroy(existingEmote.gameObject);
 

@@ -88,6 +88,7 @@
      <Compile Include="Assets/Scripts/UI/ToolbarItem.cs" />
      <Compile Include="Assets/Scripts/UI/MapClickHandler.cs" />
      <Compile Include="Assets/Scripts/MapItem.cs" />
+     <Compile Include="Assets/Scripts/ChatBubble.cs" />
      <Compile Include="Assets/Scripts/LoginScene/LoginButton.cs" />
      <Compile Include="Assets/Scripts/UI/BackgroundTransparency.cs" />
      <Compile Include="Assets/Scripts/PlayerInputManager.cs" />

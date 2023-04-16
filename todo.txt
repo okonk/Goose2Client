@@ -3,8 +3,6 @@
 
 chat bubbles
 
-emotes
-
 save window positions
 
 player isn't centered
@@ -137,3 +135,4 @@ built client is laggy
 fix ui showing on loading screen
 mounts
 chat didn't auto scroll...
+emotes

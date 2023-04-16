@@ -74,6 +74,19 @@ namespace Goose2Client
         public Action<InputValue> TellCommand { get; set; }
         public Action<InputValue> ReplyCommand { get; set; }
 
+        public Action<InputValue> EmoteHeart { get; set; }
+        public Action<InputValue> EmoteQuestion { get; set; }
+        public Action<InputValue> EmoteDots { get; set; }
+        public Action<InputValue> EmotePoop { get; set; }
+        public Action<InputValue> EmoteSurprised { get; set; }
+        public Action<InputValue> EmoteSleep { get; set; }
+        public Action<InputValue> EmoteAnnoyed { get; set; }
+        public Action<InputValue> EmoteSweat { get; set; }
+        public Action<InputValue> EmoteMusic { get; set; }
+        public Action<InputValue> EmoteWink { get; set; }
+        public Action<InputValue> EmoteTrash { get; set; }
+        public Action<InputValue> EmoteDollar { get; set; }
+
         private void OnMove(InputValue value)
             => Move?.Invoke(value);
 
@@ -110,5 +123,30 @@ namespace Goose2Client
             => TellCommand?.Invoke(value);
         private void OnReplyCommand(InputValue value)
             => ReplyCommand?.Invoke(value);
+
+        private void OnEmoteHeart(InputValue value)
+            => EmoteHeart?.Invoke(value);
+        private void OnEmoteQuestion(InputValue value)
+            => EmoteQuestion?.Invoke(value);
+        private void OnEmoteDots(InputValue value)
+            => EmoteDots?.Invoke(value);
+        private void OnEmotePoop(InputValue value)
+            => EmotePoop?.Invoke(value);
+        private void OnEmoteSurprised(InputValue value)
+            => EmoteSurprised?.Invoke(value);
+        private void OnEmoteSleep(InputValue value)
+            => EmoteSleep?.Invoke(value);
+        private void OnEmoteAnnoyed(InputValue value)
+            => EmoteAnnoyed?.Invoke(value);
+        private void OnEmoteSweat(InputValue value)
+            => EmoteSweat?.Invoke(value);
+        private void OnEmoteMusic(InputValue value)
+            => EmoteMusic?.Invoke(value);
+        private void OnEmoteWink(InputValue value)
+            => EmoteWink?.Invoke(value);
+        private void OnEmoteTrash(InputValue value)
+            => EmoteTrash?.Invoke(value);
+        private void OnEmoteDollar(InputValue value)
+            => EmoteDollar?.Invoke(value);
     }
 }

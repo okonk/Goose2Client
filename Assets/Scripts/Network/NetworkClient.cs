@@ -250,5 +250,10 @@ namespace Goose2Client
         {
             Send(command);
         }
+
+        public void Emote(int animationId, int graphicFile)
+        {
+            Send($"EMOT{animationId},{graphicFile}");
+        }
     }
 }
