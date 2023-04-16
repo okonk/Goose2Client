@@ -64,7 +64,7 @@ namespace Goose2Client
             else
                 Target = nextTarget;
 
-            var prefab = ResourceManager.Load<GameObject>("Prefabs/SpellTarget");
+            var prefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "SpellTarget");
             var target = Instantiate(prefab, Target.gameObject.transform);
 
             ResizeTarget(target);

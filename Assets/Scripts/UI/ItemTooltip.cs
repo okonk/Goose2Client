@@ -117,7 +117,7 @@ namespace Goose2Client
 
         private void AddStatLine(string text, Color color)
         {
-            var prefab = ResourceManager.Load<GameObject>("Prefabs/UI/ItemTooltipStatLine");
+            var prefab = ResourceManager.LoadFromBundle<GameObject>("ui-prefabs", "ItemTooltipStatLine");
             var lineObject = Instantiate(prefab, statsLineContainer.transform);
             var lineText = lineObject.GetComponent<TextMeshProUGUI>();
             lineText.text = text;

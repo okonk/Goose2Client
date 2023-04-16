@@ -37,7 +37,12 @@ namespace Goose2Client
             if (cache.TryGetValue(path, out var obj))
                 return (AssetBundle)obj;
 
-            var resource = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, path));
+            var assetPath = Path.Combine(Application.streamingAssetsPath, path);
+
+            if (!File.Exists(assetPath))
+                return null;
+
+            var resource = AssetBundle.LoadFromFile(assetPath);
             cache[path] = resource;
 
             return resource;
@@ -48,10 +53,34 @@ namespace Goose2Client
             if (cache.TryGetValue(path, out var obj))
                 return (T)obj;
 
+            if (bundle == null) return null;
+
             var resource = bundle.LoadAsset<T>(path);
             cache[path] = resource;
 
             return resource;
+        }
+
+        public static AssetBundleCreateRequest LoadAssetBundleAsync(string path)
+        {
+            var assetPath = Path.Combine(Application.streamingAssetsPath, path);
+
+            return AssetBundle.LoadFromFileAsync(assetPath);
+        }
+
+        public static void CacheAssetBundle(string path, AssetBundle bundle)
+        {
+            cache[path] = bundle;
+        }
+
+        public static T LoadFromBundle<T>(string bundle, string path) where T: UnityEngine.Object
+        {
+            if (cache.TryGetValue(path, out var obj))
+                return (T)obj;
+
+            var assetBundle = LoadAssetBundle(bundle);
+
+            return Load<T>(assetBundle, path);
         }
     }
 }

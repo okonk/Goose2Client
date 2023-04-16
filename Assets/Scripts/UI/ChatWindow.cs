@@ -113,7 +113,7 @@ namespace Goose2Client
         {
             var oldScrollValue = scrollRect.verticalNormalizedPosition;
 
-            var prefab = ResourceManager.Load<GameObject>("Prefabs/UI/ChatText");
+            var prefab = ResourceManager.LoadFromBundle<GameObject>("ui-prefabs", "ChatText");
             var chatText = Instantiate(prefab, chatContainer);
 
             message = message.Replace('`', '\u2665');

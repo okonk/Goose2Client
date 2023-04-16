@@ -37,7 +37,7 @@ namespace Goose2Client
             for (int i = 0; i < 10; i++)
             {
                 int index = i - 1;
-                if (index < 0) index = 10 - index;
+                if (index == -1) index = 9;
 
                 var hotkeyAction = playerInput.actions.FindAction($"Hotkey{i}");
                 hotkeyAction.performed += (c) => Hotkey?.Invoke(index, true);

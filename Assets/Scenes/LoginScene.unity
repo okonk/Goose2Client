@@ -3022,6 +3022,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4752667021664181872, guid: ef63f23489498cb1288259d82a30a7bd, type: 3}
+      propertyPath: atlas
+      value: 
+      objectReference: {fileID: 100100200, guid: 7e7ea353b280701b58f3f01049070130, type: 3}
     - target: {fileID: 7550877857765244437, guid: ef63f23489498cb1288259d82a30a7bd, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3069,26 +3073,5 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3615234639676127984, guid: ef63f23489498cb1288259d82a30a7bd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8453891705473359578}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef63f23489498cb1288259d82a30a7bd, type: 3}
---- !u!1 &8453891705473359576 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3615234639676127984, guid: ef63f23489498cb1288259d82a30a7bd, type: 3}
-  m_PrefabInstance: {fileID: 8453891705473359575}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8453891705473359578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8453891705473359576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 398752bed279aeb6eb45a2a643c08c57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  atlas: {fileID: 100100200, guid: c5471545af0bf4b529690b41c4b6a9e5, type: 3}

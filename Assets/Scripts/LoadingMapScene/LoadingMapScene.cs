@@ -25,7 +25,7 @@ namespace Goose2Client
 
         private IEnumerator LoadMapAsync(string mapFile)
         {
-            var map = GetMap($"Maps/{mapFile.Replace(".map", "")}");
+            var map = GetMap($"{mapFile.Replace(".map", "")}");
 
             var lastScene = SceneManager.GetActiveScene();
 
@@ -55,7 +55,7 @@ namespace Goose2Client
 
             if (ui == null)
             {
-                var uiPrefab = ResourceManager.Load<GameObject>("Prefabs/UI/UI");
+                var uiPrefab = ResourceManager.LoadFromBundle<GameObject>("ui-prefabs", "UI");
                 ui = Instantiate(uiPrefab, null);
                 ui.name = "UI";
             }
@@ -70,7 +70,7 @@ namespace Goose2Client
 
         private MapFile GetMap(string path)
         {
-            var mapFile = ResourceManager.Load<TextAsset>(path);
+            var mapFile = ResourceManager.LoadFromBundle<TextAsset>("maps", path);
 
             var map = new MapFile(mapFile.bytes);
             GameManager.Instance.CurrentMap = map;

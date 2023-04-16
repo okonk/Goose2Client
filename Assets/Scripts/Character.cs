@@ -174,7 +174,8 @@ namespace Goose2Client
         {
             if (id <= 0) return null;
 
-            var animation = Instantiate(MapManager.CharacterAnimationPrefab, gameObject.transform);
+            var characterAnimationPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "CharacterAnimation");
+            var animation = Instantiate(characterAnimationPrefab, gameObject.transform);
             animation.name = $"{type} ({id})";
 
             var characterAnimationScript = animation.GetComponent<CharacterAnimation>();

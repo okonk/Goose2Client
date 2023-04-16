@@ -9,7 +9,7 @@ namespace Goose2Client
 {
     public class InfoWindowCreator : BaseMultipleWindowManager<InfoWindow>
     {
-        public override string PrefabPath => "Prefabs/UI/InfoWindow";
+        public override string PrefabPath => "InfoWindow";
 
         public override WindowFrames WindowFrame => WindowFrames.GenericInfo;
     }

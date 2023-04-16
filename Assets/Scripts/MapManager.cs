@@ -17,10 +17,6 @@ namespace Goose2Client
 
         private MapFile map;
 
-        public static GameObject CharacterAnimationPrefab;
-        private static GameObject CharacterPrefab;
-        public static GameObject SpellAnimationPrefab;
-
         private GameObject roofLayer;
 
         private Character character;
@@ -29,10 +25,6 @@ namespace Goose2Client
 
         private void Start()
         {
-            CharacterAnimationPrefab = ResourceManager.Load<GameObject>("Prefabs/CharacterAnimation");
-            CharacterPrefab = ResourceManager.Load<GameObject>("Prefabs/Character");
-            SpellAnimationPrefab = ResourceManager.Load<GameObject>("Prefabs/SpellAnimation");
-
             GameManager.Instance.MapManager = this;
 
             this.map = GameManager.Instance.CurrentMap;
@@ -89,7 +81,8 @@ namespace Goose2Client
             var makeCharacterPacket = (MakeCharacterPacket)packet;
 
             var position = new Vector3(makeCharacterPacket.MapX, map.Height - makeCharacterPacket.MapY);
-            var character = Instantiate(CharacterPrefab, position, Quaternion.identity);
+            var characterPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "Character");
+            var character = Instantiate(characterPrefab, position, Quaternion.identity);
             character.name = makeCharacterPacket.Name;
 
             var characterScript = character.GetComponent<Character>();
@@ -206,7 +199,8 @@ namespace Goose2Client
 
         private void ShowSpell(int id, Transform parent, int x = 0, int y = 0)
         {
-            var animation = Instantiate(MapManager.SpellAnimationPrefab, parent);
+            var spellAnimationPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "SpellAnimation");
+            var animation = Instantiate(spellAnimationPrefab, parent);
             animation.name = $"Spell ({id})";
 
             var spellAnimationScript = animation.GetComponent<SpellAnimation>();
@@ -293,7 +287,7 @@ namespace Goose2Client
         {
             var packet = (MapObjectPacket)packetObj;
 
-            var itemPrefab = ResourceManager.Load<GameObject>("Prefabs/MapItem");
+            var itemPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "MapItem");
             var item = Instantiate(itemPrefab, gameObject.transform);
             item.name = $"MapItem {packet.Name} ({packet.GraphicId})";
 

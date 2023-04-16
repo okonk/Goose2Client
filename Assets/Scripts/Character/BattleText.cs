@@ -54,7 +54,7 @@ namespace Goose2Client
                 }
             }
 
-            var prefab = ResourceManager.Load<GameObject>("Prefabs/BattleTextLine");
+            var prefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "BattleTextLine");
             var battleTextLine = Instantiate(prefab, gameObject.transform);
 
             var battleTextScript = battleTextLine.GetComponent<BattleTextLine>();

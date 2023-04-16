@@ -9,7 +9,7 @@ namespace Goose2Client
 {
     public class QuestWindowManager : BaseMultipleWindowManager<QuestWindow>
     {
-        public override string PrefabPath => "Prefabs/UI/QuestWindow";
+        public override string PrefabPath => "QuestWindow";
 
         public override WindowFrames WindowFrame => WindowFrames.Quest;
     }
