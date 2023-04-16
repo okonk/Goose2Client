@@ -1,5 +1,5 @@
 
-chat didn't auto scroll...
+
 
 chat bubbles
 
@@ -136,3 +136,4 @@ fix item slot 0
 built client is laggy
 fix ui showing on loading screen
 mounts
+chat didn't auto scroll...

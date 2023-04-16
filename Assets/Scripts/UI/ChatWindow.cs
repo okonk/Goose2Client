@@ -122,7 +122,7 @@ namespace Goose2Client
             tmp.text = message;
             tmp.color = chatTypeToColor[chatType];
 
-            if (oldScrollValue == 0)
+            if (oldScrollValue == 0 || scrollRect.verticalScrollbar.size == 1)
                 ApplyScrollPosition(chatText, 0);
         }
 
