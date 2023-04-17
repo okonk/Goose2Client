@@ -493,7 +493,29 @@
                 },
                 {
                     "name": "",
-                    "id": "97d3d4df-df89-4f3b-a51c-8516b44e61d1",
+                    "id": "c4e21b11-02fe-48a9-a205-d55635cc8762",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotkey0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20d88a72-6c1e-40a8-95d6-295bddaebf71",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotkey1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e552dd16-b872-48da-8274-12cfbdbfd99a",
                     "path": "<Keyboard>/numpad1",
                     "interactions": "",
                     "processors": "",
@@ -503,42 +525,20 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "One Modifier",
-                    "id": "cb32a78e-4540-4df4-bd2f-af88ddf6421f",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey1",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "2e8dfd9c-1447-4ee3-8989-892144cc53d5",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey1",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "ea003908-bb3e-496a-8e21-bacf01f2bdb0",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey1",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "5a97bc22-1996-494f-a6bf-c437a3c3c79e",
                     "path": "<Keyboard>/numpad2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotkey2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8e5e1d3-b237-49f0-b336-7a6309ae6ce5",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -558,42 +558,31 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "One Modifier",
-                    "id": "2bd8fc93-947a-496f-a3e1-043fb9af9d46",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey3",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "8cb1f2c6-c136-4aa0-b5a5-4bbe4bc7bb78",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey3",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "07dc1faa-b59d-486a-a1be-a08b8069a60d",
+                    "name": "",
+                    "id": "15b752cc-aea7-49ba-95e6-3c69cc0bf90b",
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Hotkey3",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "7a448e06-37bc-4d3b-a69d-e9db26ce6c8d",
                     "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotkey4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c4d7851-ea3b-4b72-bb01-d51345f4d31f",
+                    "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -614,8 +603,30 @@
                 },
                 {
                     "name": "",
+                    "id": "8916a900-eb38-46dc-bafa-fafa18b6f0cd",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotkey5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "eb6b1166-0a9a-43c5-8ff5-edbe6d26df59",
                     "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotkey6",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baeb6a87-fea2-4136-a2f2-7cbd7bf0e392",
+                    "path": "<Keyboard>/6",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -636,8 +647,30 @@
                 },
                 {
                     "name": "",
+                    "id": "5ef2f71e-8b9b-41f9-8419-1007e63c36cc",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotkey7",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9f10038c-7415-4dde-b6e6-c1f1247bfd23",
                     "path": "<Keyboard>/numpad8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotkey8",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "477eee05-a98d-4f56-9ce8-657297fda0c2",
+                    "path": "<Keyboard>/8",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -657,37 +690,15 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "One Modifier",
-                    "id": "53aa64f8-e4a5-4c6c-8edd-35028bd09743",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey9",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "5619a9a7-1289-4174-b024-42340f1dc148",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey9",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "5d4b2c0b-1680-40ef-ae45-327ec017e301",
+                    "name": "",
+                    "id": "8674f4ae-ddc8-49a4-96d0-345a14b2d065",
                     "path": "<Keyboard>/9",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Hotkey9",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -1159,237 +1170,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "EmoteDollar",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "2f7db8e4-e098-4a19-9cfe-6e7a9aec2702",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey2",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "cdd0ebf2-9427-434d-90f8-3912517ba404",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey2",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "a3f7da48-942a-452b-af72-ced3e6565cc6",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey2",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "40163438-b671-45c4-ba1a-4f1ac067031f",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey4",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "89443cb6-5493-4e33-897c-6cf66f800af9",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey4",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "1c9faff8-b641-463a-a1c2-456f02a4402a",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey4",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "538e66c2-385d-473f-8260-fbef13f37e8c",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey5",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "370934a7-f171-4f5a-b697-419399ff9cfe",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey5",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "d3976380-424a-4d8a-84d8-d48811bc11f4",
-                    "path": "<Keyboard>/5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey5",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "1f3f6bde-da83-47e9-ab39-ddcb5d0a3432",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey6",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "784d369e-f3df-4190-8e02-6b240bd36ed2",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey6",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "c7fed0fd-27e1-415a-98d0-c6917dfd8b5a",
-                    "path": "<Keyboard>/6",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey6",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "362c75ee-4039-43d6-aba9-4b170f9fac7d",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey7",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "42d30f49-0f22-438f-9f62-f055e4a7e9a5",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey7",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "38c26869-6ad0-407b-ac14-655425bd0944",
-                    "path": "<Keyboard>/7",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey7",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "d29a4981-d174-4ed4-8932-5d69fc762279",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey8",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "f8441dcf-5762-4efd-a2be-2c5dcc6ed562",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey8",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "4e181d35-bbd1-4fc8-9bc0-50c2a5f8cadf",
-                    "path": "<Keyboard>/8",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey8",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "1cd746f0-a137-4d20-9eb5-3ff7a6d254ab",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey0",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "820abd59-1353-451a-8759-a2171428b6d5",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey0",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "8f3bed6c-fee2-4cbc-910a-aac7378a917f",
-                    "path": "<Keyboard>/0",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hotkey0",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
