@@ -48,6 +48,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<MapObjectPacket>(this.OnMapObject);
             GameManager.Instance.PacketManager.Listen<EraseObjectPacket>(this.OnEraseMapObject);
             GameManager.Instance.PacketManager.Listen<EmotePacket>(this.OnEmote);
+            GameManager.Instance.PacketManager.Listen<ChatPacket>(this.OnChatPacket);
         }
 
         private void OnDestroy()
@@ -71,6 +72,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<MapObjectPacket>(this.OnMapObject);
             GameManager.Instance.PacketManager.Remove<EraseObjectPacket>(this.OnEraseMapObject);
             GameManager.Instance.PacketManager.Remove<EmotePacket>(this.OnEmote);
+            GameManager.Instance.PacketManager.Remove<ChatPacket>(this.OnChatPacket);
         }
 
         private void OnApplicationQuit()
@@ -344,6 +346,25 @@ namespace Goose2Client
 
             var emoteAnimationScript = animation.GetComponent<EmoteAnimation>();
             emoteAnimationScript.SetAnimation(id, x, y);
+        }
+
+        private void OnChatPacket(object packetObj)
+        {
+            var packet = (ChatPacket)packetObj;
+
+            if (!characters.TryGetValue(packet.LoginId, out var character))
+                return;
+
+            var existingChat = character.gameObject.GetComponentInChildren<ChatBubble>();
+            if (existingChat != null)
+                Destroy(existingChat.gameObject);
+
+            var chatBubblePrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "ChatBubble");
+            var chatBubble = Instantiate(chatBubblePrefab, character.transform);
+            var chatBubbleScript = chatBubble.GetComponent<ChatBubble>();
+            chatBubbleScript.SetText(packet.Message);
+
+            chatBubble.transform.localPosition = new Vector3(0.5f, character.Height / 32f + (chatBubbleScript.Height - 0.4355469f) / 2f);
         }
     }
 }
