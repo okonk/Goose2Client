@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +22,10 @@ namespace Goose2Client
         private bool[] buttonPressed;
         private float buttonRepeatDelayTime;
 
+        private const int mountSlotNumber = 30 + 14;
+        private bool mounted = false;
+        private Dictionary<int, string> mountSlots = new();
+
         public int WindowId => (int)WindowFrame;
         public WindowFrames WindowFrame => WindowFrames.Hotbar;
 
@@ -32,6 +37,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<SpellbookSlotPacket>(this.OnSpellbookSlot);
 
             PlayerInputManager.Instance.Hotkey = OnButtonPressed;
+            PlayerInputManager.Instance.ToggleMount = OnToggleMount;
 
             var settings = GameManager.Instance.CharacterSettings.Hotkeys;
 
@@ -119,6 +125,14 @@ namespace Goose2Client
             SaveSlots();
         }
 
+        private void SetMount(string mount)
+        {
+            if (GameManager.Instance.CharacterSettings.MountName == mount) return;
+
+            GameManager.Instance.CharacterSettings.MountName = mount;
+            GameManager.Instance.CharacterSettings.Save();
+        }
+
         private void OnExperienceBar(object packetObj)
         {
             var packet = (ExperienceBarPacket)packetObj;
@@ -146,6 +160,20 @@ namespace Goose2Client
             {
                 slot.OnInventorySlot(stats);
             }
+
+            if (stats.SlotNumber < 30)
+            {
+                if (stats.SlotType == ItemSlotType.Mount)
+                    mountSlots[stats.SlotNumber] = stats.Name;
+                else if (mountSlots.ContainsKey(stats.SlotNumber))
+                    mountSlots.Remove(stats.SlotNumber);
+            }
+
+            if (stats.SlotNumber == mountSlotNumber)
+            {
+                mounted = true;
+                SetMount(stats.Name);
+            }
         }
 
         private void OnClearInventorySlot(object packetObj)
@@ -156,6 +184,12 @@ namespace Goose2Client
             {
                 slot.OnClearInventorySlot(packet.SlotNumber);
             }
+
+            if (mountSlots.ContainsKey(packet.SlotNumber))
+                mountSlots.Remove(packet.SlotNumber);
+
+            if (packet.SlotNumber == mountSlotNumber)
+                mounted = false;
         }
 
         private void OnSpellbookSlot(object packetObj)
@@ -202,6 +236,22 @@ namespace Goose2Client
             {
                 if (buttonPressed[i])
                     UseSlot(i);
+            }
+        }
+
+        private void OnToggleMount(InputValue inputValue)
+        {
+            if (mounted)
+            {
+                GameManager.Instance.NetworkClient.UseItem(mountSlotNumber);
+            }
+            else if (mountSlots.Count > 0)
+            {
+                var mount = mountSlots.FirstOrDefault(m => m.Value == GameManager.Instance.CharacterSettings.MountName);
+                if (mount.Value == null)
+                    mount = mountSlots.First();
+
+                GameManager.Instance.NetworkClient.UseItem(mount.Key);
             }
         }
     }

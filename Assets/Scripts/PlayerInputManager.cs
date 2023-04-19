@@ -61,6 +61,7 @@ namespace Goose2Client
         public Action<InputValue> ToggleSpellbook { get; set; }
         public Action<InputValue> ToggleInventory { get; set; }
         public Action<InputValue> ToggleCharacterWindow { get; set; }
+        public Action<InputValue> ToggleMount { get; set; }
 
         public Action<InputValue> TargetUp { get; set; }
         public Action<InputValue> TargetDown { get; set; }
@@ -89,18 +90,16 @@ namespace Goose2Client
 
         private void OnMove(InputValue value)
             => Move?.Invoke(value);
-
         private void OnPickUp(InputValue value)
             => PickUp?.Invoke(value);
-
         private void OnToggleSpellbook(InputValue value)
             => ToggleSpellbook?.Invoke(value);
-
         private void OnToggleInventory(InputValue value)
             => ToggleInventory?.Invoke(value);
-
         private void OnToggleCharacterWindow(InputValue value)
             => ToggleCharacterWindow?.Invoke(value);
+        private void OnToggleMount(InputValue value)
+            => ToggleMount?.Invoke(value);
 
         private void OnTargetUp(InputValue value)
             => TargetUp?.Invoke(value);

@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToggleMount",
+                    "type": "Button",
+                    "id": "76f8c2e3-f427-4e92-9c31-4d63b7c87e17",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Hotkey0",
                     "type": "Button",
                     "id": "e1885023-4aaf-4a5e-a377-13064a631c23",
@@ -1172,6 +1181,17 @@
                     "action": "EmoteDollar",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "49f673e1-350d-48fe-976c-e98bf539e769",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMount",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

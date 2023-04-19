@@ -29,6 +29,8 @@ namespace Goose2Client
     {
         public HotkeySetting[] Hotkeys;
 
+        public string MountName;
+
         private readonly string characterName;
 
         public CharacterSettings(string characterName)
