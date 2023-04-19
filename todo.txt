@@ -1,47 +1,47 @@
 
-
-
-chat bubbles
-
-save window positions
-
-player isn't centered
-
-look at mount speed
-
-toolbar
+render character head in vitals window
 
 m button to toggle mount
 
-alternate hotbars
+player isn't centered
 
-figure out killing of tooltips
+item tooltips flashing when switching fast
 
-render character head in vitals window
-
-update cooldowns in tooltips every second if tooltip open
-
-render dragged icons in a higher layer above other windows
-
-add a timer to buff bar items (needs server)
-
-resize spell slots?
-
-in spell targeting implement target filtering
-
-fix layer rendering of characters/map objects
-improve name heights
+toolbar
 
 attack animation glitches out with punches
 -- looks like it's an issue with spritesheets being different sizes and the animation not syncing with the update code
 -- that moves the player sprite. maybe can put the movement of the sprite inside the animation or just fix all the animations to have a standard size..
 
+fix layer rendering of characters/map objects
 
-item tooltips flashing when switching fast
+other players facing isn't always consistent when moving a lot. I think when they move up need to change facing on client side
+
+render dragged icons in a higher layer above other windows
+
+resize spell slots?
 
 split stacks when holding ctrl in inventory
 
+save window positions
+
+look at mount speed
+
+figure out killing of tooltips
+
+alternate hotbars
+
+update cooldowns in tooltips every second if tooltip open
+
+add a timer to buff bar items (needs server)
+
+in spell targeting implement target filtering
+
+improve name heights
+
+
 fix spell target box colours
+fix chat bubble scaling
 
 refactor login screen/button code
 
@@ -136,3 +136,4 @@ fix ui showing on loading screen
 mounts
 chat didn't auto scroll...
 emotes
+chat bubbles
