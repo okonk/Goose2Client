@@ -127,6 +127,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/GroupUpdatePacket.cs" />
      <Compile Include="Assets/Scripts/Network/NetworkClient.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/DoneSendingMapPacket.cs" />
+     <Compile Include="Assets/Scripts/UI/DestroyWindow.cs" />
      <Compile Include="Assets/Scripts/UI/DragIcon.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendCurrentMapPacket.cs" />
      <Compile Include="Assets/Scripts/WindowFrames.cs" />

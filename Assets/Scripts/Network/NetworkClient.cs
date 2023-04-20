@@ -260,5 +260,15 @@ namespace Goose2Client
         {
             Send($"EMOT{animationId},{graphicFile}");
         }
+
+        public void DestroyItem(int slotId)
+        {
+            Send($"DITM{slotId + 1}");
+        }
+
+        public void DestroySpell(int slotId)
+        {
+            Send($"DSPL{slotId + 1}");
+        }
     }
 }

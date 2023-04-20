@@ -137,3 +137,4 @@ emotes
 chat bubbles
 m button to toggle mount
 split stacks when holding ctrl in inventory
+destroy button
