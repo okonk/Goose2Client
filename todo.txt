@@ -3,8 +3,6 @@ player isn't centered
 
 render character head in vitals window
 
-item tooltips flashing when switching fast
-
 map item tooltips don't work if player is standing on top of the item
 
 toolbar
@@ -138,3 +136,4 @@ chat bubbles
 m button to toggle mount
 split stacks when holding ctrl in inventory
 destroy button
+item tooltips flashing when switching fast
