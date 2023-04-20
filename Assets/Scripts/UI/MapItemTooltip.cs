@@ -29,6 +29,9 @@ namespace Goose2Client
 
             nameText.text = $"{itemStats.Title} {itemStats.Name} {itemStats.Surname}".Trim();
 
+            if (itemStats.StackSize > 1)
+                nameText.text += $" ({itemStats.StackSize})";
+
             bindText.gameObject.SetActive(itemStats.Flags.HasFlag(ItemFlags.BindOnPickup));
         }
 

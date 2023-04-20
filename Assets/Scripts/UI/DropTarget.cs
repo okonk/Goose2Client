@@ -13,7 +13,7 @@ namespace Goose2Client
             var fromSlot = eventData.pointerDrag?.GetComponent<ItemSlot>();
             if (fromSlot != null && fromSlot.HasItem && fromSlot.Window.WindowFrame == WindowFrames.Inventory)
             {
-                GameManager.Instance.NetworkClient.Drop(fromSlot.SlotNumber, fromSlot.StackSize);
+                GameManager.Instance.NetworkClient.Drop(fromSlot.SlotNumber, Helpers.GetStackSplitAmount(fromSlot.StackSize));
                 return;
             }
 

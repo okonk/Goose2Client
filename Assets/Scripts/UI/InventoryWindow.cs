@@ -82,7 +82,17 @@ namespace Goose2Client
         {
             if (fromWindow.WindowId == this.WindowId)
             {
-                GameManager.Instance.NetworkClient.MoveItemInInventory(fromSlot, toSlot);
+                var item = slots[fromSlot].stats;
+
+                int amountToMove = Helpers.GetStackSplitAmount(item.StackSize);
+                if (item.StackSize == amountToMove)
+                {
+                    GameManager.Instance.NetworkClient.MoveItemInInventory(fromSlot, toSlot);
+                }
+                else
+                {
+                    GameManager.Instance.NetworkClient.SplitStackInInventory(fromSlot, toSlot, amountToMove);
+                }
             }
             else if (fromWindow.WindowFrame == WindowFrames.Vendor)
             {
@@ -93,6 +103,11 @@ namespace Goose2Client
             {
                 GameManager.Instance.NetworkClient.MoveWindowToInventory(fromWindow.WindowId, fromSlot, toSlot);
             }
+        }
+
+        public ItemStats GetSlot(int slotNumber)
+        {
+            return slots[slotNumber].stats;
         }
 
         public void CloseWindow()

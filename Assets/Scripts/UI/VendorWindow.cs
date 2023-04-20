@@ -85,7 +85,10 @@ namespace Goose2Client
         private void DropItem(IWindow fromWindow, int fromSlot, int toSlot)
         {
             if (fromWindow.WindowFrame == WindowFrames.Inventory)
-                GameManager.Instance.NetworkClient.VendorSellItem(NpcId, fromSlot, 1);
+            {
+                var fromItem = ((InventoryWindow)fromWindow).GetSlot(fromSlot);
+                GameManager.Instance.NetworkClient.VendorSellItem(NpcId, fromSlot, Helpers.GetStackSplitAmount(fromItem.StackSize));
+            }
         }
 
         public void CloseWindow()

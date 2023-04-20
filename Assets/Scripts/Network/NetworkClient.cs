@@ -166,6 +166,11 @@ namespace Goose2Client
             Send($"CHANGE{fromSlot + 1},{toSlot + 1}");
         }
 
+        public void SplitStackInInventory(int fromSlot, int toSlot, int splitAmount)
+        {
+            Send($"SPLIT{fromSlot + 1},{toSlot + 1},{splitAmount}");
+        }
+
         public void MoveInventoryToWindow(int fromSlot, int windowId, int toSlot)
         {
             Send($"ITW{fromSlot + 1},{windowId},{toSlot + 1}");

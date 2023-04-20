@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Goose2Client
 {
@@ -28,6 +29,23 @@ namespace Goose2Client
              cd += seconds + "s";
 
             return cd;
+        }
+
+        public static int GetStackSplitAmount(int initialStack)
+        {
+            if (initialStack == 1) return initialStack;
+
+            int splitStack = initialStack;
+            if (Keyboard.current.ctrlKey.isPressed)
+            {
+                splitStack = 1;
+            }
+            else if (Keyboard.current.shiftKey.isPressed)
+            {
+                splitStack = initialStack / 2;
+            }
+
+            return splitStack;
         }
     }
 }
