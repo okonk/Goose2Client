@@ -91,12 +91,17 @@ namespace Goose2Client
                 var tilemap = obj.AddComponent<Tilemap>();
                 var renderer = obj.AddComponent<TilemapRenderer>();
                 renderer.sortingLayerID = SortingLayer.NameToID(layerName);
-                renderer.sortOrder = TilemapRenderer.SortOrder.TopRight;
+                renderer.sortOrder = TilemapRenderer.SortOrder.BottomLeft;
 
                 if (i == 0)
                 {
                     obj.AddComponent<TilemapCollider2D>();
                     obj.AddComponent<MapClickHandler>();
+                }
+
+                if (i == 2)
+                {
+                    renderer.mode = TilemapRenderer.Mode.Individual;
                 }
 
                 if (i == 5)

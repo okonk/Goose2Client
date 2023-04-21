@@ -8,8 +8,6 @@ attack animation glitches out with punches
 -- looks like it's an issue with spritesheets being different sizes and the animation not syncing with the update code
 -- that moves the player sprite. maybe can put the movement of the sprite inside the animation or just fix all the animations to have a standard size..
 
-fix layer rendering of characters/map objects
-
 other players facing isn't always consistent when moving a lot. I think when they move up need to change facing on client side
 
 resize spell slots?
@@ -135,3 +133,4 @@ item tooltips flashing when switching fast
 fixed character window text layout bugging out on the first frame
 player isn't centered
 render dragged icons in a higher layer above other windows
+fix layer rendering of characters/map objects
