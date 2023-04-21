@@ -84,7 +84,7 @@ namespace Goose2Client
         {
             var makeCharacterPacket = (MakeCharacterPacket)packet;
 
-            var position = new Vector3(makeCharacterPacket.MapX, map.Height - makeCharacterPacket.MapY);
+            var position = new Vector3(makeCharacterPacket.MapX + 0.5f, map.Height - makeCharacterPacket.MapY);
             var characterPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "Character");
             var character = Instantiate(characterPrefab, position, Quaternion.identity);
             character.name = makeCharacterPacket.Name;
@@ -201,7 +201,7 @@ namespace Goose2Client
                 this.roofLayer.SetActive(false);
         }
 
-        private void ShowSpell(int id, Transform parent, int x = 0, int y = 0)
+        private void ShowSpell(int id, Transform parent, float x = 0, float y = 0)
         {
             var spellAnimationPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "SpellAnimation");
             var animation = Instantiate(spellAnimationPrefab, parent);
@@ -274,7 +274,7 @@ namespace Goose2Client
         {
             var spellTile = (SpellTilePacket)packet;
 
-            ShowSpell(spellTile.AnimationId, gameObject.transform, spellTile.TileX, map.Height - spellTile.TileY);
+            ShowSpell(spellTile.AnimationId, gameObject.transform, spellTile.TileX + 0.5f, map.Height - spellTile.TileY);
         }
 
         private void OnBattleText(object packet)
@@ -364,7 +364,7 @@ namespace Goose2Client
             var chatBubbleScript = chatBubble.GetComponent<ChatBubble>();
             chatBubbleScript.SetText(packet.Message);
 
-            chatBubble.transform.localPosition = new Vector3(0.5f, character.Height / 32f + (chatBubbleScript.Height - 0.4355469f) / 2f);
+            chatBubble.transform.localPosition = new Vector3(0, character.Height / 32f + (chatBubbleScript.Height - 0.4355469f) / 2f);
         }
     }
 }

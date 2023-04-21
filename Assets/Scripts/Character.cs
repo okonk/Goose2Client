@@ -29,7 +29,7 @@ namespace Goose2Client
 
         private Dictionary<AnimationSlot, CharacterAnimation> animations = new();
 
-        private Vector2Int targetPosition;
+        private Vector2 targetPosition;
         private GameObject nameObject;
 
         [SerializeField] private CharacterHealthBar healthBars;
@@ -42,7 +42,7 @@ namespace Goose2Client
 
         public void MakeCharacter(MakeCharacterPacket packet)
         {
-            this.targetPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+            this.targetPosition = new Vector2(transform.position.x, transform.position.y);
 
             this.body = CreateAnimation(AnimationSlot.Body, "Body", packet.BodyId, ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA));
             this.body.gameObject.AddComponent<BoxCollider2D>();
@@ -176,14 +176,14 @@ namespace Goose2Client
             contentSizeFitter.horizontalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
             contentSizeFitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
 
-            text.transform.localPosition = new Vector3(0.5f, bodyHeight / 32f);
+            text.transform.localPosition = new Vector3(0, bodyHeight / 32f);
 
             this.nameObject = textObject;
         }
 
         private void UpdateHealthBarPosition(int bodyHeight, float yOffset)
         {
-            healthBarsObject.transform.localPosition = new Vector3(0.5f, (bodyHeight - 13) / 32f);
+            healthBarsObject.transform.localPosition = new Vector3(0, (bodyHeight - 13) / 32f);
         }
 
         private void SetUnderwear(int bodyId, int[][] equips)
@@ -316,7 +316,7 @@ namespace Goose2Client
         public void Move(int x, int y)
         {
             var map = GameManager.Instance.CurrentMap;
-            this.targetPosition = new Vector2Int(x, map.Height - y);
+            this.targetPosition = new Vector2(x + 0.5f, map.Height - y);
 
             if (targetPosition.y < transform.position.y)
             {
@@ -345,8 +345,8 @@ namespace Goose2Client
             SetMoving(false);
 
             var map = GameManager.Instance.CurrentMap;
-            this.targetPosition = new Vector2Int(x, map.Height - y);
-            transform.position = (Vector3Int)this.targetPosition;
+            this.targetPosition = new Vector2(x + 0.5f, map.Height - y);
+            transform.position = this.targetPosition;
             this.X = x;
             this.Y = y;
         }

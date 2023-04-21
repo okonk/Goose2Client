@@ -92,7 +92,7 @@ namespace Goose2Client
             var widthScaled = Math.Max(1, heightScaled * 0.75f);
             var yOffset = (heightScaled - 1) * 0.5f;
 
-            target.transform.localPosition = new Vector3(0.5f, yOffset);
+            target.transform.localPosition = new Vector3(0, yOffset);
             target.transform.localScale = new Vector3(widthScaled, heightScaled, 1);
         }
 

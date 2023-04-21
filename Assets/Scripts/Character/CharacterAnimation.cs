@@ -36,7 +36,7 @@ public class CharacterAnimation : MonoBehaviour
         this.Height = height;
 
         int yOffset = -System.Math.Max((height - 48) / 2, 0) - 16;
-        transform.localPosition = new Vector3(0.5f, yOffset / 32f);
+        transform.localPosition = new Vector3(0, yOffset / 32f);
     }
 
     public void SetGraphic(string type, int id)
