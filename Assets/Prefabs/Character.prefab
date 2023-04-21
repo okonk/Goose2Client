@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1330109585367006499}
   - component: {fileID: 3787844506814191361}
+  - component: {fileID: 6090102116960057021}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -48,6 +49,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBars: {fileID: 4238651568308524825}
   healthBarsObject: {fileID: 4238651568308524827}
+--- !u!210 &6090102116960057021
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350593509353984062}
+  m_Enabled: 1
+  m_SortingLayerID: 1830532623
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &5760453919584309952
 GameObject:
   m_ObjectHideFlags: 0
