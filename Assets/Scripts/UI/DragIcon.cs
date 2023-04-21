@@ -13,11 +13,17 @@ namespace Goose2Client
         private GameObject m_DraggingIcon;
         private RectTransform m_DraggingPlane;
 
+        private int originalSortOrder = 0;
+        private Canvas canvas;
+
         public void OnBeginDrag(PointerEventData eventData)
         {
-            var canvas = FindInParents<Canvas>(gameObject);
+            canvas = FindInParents<Canvas>(gameObject);
             if (canvas == null || imageSource.color.a == 0)
                 return;
+
+            originalSortOrder = canvas.sortingOrder;
+            canvas.sortingOrder = 1000;
 
             // We have clicked something that can be dragged.
             // What we want to do is create an icon for this.
@@ -71,6 +77,8 @@ namespace Goose2Client
         {
             if (m_DraggingIcon != null)
                 Destroy(m_DraggingIcon);
+
+            canvas.sortingOrder = originalSortOrder;
         }
 
         public static T FindInParents<T>(GameObject go) where T : Component

@@ -1,6 +1,3 @@
-
-player isn't centered
-
 render character head in vitals window
 
 map item tooltips don't work if player is standing on top of the item
@@ -14,8 +11,6 @@ attack animation glitches out with punches
 fix layer rendering of characters/map objects
 
 other players facing isn't always consistent when moving a lot. I think when they move up need to change facing on client side
-
-render dragged icons in a higher layer above other windows
 
 resize spell slots?
 
@@ -137,3 +132,6 @@ m button to toggle mount
 split stacks when holding ctrl in inventory
 destroy button
 item tooltips flashing when switching fast
+fixed character window text layout bugging out on the first frame
+player isn't centered
+render dragged icons in a higher layer above other windows
