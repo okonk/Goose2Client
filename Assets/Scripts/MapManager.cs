@@ -16,7 +16,7 @@ namespace Goose2Client
 
         private Dictionary<int, Character> characters = new();
 
-        private Dictionary<int, GameObject> mapObjects = new();
+        private Dictionary<int, MapItem> mapObjects = new();
 
         public IEnumerable<Character> Characters => characters.Values;
 
@@ -310,7 +310,7 @@ namespace Goose2Client
 
             item.transform.localPosition = new Vector3(packet.TileX + 0.5f, map.Height - packet.TileY - 0.5f);
 
-            mapObjects[packet.TileY * map.Height + packet.TileX] = item;
+            mapObjects[packet.TileY * map.Height + packet.TileX] = script;
         }
 
         private void OnEraseMapObject(object packetObj)
@@ -318,7 +318,7 @@ namespace Goose2Client
             var packet = (EraseObjectPacket)packetObj;
 
             if (mapObjects.TryGetValue(packet.TileY * map.Height + packet.TileX, out var item))
-                Destroy(item);
+                Destroy(item.gameObject);
         }
 
         public Character GetCharacter(int loginId)
@@ -370,6 +370,14 @@ namespace Goose2Client
             chatBubbleScript.SetText(packet.Message);
 
             chatBubble.transform.localPosition = new Vector3(0, character.Height / 32f + (chatBubbleScript.Height - 0.4355469f) / 2f);
+        }
+
+        public MapItem GetMapItem(int x, int y)
+        {
+            if (mapObjects.TryGetValue(y * map.Height + x, out var mapItem))
+                return mapItem;
+
+            return null;
         }
     }
 }
