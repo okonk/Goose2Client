@@ -27,6 +27,7 @@ namespace Goose2Client
             PlayerInputManager.Instance.Attack = OnAttack;
             PlayerInputManager.Instance.Move = OnMove;
             PlayerInputManager.Instance.PickUp = OnPickUp;
+            PlayerInputManager.Instance.RefreshPosition = OnRefreshPosition;
 
             PlayerInputManager.Instance.EmoteHeart = i => OnEmote(1080, 8);
             PlayerInputManager.Instance.EmoteQuestion = i => OnEmote(1081, 8);
@@ -45,6 +46,12 @@ namespace Goose2Client
         private void OnEmote(int animationId, int graphicId)
         {
             GameManager.Instance.NetworkClient.Emote(animationId, graphicId);
+        }
+
+        private void OnRefreshPosition(InputValue input)
+        {
+            Debug.Log("Refresh position");
+            GameManager.Instance.NetworkClient.Command("/refresh");
         }
 
         private void OnAttack(bool pressed)

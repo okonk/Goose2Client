@@ -127,3 +127,4 @@ fix chat bubble scaling -- works fine in fullscreen client so meh
 attack animation glitches out with punches
 -- looks like it's an issue with spritesheets being different sizes and the animation not syncing with the update code
 -- that moves the player sprite. maybe can put the movement of the sprite inside the animation or just fix all the animations to have a standard size..
+add refresh button ctrl r

@@ -62,6 +62,7 @@ namespace Goose2Client
         public Action<InputValue> ToggleInventory { get; set; }
         public Action<InputValue> ToggleCharacterWindow { get; set; }
         public Action<InputValue> ToggleMount { get; set; }
+        public Action<InputValue> RefreshPosition { get; set; }
 
         public Action<InputValue> TargetUp { get; set; }
         public Action<InputValue> TargetDown { get; set; }
@@ -100,6 +101,8 @@ namespace Goose2Client
             => ToggleCharacterWindow?.Invoke(value);
         private void OnToggleMount(InputValue value)
             => ToggleMount?.Invoke(value);
+        private void OnRefreshPosition(InputValue value)
+            => RefreshPosition?.Invoke(value);
 
         private void OnTargetUp(InputValue value)
             => TargetUp?.Invoke(value);
