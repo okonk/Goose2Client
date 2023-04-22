@@ -1,12 +1,12 @@
+toolbar
+
+save window positions/state
+
 render character head in vitals window
 
 map item tooltips don't work if player is standing on top of the item
 
-toolbar
-
 other players facing isn't always consistent when moving a lot. I think when they move up need to change facing on client side
-
-save window positions
 
 look at mount speed
 
@@ -22,7 +22,6 @@ refactor login screen/button code
 
 future: Show title/surname effects in item stats somehow. needs server support
 
-can i fix it so when scripts are reloaded it works?
 
 Done:
 Fix sorting order of items
