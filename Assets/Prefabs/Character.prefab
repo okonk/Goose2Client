@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &144615692310200693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7428438368890228553}
+  - component: {fileID: 2522162253494175624}
+  m_Layer: 0
+  m_Name: Sprites
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7428438368890228553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144615692310200693}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1330109585367006499}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &2522162253494175624
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144615692310200693}
+  m_Enabled: 1
+  m_SortingLayerID: 1830532623
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &5350593509353984062
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +54,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1330109585367006499}
   - component: {fileID: 3787844506814191361}
-  - component: {fileID: 6090102116960057021}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -32,6 +75,7 @@ Transform:
   m_Children:
   - {fileID: 4238651568308524826}
   - {fileID: 7570234720706532237}
+  - {fileID: 7428438368890228553}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49,18 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBars: {fileID: 4238651568308524825}
   healthBarsObject: {fileID: 4238651568308524827}
---- !u!210 &6090102116960057021
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5350593509353984062}
-  m_Enabled: 1
-  m_SortingLayerID: 1830532623
-  m_SortingLayer: 4
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
+  spriteContainer: {fileID: 144615692310200693}
 --- !u!1 &5760453919584309952
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,6 +34,7 @@ namespace Goose2Client
 
         [SerializeField] private CharacterHealthBar healthBars;
         [SerializeField] private GameObject healthBarsObject;
+        [SerializeField] private GameObject spriteContainer;
 
         public bool Moving { get { return (Vector2)transform.position != targetPosition; } }
 
@@ -211,7 +212,7 @@ namespace Goose2Client
             if (id <= 0) return null;
 
             var characterAnimationPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "CharacterAnimation");
-            var animation = Instantiate(characterAnimationPrefab, gameObject.transform);
+            var animation = Instantiate(characterAnimationPrefab, spriteContainer.transform);
             animation.name = $"{type} ({id})";
 
             var characterAnimationScript = animation.GetComponent<CharacterAnimation>();
