@@ -8,11 +8,9 @@ namespace Goose2Client
 {
     public enum ToolbarItemType
     {
-        Help,
-        ToggleDM,
-        Party,
-        Refresh,
+        Destroy,
         CombineBag,
+        Options,
         Exit
     }
 
@@ -22,8 +20,6 @@ namespace Goose2Client
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Toolbar clicked");
-
             if (eventData.button != PointerEventData.InputButton.Left) return;
 
             var action = itemType switch
@@ -40,7 +36,6 @@ namespace Goose2Client
 
         public void OpenCombineBag()
         {
-            Debug.Log("open combine bag");
             GameManager.Instance.NetworkClient.OpenCombineBag();
         }
 

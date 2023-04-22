@@ -1,5 +1,3 @@
-toolbar
-
 save window positions/state
 
 other players facing isn't always consistent when moving a lot. I think when they move up need to change facing on client side
@@ -134,3 +132,4 @@ attack animation glitches out with punches
 -- that moves the player sprite. maybe can put the movement of the sprite inside the animation or just fix all the animations to have a standard size..
 add refresh button ctrl r
 map item tooltips don't work if player is standing on top of the item
+toolbar

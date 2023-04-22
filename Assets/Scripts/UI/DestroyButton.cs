@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace Goose2Client
 {
-    public class DestroyWindow : MonoBehaviour, IDropHandler
+    public class DestroyButton : MonoBehaviour, IDropHandler
     {
         public void OnDrop(PointerEventData eventData)
         {

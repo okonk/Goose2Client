@@ -128,7 +128,6 @@
      <Compile Include="Assets/Scripts/Network/Packets/GroupUpdatePacket.cs" />
      <Compile Include="Assets/Scripts/Network/NetworkClient.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/DoneSendingMapPacket.cs" />
-     <Compile Include="Assets/Scripts/UI/DestroyWindow.cs" />
      <Compile Include="Assets/Scripts/UI/DragIcon.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SendCurrentMapPacket.cs" />
      <Compile Include="Assets/Scripts/WindowFrames.cs" />
@@ -167,6 +166,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/AdminModeActivatePacket.cs" />
      <Compile Include="Assets/Scripts/Direction.cs" />
      <Compile Include="Assets/Scripts/EmoteAnimation.cs" />
+     <Compile Include="Assets/Scripts/UI/DestroyButton.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
