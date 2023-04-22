@@ -9,6 +9,11 @@ namespace Goose2Client
     public class MapManager : MonoBehaviour
     {
         [SerializeField] private GameObject cameraObject;
+
+        [SerializeField] private GameObject characterContainer;
+        [SerializeField] private GameObject objectsContainer;
+        [SerializeField] private GameObject spellsContainer;
+
         private Dictionary<int, Character> characters = new();
 
         private Dictionary<int, GameObject> mapObjects = new();
@@ -86,7 +91,7 @@ namespace Goose2Client
 
             var position = new Vector3(makeCharacterPacket.MapX + 0.5f, map.Height - makeCharacterPacket.MapY);
             var characterPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "Character");
-            var character = Instantiate(characterPrefab, position, Quaternion.identity);
+            var character = Instantiate(characterPrefab, position, Quaternion.identity, characterContainer.transform);
             character.name = makeCharacterPacket.Name;
 
             var characterScript = character.GetComponent<Character>();
@@ -274,7 +279,7 @@ namespace Goose2Client
         {
             var spellTile = (SpellTilePacket)packet;
 
-            ShowSpell(spellTile.AnimationId, gameObject.transform, spellTile.TileX + 0.5f, map.Height - spellTile.TileY);
+            ShowSpell(spellTile.AnimationId, spellsContainer.transform, spellTile.TileX + 0.5f, map.Height - spellTile.TileY);
         }
 
         private void OnBattleText(object packet)
@@ -292,8 +297,8 @@ namespace Goose2Client
             var packet = (MapObjectPacket)packetObj;
 
             var itemPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "MapItem");
-            var item = Instantiate(itemPrefab, gameObject.transform);
-            item.name = $"MapItem {packet.Name} ({packet.GraphicId})";
+            var item = Instantiate(itemPrefab, objectsContainer.transform);
+            item.name = $"{packet.Name} ({packet.GraphicId})";
 
             var script = item.GetComponent<MapItem>();
             script.Item = ItemStats.FromPacket(packet);
