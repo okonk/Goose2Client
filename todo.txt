@@ -4,13 +4,7 @@ map item tooltips don't work if player is standing on top of the item
 
 toolbar
 
-attack animation glitches out with punches
--- looks like it's an issue with spritesheets being different sizes and the animation not syncing with the update code
--- that moves the player sprite. maybe can put the movement of the sprite inside the animation or just fix all the animations to have a standard size..
-
 other players facing isn't always consistent when moving a lot. I think when they move up need to change facing on client side
-
-resize spell slots?
 
 save window positions
 
@@ -23,10 +17,6 @@ add a timer to buff bar items (needs server)
 in spell targeting implement target filtering
 
 improve name heights
-
-
-fix spell target box colours
-fix chat bubble scaling
 
 refactor login screen/button code
 
@@ -132,3 +122,9 @@ render dragged icons in a higher layer above other windows
 fix layer rendering of characters/map objects
 figure out killing of tooltips
 update cooldowns in tooltips every second if tooltip open
+resize spell slots? -- works fine in fullscreen client so meh
+fix spell target box colours -- works fine in fullscreen client so meh
+fix chat bubble scaling -- works fine in fullscreen client so meh
+attack animation glitches out with punches
+-- looks like it's an issue with spritesheets being different sizes and the animation not syncing with the update code
+-- that moves the player sprite. maybe can put the movement of the sprite inside the animation or just fix all the animations to have a standard size..

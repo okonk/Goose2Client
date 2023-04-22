@@ -22,16 +22,7 @@ public class CharacterAnimation : MonoBehaviour
         animator.runtimeAnimatorController = overrideController;
     }
 
-    private void Update()
-    {
-        var currentAnimation = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-        int height = GameManager.Instance.AnimationManager.GetHeight(currentAnimation);
-
-        if (height != Height)
-            SetPosition(currentAnimation, height);
-    }
-
-    private void SetPosition(string animationName, int height)
+    public void SetPosition(string animationName, int height)
     {
         this.Height = height;
 

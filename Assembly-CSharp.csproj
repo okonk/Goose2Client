@@ -57,7 +57,6 @@
      <Compile Include="Assets/Scripts/UI/ItemTooltip.cs" />
      <Compile Include="Assets/Scripts/Network/PacketParser.cs" />
      <Compile Include="Assets/Scripts/UI/HotbarWindow.cs" />
-     <Compile Include="Assets/Scripts/Character.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/MoveCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/BuffBarPacket.cs" />
      <Compile Include="Assets/Scripts/LoadingScene/LoadingScene.cs" />
@@ -105,6 +104,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/BattleTextPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/InventorySlotPacket.cs" />
      <Compile Include="Assets/Scripts/Constants.cs" />
+     <Compile Include="Assets/Scripts/Character/Character.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ExperienceBarPacket.cs" />
      <Compile Include="Assets/Scripts/UI/SpellbookWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SpellTilePacket.cs" />
@@ -117,6 +117,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/ClearCombineBagSlotPacket.cs" />
      <Compile Include="Assets/Scripts/Network/PacketHandler.cs" />
      <Compile Include="Assets/Scripts/UI/BuffEffect.cs" />
+     <Compile Include="Assets/Scripts/Character/CharacterAnimationStateBehaviour.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClassUpdatePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClearBankSlotPacket.cs" />
      <Compile Include="Assets/Scripts/UI/BaseMultipleWindow.cs" />
