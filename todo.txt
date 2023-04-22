@@ -18,8 +18,6 @@ look at mount speed
 
 alternate hotbars
 
-update cooldowns in tooltips every second if tooltip open
-
 add a timer to buff bar items (needs server)
 
 in spell targeting implement target filtering
@@ -133,3 +131,4 @@ player isn't centered
 render dragged icons in a higher layer above other windows
 fix layer rendering of characters/map objects
 figure out killing of tooltips
+update cooldowns in tooltips every second if tooltip open

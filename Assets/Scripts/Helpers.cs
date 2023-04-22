@@ -24,7 +24,7 @@ namespace Goose2Client
             if (t.Minutes != 0)
                 cd += t.Minutes + "m ";
 
-            var seconds = (int)Math.Round(t.Seconds + t.Milliseconds / 1000.0d, 0);
+            var seconds = Math.Round(t.Seconds + t.Milliseconds / 1000.0f, 0);
             if (seconds != 0)
              cd += seconds + "s";
 

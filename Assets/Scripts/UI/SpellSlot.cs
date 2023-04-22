@@ -48,17 +48,12 @@ namespace Goose2Client
         {
             if (!HasSpell) return;
 
-            var remaining = GameManager.Instance.SpellCooldownManager.GetCooldownRemaining(info);
-            string tooltip = info.Name;
-            if (remaining != TimeSpan.Zero)
-                tooltip +=  $" ({remaining.FormatDuration()} remaining)";
-
-            TooltipManager.Instance.ShowTextTooltip(tooltip, gameObject);
+            TooltipManager.Instance.ShowSpellTooltip(info, gameObject);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            TooltipManager.Instance.HideTextTooltip();
+            TooltipManager.Instance.HideSpellTooltip();
         }
 
         public void OnPointerClick(PointerEventData eventData)

@@ -20,6 +20,8 @@ namespace Goose2Client
 
         [SerializeField] private TextTooltip textTooltip;
 
+        [SerializeField] private SpellTooltip spellTooltip;
+
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -42,6 +44,18 @@ namespace Goose2Client
         public void HideItemTooltip()
         {
             itemTooltip.Hide();
+        }
+
+        public void ShowSpellTooltip(SpellInfo spell, GameObject parent)
+        {
+            spellTooltip.SetSpell(spell, parent);
+
+            spellTooltip.gameObject.SetActive(true);
+        }
+
+        public void HideSpellTooltip()
+        {
+            spellTooltip.Hide();
         }
 
         public void ShowMapItemTooltip(ItemStats stats, GameObject parent)

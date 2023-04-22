@@ -152,6 +152,7 @@
      <Compile Include="Assets/Scripts/Network/Packets/SetYourPositionPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/AttackPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ServerMessagePacket.cs" />
+     <Compile Include="Assets/Scripts/UI/SpellTooltip.cs" />
      <Compile Include="Assets/Scripts/UI/QuestWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/LoginFailPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/HashMessagePacket.cs" />
