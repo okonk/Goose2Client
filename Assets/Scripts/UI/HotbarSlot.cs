@@ -179,14 +179,15 @@ namespace Goose2Client
             if (SpellInfo != null)
             {
                 var remaining = GameManager.Instance.SpellCooldownManager.GetCooldownRemaining(SpellInfo);
-                if (remaining == TimeSpan.Zero)
-                    TooltipManager.Instance.ShowTextTooltip(SpellInfo.Name);
-                else
-                    TooltipManager.Instance.ShowTextTooltip($"{SpellInfo.Name} ({remaining.FormatDuration()} remaining)");
+                var tooltip = SpellInfo.Name;
+                if (remaining != TimeSpan.Zero)
+                    tooltip += $" ({remaining.FormatDuration()} remaining)";
+
+                TooltipManager.Instance.ShowTextTooltip(tooltip, gameObject);
             }
             else if (ItemStats != null)
             {
-                TooltipManager.Instance.ShowTextTooltip(ItemStats.Name);
+                TooltipManager.Instance.ShowTextTooltip(ItemStats.Name, gameObject);
             }
         }
 

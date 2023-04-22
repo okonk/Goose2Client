@@ -15,18 +15,32 @@ namespace Goose2Client
 
         private RectTransform rectTransform;
 
+        private GameObject parent;
+
         private void Start()
         {
             rectTransform = GetComponent<RectTransform>();
         }
 
-        internal void SetText(string text)
+        internal void SetText(string text, GameObject parent)
         {
             this.text.text = text;
+            this.parent = parent;
+        }
+
+        internal void Hide()
+        {
+            gameObject.SetActive(false);
         }
 
         public void Update()
         {
+            if (parent == null || !parent.activeInHierarchy)
+            {
+                Hide();
+                return;
+            }
+
             var position = Input.mousePosition;
 
             transform.position = position;

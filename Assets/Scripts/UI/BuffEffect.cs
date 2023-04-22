@@ -43,7 +43,7 @@ namespace Goose2Client
         {
             if (effectName == null) return;
 
-            TooltipManager.Instance.ShowTextTooltip(effectName);
+            TooltipManager.Instance.ShowTextTooltip(effectName, gameObject);
         }
 
         public void OnPointerExit(PointerEventData eventData)

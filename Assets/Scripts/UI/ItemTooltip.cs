@@ -19,6 +19,8 @@ namespace Goose2Client
 
         private RectTransform rectTransform;
 
+        private GameObject parent;
+
         private static Color descriptionColor = Color.white;
         private static Color acColor = ColorH.RGBA(216, 208, 176);
         private static Color weaponDamageColor = ColorH.RGBA(232, 244, 112);
@@ -34,8 +36,10 @@ namespace Goose2Client
             rectTransform = GetComponent<RectTransform>();
         }
 
-        internal void SetItem(ItemStats itemStats)
+        internal void SetItem(ItemStats itemStats, GameObject parent)
         {
+            this.parent = parent;
+
             image.sprite = Helpers.GetSprite(itemStats.GraphicId, itemStats.GraphicFile);
             image.color = Color.white;
             image.material = Instantiate(image.material);
@@ -129,8 +133,19 @@ namespace Goose2Client
             AddStatLine(" ", Color.black);
         }
 
+        internal void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+
         public void Update()
         {
+            if (parent == null || !parent.activeInHierarchy)
+            {
+                Hide();
+                return;
+            }
+
             var position = Input.mousePosition;
 
             transform.position = position;

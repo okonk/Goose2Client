@@ -11,7 +11,7 @@ namespace Goose2Client
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            TooltipManager.Instance.ShowMapItemTooltip(Item);
+            TooltipManager.Instance.ShowMapItemTooltip(Item, gameObject);
         }
 
         public void OnPointerExit(PointerEventData eventData)

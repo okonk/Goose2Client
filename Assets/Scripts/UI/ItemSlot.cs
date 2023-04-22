@@ -48,7 +48,7 @@ namespace Goose2Client
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (HasItem)
-                TooltipManager.Instance.ShowItemTooltip(stats);
+                TooltipManager.Instance.ShowItemTooltip(stats, gameObject);
         }
 
         public void OnPointerExit(PointerEventData eventData)

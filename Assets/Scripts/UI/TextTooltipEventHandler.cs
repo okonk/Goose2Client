@@ -12,7 +12,7 @@ namespace Goose2Client
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (!string.IsNullOrWhiteSpace(TooltipText))
-                TooltipManager.Instance.ShowTextTooltip(TooltipText);
+                TooltipManager.Instance.ShowTextTooltip(TooltipText, gameObject);
         }
 
         public void OnPointerExit(PointerEventData eventData)

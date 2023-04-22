@@ -32,28 +32,28 @@ namespace Goose2Client
             DontDestroyOnLoad(this.gameObject);
         }
 
-        public void ShowItemTooltip(ItemStats stats)
+        public void ShowItemTooltip(ItemStats stats, GameObject parent)
         {
-            itemTooltip.SetItem(stats);
+            itemTooltip.SetItem(stats, parent);
 
             itemTooltip.gameObject.SetActive(true);
         }
 
         public void HideItemTooltip()
         {
-            itemTooltip.gameObject.SetActive(false);
+            itemTooltip.Hide();
         }
 
-        public void ShowMapItemTooltip(ItemStats stats)
+        public void ShowMapItemTooltip(ItemStats stats, GameObject parent)
         {
-            mapItemTooltip.SetItem(stats);
+            mapItemTooltip.SetItem(stats, parent);
 
             mapItemTooltip.gameObject.SetActive(true);
         }
 
         public void HideMapItemTooltip()
         {
-            mapItemTooltip.gameObject.SetActive(false);
+            mapItemTooltip.Hide();
         }
 
         public void HideMapItemTooltipIfMatching(ItemStats stats)
@@ -62,16 +62,16 @@ namespace Goose2Client
                 HideMapItemTooltip();
         }
 
-        public void ShowTextTooltip(string text)
+        public void ShowTextTooltip(string text, GameObject parent)
         {
-            textTooltip.SetText(text);
+            textTooltip.SetText(text, parent);
 
             textTooltip.gameObject.SetActive(true);
         }
 
         public void HideTextTooltip()
         {
-            textTooltip.gameObject.SetActive(false);
+            textTooltip.Hide();
         }
     }
 }

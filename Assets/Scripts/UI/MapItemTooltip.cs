@@ -18,14 +18,17 @@ namespace Goose2Client
 
         private RectTransform rectTransform;
 
+        private GameObject parent;
+
         private void Start()
         {
             rectTransform = GetComponent<RectTransform>();
         }
 
-        internal void SetItem(ItemStats itemStats)
+        internal void SetItem(ItemStats itemStats, GameObject parent)
         {
             Item = itemStats;
+            this.parent = parent;
 
             nameText.text = $"{itemStats.Title} {itemStats.Name} {itemStats.Surname}".Trim();
 
@@ -35,8 +38,19 @@ namespace Goose2Client
             bindText.gameObject.SetActive(itemStats.Flags.HasFlag(ItemFlags.BindOnPickup));
         }
 
+        internal void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+
         public void Update()
         {
+            if (parent == null || !parent.activeInHierarchy)
+            {
+                Hide();
+                return;
+            }
+
             var position = Input.mousePosition;
 
             transform.position = position;

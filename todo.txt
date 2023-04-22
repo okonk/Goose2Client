@@ -16,8 +16,6 @@ save window positions
 
 look at mount speed
 
-figure out killing of tooltips
-
 alternate hotbars
 
 update cooldowns in tooltips every second if tooltip open
@@ -134,3 +132,4 @@ fixed character window text layout bugging out on the first frame
 player isn't centered
 render dragged icons in a higher layer above other windows
 fix layer rendering of characters/map objects
+figure out killing of tooltips
