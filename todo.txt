@@ -8,7 +8,7 @@ refactor login screen/button code, names
 
 add async loading of graphics
 
-maybe some move/facing packet queue on characters to smooth out movement?
+maybe some move/facing packet queue on characters to smooth out movement? probably not gonna work
 
 
 render character head in vitals window
