@@ -1,12 +1,14 @@
 save window positions/state
 
-other players facing isn't always consistent when moving a lot. I think when they move up need to change facing on client side
-
 alternate hotbars
 
 in spell targeting implement target filtering
 
 refactor login screen/button code, names
+
+add async loading of graphics
+
+maybe some move/facing packet queue on characters to smooth out movement?
 
 
 render character head in vitals window
@@ -133,3 +135,4 @@ attack animation glitches out with punches
 add refresh button ctrl r
 map item tooltips don't work if player is standing on top of the item
 toolbar
+other players facing isn't always consistent when moving a lot. possibly because the animation is playing it won't update facing?

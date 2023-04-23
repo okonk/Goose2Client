@@ -98,4 +98,9 @@ public class CharacterAnimation : MonoBehaviour
     {
         this.animator.SetTrigger(Constants.Cast);
     }
+
+    public void Stop()
+    {
+        this.animator.StopPlayback();
+    }
 }

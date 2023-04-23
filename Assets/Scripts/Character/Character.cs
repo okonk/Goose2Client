@@ -302,6 +302,12 @@ namespace Goose2Client
                 animation.SetBool(Constants.Walking, moving);
         }
 
+        private void StopAnimations()
+        {
+            foreach (var animation in animations.Values)
+                animation.Stop();
+        }
+
         public void Attack()
         {
             foreach (var animation in animations.Values)
@@ -317,24 +323,22 @@ namespace Goose2Client
         public void Move(int x, int y)
         {
             var map = GameManager.Instance.CurrentMap;
-            this.targetPosition = new Vector2(x + 0.5f, map.Height - y);
+            var lastTarget = targetPosition;
+            transform.position = lastTarget;
+            targetPosition = new Vector2(x + 0.5f, map.Height - y);
 
-            if (targetPosition.y < transform.position.y)
-            {
-                SetFacing(Direction.Down);
-            }
-            else if (targetPosition.x > transform.position.x)
-            {
-                SetFacing(Direction.Right);
-            }
-            else if (targetPosition.y > transform.position.y)
-            {
-                SetFacing(Direction.Up);
-            }
-            else if (targetPosition.x < transform.position.x)
-            {
-                SetFacing(Direction.Left);
-            }
+            var newFacing = Direction.Up;
+            if (targetPosition.y < lastTarget.y)
+                newFacing = Direction.Down;
+            else if (targetPosition.x > lastTarget.x)
+                newFacing = Direction.Right;
+            else if (targetPosition.y > lastTarget.y)
+                newFacing = Direction.Up;
+            else if (targetPosition.x < lastTarget.x)
+                newFacing = Direction.Left;
+
+            if (Facing != newFacing)
+                SetFacing(newFacing);
 
             SetMoving(true);
             this.X = x;
@@ -346,8 +350,8 @@ namespace Goose2Client
             SetMoving(false);
 
             var map = GameManager.Instance.CurrentMap;
-            this.targetPosition = new Vector2(x + 0.5f, map.Height - y);
-            transform.position = this.targetPosition;
+            targetPosition = new Vector2(x + 0.5f, map.Height - y);
+            transform.position = targetPosition;
             this.X = x;
             this.Y = y;
         }
@@ -361,7 +365,7 @@ namespace Goose2Client
         {
             if (Moving)
             {
-                transform.position = Vector2.MoveTowards(transform.position, targetPosition, 1000 / MoveSpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, 1000 / MoveSpeed * Time.unscaledDeltaTime);
 
                 if (!Moving)
                 {
