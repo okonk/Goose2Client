@@ -71,6 +71,21 @@ namespace Goose2Client
             }
         }
 
+        [MenuItem("Tools/Find References")]
+        private static void GenerateReferences()
+        {
+            foreach (var scene in Directory.EnumerateFiles("Assets/Scenes", "*.unity"))
+            {
+                GenerateReferencesRecursive(scene);
+            }
+        }
+
+        private static void GenerateReferencesRecursive(string path)
+        {
+            var dependencies = AssetDatabase.GetDependencies(path, true);
+            Debug.Log($"Dependencies of {path}: {string.Join(", ", dependencies)}");
+        }
+
         [MenuItem("Tools/Generate Data")]
         private static void GenerateData()
         {
