@@ -39,6 +39,9 @@ namespace Goose2Client
 
         public void Start()
         {
+            var gamemanagerPrefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "GameManager");
+            var gamemanager = Instantiate(gamemanagerPrefab, null);
+
             GameManager.Instance.PacketManager.Listen<LoginSuccessPacket>(this.OnLoginSuccess);
             GameManager.Instance.PacketManager.Listen<LoginFailPacket>(this.OnLoginFail);
             GameManager.Instance.PacketManager.Listen<SendCurrentMapPacket>(this.OnSendCurrentMap);
