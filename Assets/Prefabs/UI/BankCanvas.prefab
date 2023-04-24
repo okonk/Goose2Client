@@ -847,6 +847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 6435461162593590006}
   transformToMove: {fileID: 4496470951000245883}
+  windowName: Bank
 --- !u!114 &6935873846843891307
 MonoBehaviour:
   m_ObjectHideFlags: 0

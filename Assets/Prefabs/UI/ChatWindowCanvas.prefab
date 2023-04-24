@@ -707,6 +707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 6406743313637186127}
   transformToMove: {fileID: 902028917346648189}
+  windowName: Chat
 --- !u!114 &8860647107143913882
 MonoBehaviour:
   m_ObjectHideFlags: 0

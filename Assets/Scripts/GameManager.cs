@@ -130,5 +130,19 @@ namespace Goose2Client
         {
             Application.Quit();
         }
+
+        public void SaveSettingsDelayed()
+        {
+            StopCoroutine(nameof(SaveSettingsDelayedInternal));
+
+            StartCoroutine(nameof(SaveSettingsDelayedInternal));
+        }
+
+        private IEnumerator SaveSettingsDelayedInternal()
+        {
+            yield return new WaitForSecondsRealtime(10);
+
+            CharacterSettings.Save();
+        }
     }
 }

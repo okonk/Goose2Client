@@ -462,6 +462,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2491026227758452367}
     m_Modifications:
+    - target: {fileID: 1387072700680047674, guid: 3eb46c2395cc8885bb9f0de1d69d8339, type: 3}
+      propertyPath: windowName
+      value: Character
+      objectReference: {fileID: 0}
     - target: {fileID: 6803876844992344174, guid: 3eb46c2395cc8885bb9f0de1d69d8339, type: 3}
       propertyPath: m_Name
       value: CharacterCanvas
@@ -666,11 +670,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7758699116401059970, guid: fadb4c747a3ebfda3abc24155fe0decb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7758699116401059970, guid: fadb4c747a3ebfda3abc24155fe0decb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7758699116401059970, guid: fadb4c747a3ebfda3abc24155fe0decb, type: 3}
       propertyPath: m_SizeDelta.x
@@ -690,11 +694,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8530763728752314017, guid: fadb4c747a3ebfda3abc24155fe0decb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8530763728752314017, guid: fadb4c747a3ebfda3abc24155fe0decb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8530763728752314017, guid: fadb4c747a3ebfda3abc24155fe0decb, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1521,6 +1525,10 @@ PrefabInstance:
       value: -0.00039709345
       objectReference: {fileID: 0}
     - target: {fileID: 4914672030005517801, guid: 44a5ef8e7725ea859acc1823099580ab, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914672030005517801, guid: 44a5ef8e7725ea859acc1823099580ab, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -572.6
       objectReference: {fileID: 0}
@@ -1661,6 +1669,10 @@ PrefabInstance:
     - target: {fileID: 733993665475823817, guid: a83ec38b37e9bad1f811ea051c771492, type: 3}
       propertyPath: m_Name
       value: VendorWindowCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4393028897471398590, guid: a83ec38b37e9bad1f811ea051c771492, type: 3}
+      propertyPath: windowName
+      value: Vendor
       objectReference: {fileID: 0}
     - target: {fileID: 5084019823349994438, guid: a83ec38b37e9bad1f811ea051c771492, type: 3}
       propertyPath: m_Pivot.x
@@ -1924,6 +1936,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5936247598421348816, guid: 34210d8e758af60a485f10f5068fb277, type: 3}
+      propertyPath: windowName
+      value: Hotbar
+      objectReference: {fileID: 0}
     - target: {fileID: 6120102557653866282, guid: 34210d8e758af60a485f10f5068fb277, type: 3}
       propertyPath: inventoryWindow
       value: 
@@ -1966,6 +1982,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2491026227758452367}
     m_Modifications:
+    - target: {fileID: 547833291206996637, guid: 1817cf7eb10d63ba69a1b02ade949c5e, type: 3}
+      propertyPath: windowName
+      value: Inventory
+      objectReference: {fileID: 0}
     - target: {fileID: 547833292007661162, guid: 1817cf7eb10d63ba69a1b02ade949c5e, type: 3}
       propertyPath: m_Name
       value: InventoryCanvas
@@ -2090,6 +2110,10 @@ PrefabInstance:
     - target: {fileID: 432874491617362604, guid: 0e823bbffb7af7282b8b78ea2884a36f, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146758649854368428, guid: 0e823bbffb7af7282b8b78ea2884a36f, type: 3}
+      propertyPath: windowName
+      value: Vitals
       objectReference: {fileID: 0}
     - target: {fileID: 3700469870273070191, guid: 0e823bbffb7af7282b8b78ea2884a36f, type: 3}
       propertyPath: m_Pivot.x
@@ -2444,6 +2468,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2491026227758452367}
     m_Modifications:
+    - target: {fileID: 4068701236934777496, guid: d43bf4a13003b96169bca97239688b48, type: 3}
+      propertyPath: windowName
+      value: Spellbook
+      objectReference: {fileID: 0}
     - target: {fileID: 6677853990055046321, guid: d43bf4a13003b96169bca97239688b48, type: 3}
       propertyPath: m_Pivot.x
       value: 0

@@ -766,6 +766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1746208196586136146}
   transformToMove: {fileID: 3545257426670373089}
+  windowName: CombineBag
 --- !u!114 &718603892287565344
 MonoBehaviour:
   m_ObjectHideFlags: 0

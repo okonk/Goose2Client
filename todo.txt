@@ -1,4 +1,4 @@
-save window positions/state
+
 
 alternate hotbars
 
@@ -136,3 +136,4 @@ add refresh button ctrl r
 map item tooltips don't work if player is standing on top of the item
 toolbar
 other players facing isn't always consistent when moving a lot. possibly because the animation is playing it won't update facing?
+save window positions/state

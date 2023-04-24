@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace Goose2Client
 {
-    [Serializable]
     public class HotkeySetting
     {
         public enum SlotType
@@ -24,14 +25,22 @@ namespace Goose2Client
         }
     }
 
-    [Serializable]
+    public class WindowSettings
+    {
+        public Vector2 Position;
+    }
+
     public class CharacterSettings
     {
         public HotkeySetting[] Hotkeys;
 
+        public Dictionary<string, WindowSettings> WindowSettings;
+
         public string MountName;
 
         private readonly string characterName;
+
+        public CharacterSettings() {}
 
         public CharacterSettings(string characterName)
         {
@@ -39,6 +48,8 @@ namespace Goose2Client
 
             if (!Load())
                 LoadDefaultSettings();
+
+            WindowSettings ??= new();
         }
 
         private string GetFilePath()
@@ -53,7 +64,11 @@ namespace Goose2Client
                 return false;
 
             var fileContents = File.ReadAllText(filePath);
-            JsonUtility.FromJsonOverwrite(fileContents, this);
+            var deserialized = JsonConvert.DeserializeObject<CharacterSettings>(fileContents);
+
+            this.Hotkeys = deserialized.Hotkeys;
+            this.WindowSettings = deserialized.WindowSettings;
+            this.MountName = deserialized.MountName;
 
             Debug.Log($"Settings loaded: {filePath} {fileContents}");
 
@@ -65,16 +80,41 @@ namespace Goose2Client
             Hotkeys = new HotkeySetting[10];
             for (int i = 0; i < Hotkeys.Length; i++)
                 Hotkeys[i] = new HotkeySetting(-1, HotkeySetting.SlotType.Item);
+
+            WindowSettings = new();
         }
 
         public void Save()
         {
             var filePath = GetFilePath();
-            var fileContents = JsonUtility.ToJson(this);
+            var fileContents = JsonConvert.SerializeObject(this);
 
             Debug.Log($"Settings saved: {filePath} {fileContents}");
 
             File.WriteAllText(filePath, fileContents);
+        }
+
+        public WindowSettings GetWindowSettings(string windowName)
+        {
+            if (WindowSettings.TryGetValue(windowName, out var settings))
+                return settings;
+
+            return null;
+        }
+
+        public void SetWindowSetting(string windowName, Vector2? position = null)
+        {
+            var settings = GetWindowSettings(windowName);
+            if (settings == null)
+            {
+                settings = new WindowSettings();
+                WindowSettings[windowName] = settings;
+            }
+
+            if (position.HasValue)
+                settings.Position = position.Value;
+
+            GameManager.Instance.SaveSettingsDelayed();
         }
     }
 }

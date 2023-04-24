@@ -297,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 630345255932749034}
   transformToMove: {fileID: 6468535849629479532}
+  windowName: Toolbar
 --- !u!1 &3876775580876478845
 GameObject:
   m_ObjectHideFlags: 0
