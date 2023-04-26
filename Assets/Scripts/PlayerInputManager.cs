@@ -58,6 +58,7 @@ namespace Goose2Client
         public Action<InputValue> Move { get; set; }
         public Action<InputValue> PickUp { get; set; }
         public Action<int, bool> Hotkey { get; set; }
+        public Action<InputValue> CycleHotbarPage { get; set; }
         public Action<InputValue> ToggleSpellbook { get; set; }
         public Action<InputValue> ToggleInventory { get; set; }
         public Action<InputValue> ToggleCharacterWindow { get; set; }
@@ -103,6 +104,8 @@ namespace Goose2Client
             => ToggleMount?.Invoke(value);
         private void OnRefreshPosition(InputValue value)
             => RefreshPosition?.Invoke(value);
+        private void OnCycleHotbarPage(InputValue value)
+            => CycleHotbarPage?.Invoke(value);
 
         private void OnTargetUp(InputValue value)
             => TargetUp?.Invoke(value);

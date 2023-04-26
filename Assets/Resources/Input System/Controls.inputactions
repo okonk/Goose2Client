@@ -159,6 +159,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "CycleHotbarPage",
+                    "type": "Button",
+                    "id": "254dc995-05c2-4edf-997e-8416fb76251d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "StartChat",
                     "type": "Button",
                     "id": "b33e2edb-5904-4ab4-9464-5140dddd7cb9",
@@ -1234,6 +1243,17 @@
                     "action": "RefreshPosition",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "196d4563-1e85-44b4-9f6f-bb0112771f32",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CycleHotbarPage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

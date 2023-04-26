@@ -48,6 +48,7 @@
      <Compile Include="Assets/Scripts/UI/QuestWindowManager.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EraseCharacterPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/PingPacket.cs" />
+     <Compile Include="Assets/Scripts/UI/HotbarPage.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/StatusInfoPacket.cs" />
      <Compile Include="Assets/Scripts/UI/NonDrawingGraphic.cs" />
      <Compile Include="Assets/Scripts/UI/ChatWindow.cs" />

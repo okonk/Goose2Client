@@ -1,14 +1,4 @@
-
-
-alternate hotbars
-
 in spell targeting implement target filtering
-
-refactor login screen/button code, names
-
-add async loading of graphics
-
-maybe some move/facing packet queue on characters to smooth out movement? probably not gonna work
 
 
 render character head in vitals window
@@ -18,6 +8,13 @@ options window
 guild window?
 
 group options window?
+
+
+refactor login screen/button code, names
+
+add async loading of graphics
+
+maybe some move/facing packet queue on characters to smooth out movement? probably not gonna work
 
 
 
@@ -137,3 +134,4 @@ map item tooltips don't work if player is standing on top of the item
 toolbar
 other players facing isn't always consistent when moving a lot. possibly because the animation is playing it won't update facing?
 save window positions/state
+alternate hotbars

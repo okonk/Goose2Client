@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,12 @@ namespace Goose2Client
 {
     public class HotbarWindow : MonoBehaviour, IWindow
     {
-        [SerializeField] private HotbarSlot[] slots;
+        [SerializeField] private HotbarPage[] pages;
+
+        private int pageIndex = 0;
+
+        [SerializeField] private GameObject backButton;
+        [SerializeField] private GameObject nextButton;
 
         [SerializeField] private Image xpBarFill;
         [SerializeField] private TextMeshProUGUI xpBarText;
@@ -38,20 +44,31 @@ namespace Goose2Client
 
             PlayerInputManager.Instance.Hotkey = OnButtonPressed;
             PlayerInputManager.Instance.ToggleMount = OnToggleMount;
+            PlayerInputManager.Instance.CycleHotbarPage = OnCyclePage;
 
             var settings = GameManager.Instance.CharacterSettings.Hotkeys;
 
-            for (int i = 0; i < slots.Length; i++)
+            for (int p = 0; p < pages.Length; p++)
             {
-                var slot = slots[i];
-                slot.SlotNumber = i;
-                slot.Window = this;
-                slot.OnUseSlot = UseSlot;
+                var slots = pages[p].slots;
 
-                LoadSlot(slot, settings[i]);
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    var slot = slots[i];
+                    slot.SlotNumber = i;
+                    slot.Window = this;
+                    slot.OnUseSlot = UseSlot;
+
+                    LoadSlot(slot, settings[p * slots.Length + i]);
+                }
+
+                pages[p].gameObject.SetActive(pageIndex == p);
             }
 
-            buttonPressed = new bool[slots.Length];
+            backButton.SetActive(false);
+            nextButton.SetActive(true);
+
+            buttonPressed = new bool[10];
         }
 
         private void OnDestroy()
@@ -93,19 +110,24 @@ namespace Goose2Client
         {
             var settings = GameManager.Instance.CharacterSettings.Hotkeys;
 
-            for (int i = 0; i < slots.Length; i++)
+            for (int p = 0; p < pages.Length; p++)
             {
-                var slot = slots[i];
+                var slots = pages[p].slots;
 
-                HotkeySetting setting = null;
-                if (slot.itemSlot != -1)
-                    setting = new(slot.itemSlot, HotkeySetting.SlotType.Item);
-                else if (slot.spellSlot != -1)
-                    setting = new(slot.spellSlot, HotkeySetting.SlotType.Spell);
-                else
-                    setting = new(-1, HotkeySetting.SlotType.Item);
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    var slot = slots[i];
 
-                settings[i] = setting;
+                    HotkeySetting setting = null;
+                    if (slot.itemSlot != -1)
+                        setting = new(slot.itemSlot, HotkeySetting.SlotType.Item);
+                    else if (slot.spellSlot != -1)
+                        setting = new(slot.spellSlot, HotkeySetting.SlotType.Spell);
+                    else
+                        setting = new(-1, HotkeySetting.SlotType.Item);
+
+                    settings[i] = setting;
+                }
             }
 
             GameManager.Instance.CharacterSettings.Save();
@@ -156,9 +178,12 @@ namespace Goose2Client
 
             var stats = ItemStats.FromPacket(packet);
 
-            foreach (var slot in slots)
+            foreach (var page in pages)
             {
-                slot.OnInventorySlot(stats);
+                foreach (var slot in page.slots)
+                {
+                    slot.OnInventorySlot(stats);
+                }
             }
 
             if (stats.SlotNumber < 30)
@@ -180,9 +205,12 @@ namespace Goose2Client
         {
             var packet = (ClearInventorySlotPacket)packetObj;
 
-            foreach (var slot in slots)
+            foreach (var page in pages)
             {
-                slot.OnClearInventorySlot(packet.SlotNumber);
+                foreach (var slot in page.slots)
+                {
+                    slot.OnClearInventorySlot(packet.SlotNumber);
+                }
             }
 
             if (mountSlots.ContainsKey(packet.SlotNumber))
@@ -198,9 +226,12 @@ namespace Goose2Client
 
             var info = SpellInfo.FromPacket(packet);
 
-            foreach (var slot in slots)
+            foreach (var page in pages)
             {
-                slot.OnSpellbookSlot(info);
+                foreach (var slot in page.slots)
+                {
+                    slot.OnSpellbookSlot(info);
+                }
             }
         }
 
@@ -208,7 +239,7 @@ namespace Goose2Client
         {
             if (GameManager.Instance.IsTargeting) return;
 
-            var slot = slots[slotNumber];
+            var slot = pages[pageIndex].slots[slotNumber];
             if (!slot.CanUse())
                 return;
 
@@ -253,6 +284,37 @@ namespace Goose2Client
 
                 GameManager.Instance.NetworkClient.UseItem(mount.Key);
             }
+        }
+
+        public void OnBackClicked()
+        {
+            var newPageIndex = Math.Max(0, pageIndex - 1);
+            ChangePage(newPageIndex);
+        }
+
+        public void OnNextClicked()
+        {
+            var newPageIndex = (pageIndex + 1) % pages.Length;
+            ChangePage(newPageIndex);
+        }
+
+        private void ChangePage(int newPageIndex)
+        {
+            if (pageIndex == newPageIndex) return;
+
+            pages[pageIndex].gameObject.SetActive(false);
+            pages[newPageIndex].gameObject.SetActive(true);
+
+            pageIndex = newPageIndex;
+
+            backButton.SetActive(pageIndex != 0);
+            nextButton.SetActive(pageIndex != pages.Length - 1);
+        }
+
+        private void OnCyclePage(InputValue value)
+        {
+            var newPageIndex = (pageIndex + 1) % pages.Length;
+            ChangePage(newPageIndex);
         }
     }
 }

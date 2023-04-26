@@ -50,6 +50,13 @@ namespace Goose2Client
                 LoadDefaultSettings();
 
             WindowSettings ??= new();
+
+            if (Hotkeys.Length < 30)
+            {
+                var newHotkeys = GetDefaultHotkeys();
+                Array.Copy(Hotkeys, newHotkeys, Hotkeys.Length);
+                Hotkeys = newHotkeys;
+            }
         }
 
         private string GetFilePath()
@@ -75,11 +82,18 @@ namespace Goose2Client
             return true;
         }
 
+        private HotkeySetting[] GetDefaultHotkeys()
+        {
+            var hotkeys = new HotkeySetting[30];
+            for (int i = 0; i < hotkeys.Length; i++)
+                hotkeys[i] = new HotkeySetting(-1, HotkeySetting.SlotType.Item);
+
+            return hotkeys;
+        }
+
         public void LoadDefaultSettings()
         {
-            Hotkeys = new HotkeySetting[10];
-            for (int i = 0; i < Hotkeys.Length; i++)
-                Hotkeys[i] = new HotkeySetting(-1, HotkeySetting.SlotType.Item);
+            Hotkeys = GetDefaultHotkeys();
 
             WindowSettings = new();
         }
