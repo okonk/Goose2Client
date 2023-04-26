@@ -126,7 +126,7 @@ namespace Goose2Client
                     else
                         setting = new(-1, HotkeySetting.SlotType.Item);
 
-                    settings[i] = setting;
+                    settings[p * slots.Length + i] = setting;
                 }
             }
 
