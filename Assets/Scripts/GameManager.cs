@@ -126,6 +126,13 @@ namespace Goose2Client
             this.Classes[packet.ClassId] = packet.Name;
         }
 
+        private void OnApplicationQuit()
+        {
+            CharacterSettings?.Save();
+
+            NetworkClient?.Quit();
+        }
+
         public void Quit()
         {
             Application.Quit();

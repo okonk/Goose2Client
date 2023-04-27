@@ -149,7 +149,7 @@ namespace Goose2Client
         {
             var map = GameManager.Instance.CurrentMap;
 
-            bool filteringEnabled = true;
+            bool filteringEnabled = GameManager.Instance.CharacterSettings.GetOption<bool>(Options.TargetFiltering, true);
 
             var characters = GameManager.Instance.MapManager.Characters;
             var player = GameManager.Instance.Character;

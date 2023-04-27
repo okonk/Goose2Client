@@ -127,4 +127,9 @@ namespace Goose2Client
         Banker = 11,
         Quest = 12
     }
+
+    public static class Options
+    {
+        public const string TargetFiltering = "TargetFiltering";
+    }
 }

@@ -139,6 +139,7 @@
      <Compile Include="Assets/Scripts/UI/SpellbookButton.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClearInventorySlotPacket.cs" />
      <Compile Include="Assets/Scripts/GameManager.cs" />
+     <Compile Include="Assets/Scripts/UI/OptionsWindow.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EmotePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/ClearVendorPacket.cs" />
      <Compile Include="Assets/Scripts/UI/DropTargetManager.cs" />

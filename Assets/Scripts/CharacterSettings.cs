@@ -36,6 +36,8 @@ namespace Goose2Client
 
         public Dictionary<string, WindowSettings> WindowSettings;
 
+        public Dictionary<string, object> Options;
+
         public string MountName;
 
         private readonly string characterName;
@@ -57,6 +59,8 @@ namespace Goose2Client
                 Array.Copy(Hotkeys, newHotkeys, Hotkeys.Length);
                 Hotkeys = newHotkeys;
             }
+
+            Options ??= new();
         }
 
         private string GetFilePath()
@@ -75,6 +79,7 @@ namespace Goose2Client
 
             this.Hotkeys = deserialized.Hotkeys;
             this.WindowSettings = deserialized.WindowSettings;
+            this.Options = deserialized.Options;
             this.MountName = deserialized.MountName;
 
             Debug.Log($"Settings loaded: {filePath} {fileContents}");
@@ -96,6 +101,7 @@ namespace Goose2Client
             Hotkeys = GetDefaultHotkeys();
 
             WindowSettings = new();
+            Options = new();
         }
 
         public void Save()
@@ -129,6 +135,14 @@ namespace Goose2Client
                 settings.Position = position.Value;
 
             GameManager.Instance.SaveSettingsDelayed();
+        }
+
+        public T GetOption<T>(string key, T defaultValue = default)
+        {
+            if (Options.TryGetValue(key, out var value))
+                return (T)value;
+
+            return defaultValue;
         }
     }
 }

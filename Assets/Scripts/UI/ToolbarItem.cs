@@ -18,6 +18,8 @@ namespace Goose2Client
     {
         [SerializeField] private ToolbarItemType itemType;
 
+        [SerializeField] private OptionsWindow optionsWindow;
+
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left) return;
@@ -25,6 +27,7 @@ namespace Goose2Client
             var action = itemType switch
             {
                 ToolbarItemType.CombineBag => (Action)OpenCombineBag,
+                ToolbarItemType.Options => ToggleOptionsWindow,
                 ToolbarItemType.Exit => Exit,
                 _ => DoNothing,
             };
@@ -37,6 +40,11 @@ namespace Goose2Client
         public void OpenCombineBag()
         {
             GameManager.Instance.NetworkClient.OpenCombineBag();
+        }
+
+        public void ToggleOptionsWindow()
+        {
+            optionsWindow.ToggleWindow();
         }
 
         public void Exit()
