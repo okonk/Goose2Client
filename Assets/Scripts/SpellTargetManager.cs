@@ -149,6 +149,29 @@ namespace Goose2Client
         {
             var map = GameManager.Instance.CurrentMap;
 
+            bool filteringEnabled = true;
+
+            var characters = GameManager.Instance.MapManager.Characters;
+            var player = GameManager.Instance.Character;
+
+            if (filteringEnabled && spellToCast.TargetType != SpellTargetType.NPCPlayer)
+            {
+                if (spellToCast.TargetType == SpellTargetType.Player)
+                {
+                    characters = characters.Where(c => c.CharacterType == CharacterType.Player);
+
+                    if (Target.CharacterType != CharacterType.Player)
+                        Target = player;
+                }
+                else
+                {
+                    characters = characters.Where(c => c.CharacterType != CharacterType.Player);
+
+                    if (Target.CharacterType == CharacterType.Player)
+                        Target = player;
+                }
+            }
+
             int currentPosition = Target.Y * map.Width + Target.X;
             int lowestPosition = currentPosition;
             int highestPosition = currentPosition;
@@ -157,9 +180,6 @@ namespace Goose2Client
             var lowestTarget = Target;
             var highestTarget = Target;
             var closestTarget = Target;
-
-            var characters = GameManager.Instance.MapManager.Characters;
-            var player = GameManager.Instance.Character;
 
             var viewRangeX = 10;
             var viewRangeY = 8;

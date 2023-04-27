@@ -118,4 +118,13 @@ namespace Goose2Client
         NPCPlayer = 2,
         Player = 3,
     }
+
+    public enum CharacterType
+    {
+        Player = 1,
+        Monster = 2,
+        Vendor = 10,
+        Banker = 11,
+        Quest = 12
+    }
 }

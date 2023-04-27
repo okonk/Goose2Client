@@ -6,7 +6,7 @@ namespace Goose2Client
     public class MakeCharacterPacket : PacketHandler
     {
         public int LoginId { get; set; }
-        public int CharacterType { get; set; }
+        public CharacterType CharacterType { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public string Surname { get; set; }
@@ -39,7 +39,7 @@ namespace Goose2Client
             var packet = new MakeCharacterPacket()
             {
                 LoginId = p.GetInt32(),
-                CharacterType = p.GetInt32(),
+                CharacterType = (CharacterType)p.GetInt32(),
                 Name = p.GetString(),
                 Title = p.GetString(),
                 Surname = p.GetString(),

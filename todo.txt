@@ -1,7 +1,14 @@
-in spell targeting implement target filtering
 
 
 render character head in vitals window
+
+save character list
+
+server browser
+
+client builder docker?
+
+
 
 options window
 
@@ -135,3 +142,4 @@ toolbar
 other players facing isn't always consistent when moving a lot. possibly because the animation is playing it won't update facing?
 save window positions/state
 alternate hotbars
+in spell targeting implement target filtering

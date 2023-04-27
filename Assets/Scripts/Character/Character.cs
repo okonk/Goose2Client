@@ -7,6 +7,7 @@ namespace Goose2Client
     public class Character : MonoBehaviour
     {
         public int LoginId { get; private set; }
+        public CharacterType CharacterType { get; private set; }
         public string Name { get; private set; }
         public string Title { get; private set; }
         public string Surname { get; private set; }
@@ -92,6 +93,7 @@ namespace Goose2Client
             }
 
             this.LoginId = packet.LoginId;
+            this.CharacterType = packet.CharacterType;
             this.MoveSpeed = packet.MoveSpeed;
             this.X = packet.MapX;
             this.Y = packet.MapY;
