@@ -1,6 +1,3 @@
-bug with targeting when switching target filtering modes
-
-
 render character head in vitals window
 
 save character list

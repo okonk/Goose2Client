@@ -22,6 +22,9 @@ namespace Goose2Client
 
         private SpellInfo spellToCast;
 
+        private bool filteringEnabled => GameManager.Instance.CharacterSettings.GetOption<bool>(Options.TargetFiltering, true);
+        private Character player => GameManager.Instance.Character;
+
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -60,9 +63,20 @@ namespace Goose2Client
         private void SetTarget(Character nextTarget)
         {
             if (nextTarget == null)
-                Target = GameManager.Instance.Character;
+            {
+                Target = player;
+            }
             else
+            {
                 Target = nextTarget;
+
+                if (filteringEnabled &&
+                    ((spellToCast.TargetType != SpellTargetType.Player && Target.CharacterType == CharacterType.Player) ||
+                    (spellToCast.TargetType == SpellTargetType.Player && Target.CharacterType != CharacterType.Player)))
+                {
+                    Target = player;
+                }
+            }
 
             var prefab = ResourceManager.LoadFromBundle<GameObject>("prefabs", "SpellTarget");
             var target = Instantiate(prefab, Target.gameObject.transform);
@@ -77,6 +91,8 @@ namespace Goose2Client
                 SetTarget(nextTarget);
                 return;
             }
+
+            if (Target == nextTarget) return;
 
             var existingTarget = Target.GetComponentInChildren<SpellTarget>();
             existingTarget.transform.SetParent(nextTarget.transform, false);
@@ -149,27 +165,15 @@ namespace Goose2Client
         {
             var map = GameManager.Instance.CurrentMap;
 
-            bool filteringEnabled = GameManager.Instance.CharacterSettings.GetOption<bool>(Options.TargetFiltering, true);
-
             var characters = GameManager.Instance.MapManager.Characters;
             var player = GameManager.Instance.Character;
 
             if (filteringEnabled && spellToCast.TargetType != SpellTargetType.NPCPlayer)
             {
                 if (spellToCast.TargetType == SpellTargetType.Player)
-                {
                     characters = characters.Where(c => c.CharacterType == CharacterType.Player);
-
-                    if (Target.CharacterType != CharacterType.Player)
-                        Target = player;
-                }
                 else
-                {
                     characters = characters.Where(c => c.CharacterType != CharacterType.Player);
-
-                    if (Target.CharacterType == CharacterType.Player)
-                        Target = player;
-                }
             }
 
             int currentPosition = Target.Y * map.Width + Target.X;
