@@ -38,9 +38,16 @@ namespace Goose2Client
 
         public bool IsTargeting { get { return SpellTargetManager?.IsTargeting ?? false; } }
 
+        public event Action<Character> CharacterUpdated;
+
         public static GameManager Instance
         {
             get { return instance; }
+        }
+
+        public void OnCharacterUpdated(Character character)
+        {
+            CharacterUpdated(character);
         }
 
         private void Awake()

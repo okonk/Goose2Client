@@ -141,13 +141,47 @@ namespace Goose2Client
             var compiledEnc = new CompiledEnc($"{dataDir}/compiled.enc");
             // ImportCompiledAnimations(compiledEnc, adfs);
             // ImportIdleAnimations(compiledEnc, adfs);
-            ImportMountedIdleAnimations(compiledEnc, adfs);
+            //ImportMountedIdleAnimations(compiledEnc, adfs);
             // ImportOtherAnimations(compiledEnc, adfs);
             //ImportAnimationNames(compiledEnc, adfs);
             //AddAttackFinishedAnimationEvents(compiledEnc, adfs);
             //LabelAnimations();
+            ImportAnimationToFrame(compiledEnc, adfs);
 
             //ImportMap($"{mapDir}/Map2.map");
+        }
+
+        private static void ImportAnimationToFrame(CompiledEnc compiledEnc, Dictionary<int, ADFFile> adfs)
+        {
+            var animationToFrame = new Dictionary<string, Frame>();
+
+            foreach (var compiledAnimation in compiledEnc.CompiledAnimations)
+            {
+                int animationNumber = (int)AnimationOrder.WalkingNoEquip;
+
+                var sheetNumber = compiledAnimation.AnimationFiles[animationNumber];
+                if (sheetNumber == 0) continue;
+
+                if (!adfs.TryGetValue(sheetNumber, out var adf)) continue;
+
+                int direction = (int)AnimationDirection.Down;
+
+                var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
+                if (animationId == 0) continue;
+
+                List<Frame> animationFrames;
+                if (adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition))
+                    animationFrames = new List<Frame> { adf.Frames[direction] };
+                else
+                    animationFrames = animationDefinition.Frames;
+
+                var name = $"{compiledAnimation.Type}-{compiledAnimation.Id}";
+                var frame = animationFrames.First();
+
+                animationToFrame[name] = frame;
+            }
+
+            File.WriteAllLines($"Assets/Resources/AnimationToFirstFrame.txt", animationToFrame.Select(a => $"{a.Key},{a.Value.Index},{a.Value.W},{a.Value.H}"));
         }
 
         private static void LabelAnimations()

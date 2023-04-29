@@ -15,6 +15,12 @@ namespace Goose2Client
         public int Y { get; private set; }
         public float MoveSpeed { get; set; }
         public Direction Facing { get; private set; }
+        public int[][] DisplayedEquipment { get; private set; }
+        public int BodyId { get; private set; }
+        public Color BodyColor { get; private set; }
+        public int HairId { get; private set; }
+        public Color HairColor { get; private set; }
+        public int FaceId { get; private set; }
 
         public float HPPercent { get; private set; }
         public float MPPercent { get; private set; }
@@ -46,7 +52,13 @@ namespace Goose2Client
         {
             this.targetPosition = new Vector2(transform.position.x, transform.position.y);
 
-            this.body = CreateAnimation(AnimationSlot.Body, "Body", packet.BodyId, ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA));
+            this.BodyId = packet.BodyId;
+            this.BodyColor = ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA);
+            this.DisplayedEquipment = packet.DisplayedEquipment;
+            this.HairId = packet.HairId;
+            this.HairColor = ColorH.RGBA(packet.HairR, packet.HairG, packet.HairB, packet.HairA);
+            this.FaceId = packet.FaceId;
+            this.body = CreateAnimation(AnimationSlot.Body, "Body", packet.BodyId, this.BodyColor);
             this.body.gameObject.AddComponent<BoxCollider2D>();
             this.body.gameObject.AddComponent<CharacterClickHandler>();
 
@@ -56,7 +68,7 @@ namespace Goose2Client
 
             if (packet.BodyId < 100)
             {
-                var hair = CreateAnimation(AnimationSlot.Hair, "Hair", packet.HairId, ColorH.RGBA(packet.HairR, packet.HairG, packet.HairB, packet.HairA));
+                var hair = CreateAnimation(AnimationSlot.Hair, "Hair", packet.HairId, this.HairColor);
 
                 SetUnderwear(packet.BodyId, packet.DisplayedEquipment);
 
@@ -106,11 +118,18 @@ namespace Goose2Client
 
         public void UpdateCharacter(UpdateCharacterPacket packet)
         {
-            UpdateAnimation(AnimationSlot.Body, "Body", packet.BodyId, ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA));
+            this.BodyId = packet.BodyId;
+            this.BodyColor = ColorH.RGBA(packet.BodyR, packet.BodyG, packet.BodyB, packet.BodyA);
+            this.DisplayedEquipment = packet.DisplayedEquipment;
+            this.HairId = packet.HairId;
+            this.HairColor = ColorH.RGBA(packet.HairR, packet.HairG, packet.HairB, packet.HairA);
+            this.FaceId = packet.FaceId;
+
+            UpdateAnimation(AnimationSlot.Body, "Body", packet.BodyId, this.BodyColor);
 
             if (packet.BodyId < 100)
             {
-                UpdateAnimation(AnimationSlot.Hair, "Hair", packet.HairId, ColorH.RGBA(packet.HairR, packet.HairG, packet.HairB, packet.HairA));
+                UpdateAnimation(AnimationSlot.Hair, "Hair", packet.HairId, this.HairColor);
 
                 SetUnderwear(packet.BodyId, packet.DisplayedEquipment);
 
@@ -159,6 +178,9 @@ namespace Goose2Client
             }
 
             this.MoveSpeed = packet.MoveSpeed;
+
+            if (GameManager.Instance.Character == this)
+                GameManager.Instance.OnCharacterUpdated(this);
         }
 
         private void CreateName(string name, string title, string surname, int bodyHeight, float yOffset)

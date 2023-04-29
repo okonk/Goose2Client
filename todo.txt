@@ -1,4 +1,4 @@
-render character head in vitals window
+
 
 save character list
 
@@ -7,8 +7,6 @@ server browser
 client builder docker?
 
 
-
-options window
 
 guild window?
 
@@ -141,3 +139,4 @@ other players facing isn't always consistent when moving a lot. possibly because
 save window positions/state
 alternate hotbars
 in spell targeting implement target filtering
+render character head in vitals window

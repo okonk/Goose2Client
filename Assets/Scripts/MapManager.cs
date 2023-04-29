@@ -129,6 +129,7 @@ namespace Goose2Client
             this.character = character;
 
             GameManager.Instance.Character = character;
+            GameManager.Instance.OnCharacterUpdated(character);
         }
 
         private void OnMoveCharacter(object packet)
