@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# export PATH="$PATH:/home/hayden/Unity/Hub/Editor/2022.2.11f1/Editor"
+
 clientDir="./Builds/Windows/Goose2Client"
 streamingAssetsDir="$clientDir/Goose2Client_Data/StreamingAssets"
 assetBundleDir="./Builds/AssetBundles/Windows"
