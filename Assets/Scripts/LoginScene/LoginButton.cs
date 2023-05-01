@@ -89,7 +89,7 @@ namespace Goose2Client
             string name = GetName();
             string password = GetPassword();
 
-            if (name.Length <= 3 || password.Length <= 3)
+            if (name.Length <= 2 || password.Length <= 3)
                 return;
 
             this.SetMessage("Connecting...");
