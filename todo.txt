@@ -7,6 +7,9 @@ server browser
 client builder docker?
 
 
+gm walk through walls
+gm name colours
+
 
 guild window?
 
