@@ -27,5 +27,19 @@ namespace Goose2Client.Assets.Scripts.Editor
         {
             BuildPipeline.BuildAssetBundles("./Builds/AssetBundles/Windows/", BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows64);
         }
+
+        [MenuItem("Tools/Build/Android")]
+        public static void PerformBuildAndroid()
+        {
+            //PlayerSettings.Android.bundleVersionCode = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+
+            BuildPipeline.BuildPlayer(EditorBuildSettings.scenes, $"./Builds/Android/Goose2Client/Goose2Client.apk", BuildTarget.Android, BuildOptions.None);
+        }
+
+        [MenuItem("Tools/Build/AssetBundles/Android")]
+        public static void PerformAssetBundleBuildAndroid()
+        {
+            BuildPipeline.BuildAssetBundles("./Builds/AssetBundles/Android/", BuildAssetBundleOptions.None, BuildTarget.Android);
+        }
     }
 }
