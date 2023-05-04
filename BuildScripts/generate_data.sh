@@ -4,11 +4,11 @@
 
 assetsDir="./Assets"
 
-rm -rf "$assetsDir/Test"
+rm -rf "$assetsDir/Spritesheets"
+rm -rf "$assetsDir/Animations"
 
 [ ! -d $assetsDir ] && mkdir $assetsDir
-[ ! -d "$assetsDir/Test" ] && mkdir "$assetsDir/Test"
-[ ! -d "$assetsDir/Test/Spritesheets" ] && mkdir "$assetsDir/Test/Spritesheets"
-[ ! -d "$assetsDir/Test/Animations" ] && mkdir "$assetsDir/Test/Animations"
+[ ! -d "$assetsDir/Spritesheets" ] && mkdir "$assetsDir/Spritesheets"
+[ ! -d "$assetsDir/Animations" ] && mkdir "$assetsDir/Animations"
 
 Unity -quit -batchmode -logFile "./Logs/GenerateData.log" -projectPath . -executeMethod Goose2Client.Assets.Scripts.Editor.ToolsMenu.GenerateData
