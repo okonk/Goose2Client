@@ -43,6 +43,7 @@
      <Compile Include="Assets/Scripts/Editor/BuildScript.cs" />
      <Compile Include="Assets/Scripts/Editor/GifLoader.cs" />
      <Compile Include="Assets/Scripts/Editor/ToolsMenu.cs" />
+     <Compile Include="Assets/Scripts/Editor/IllutiaData.cs" />
      <Compile Include="Assets/Scripts/Editor/NonDrawingGraphicEditor.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/home/hayden/Unity/Hub/Editor/2022.2.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
