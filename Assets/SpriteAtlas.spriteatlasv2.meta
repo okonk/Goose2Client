@@ -31,7 +31,7 @@ SpriteAtlasImporter:
     padding: 2
     blockOffset: 1
     allowAlphaSplitting: 0
-    enableRotation: 0
+    enableRotation: 1
     enableTightPacking: 0
     enableAlphaDilation: 0
   secondaryTextureSettings: {}

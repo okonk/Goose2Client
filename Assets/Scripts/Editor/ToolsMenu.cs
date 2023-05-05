@@ -26,6 +26,7 @@ namespace Goose2Client.Assets.Scripts.Editor
             BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, BuildTarget.StandaloneLinux64);
         }
 
+        public const string tempSpritesheetsDir = "Assets/TempSpritesheets";
         public const string spritesheetsDir = "Assets/Spritesheets";
         public const string animationsDir = "Assets/Animations";
         public const string mapsDir = "Assets/Maps";
@@ -42,12 +43,13 @@ namespace Goose2Client.Assets.Scripts.Editor
             var sourceMapsDir = $"{illutiaDir}/maps";
 
             var compiledEnc = new CompiledEnc($"{sourceDataDir}/compiled.enc");
-            adfs = LoadAdfs(sourceDataDir);
-
-            var adfsToLoad = adfs.Values.Where(a => a.Type == AdfType.Graphic);
+            adfs = LoadAdfs(sourceDataDir)
+                .Where(a => a.Value.Type == AdfType.Graphic)
+                .Where(a => a.Value.FileNumber < 200)
+                .ToDictionary(k => k.Key, v => v.Value);
 
             //ConvertPngs(adfsToLoad);
-            ImportSpritesheets(adfsToLoad);
+            ImportSpritesheets(adfs.Values);
 
             // Have to do this to be able to load the SpriteAtlas
             BuildPipeline.BuildAssetBundles(streamingAssetsDir, BuildAssetBundleOptions.None, BuildTarget.StandaloneLinux64);
@@ -56,7 +58,6 @@ namespace Goose2Client.Assets.Scripts.Editor
 
             // CopyMaps(sourceMapsDir, mapsDir);
 
-            AssetDatabase.Refresh();
             BuildPipeline.BuildAssetBundles(streamingAssetsDir, BuildAssetBundleOptions.None, BuildTarget.StandaloneLinux64);
         }
 
@@ -93,6 +94,8 @@ namespace Goose2Client.Assets.Scripts.Editor
 
         private static void ImportSpritesheets(IEnumerable<AdfFile> adfs)
         {
+            Debug.Log("Starting importing spritesheets");
+
             foreach (var adf in adfs)
             {
                 var path = ConvertToPng(adf);
@@ -102,7 +105,22 @@ namespace Goose2Client.Assets.Scripts.Editor
                 //ImportSpritesheet(adf);
             }
 
-            //AssetDatabase.Refresh();
+            AssetDatabase.StartAssetEditing();
+
+            try
+            {
+                // Something is creating the Spritesheets dir, so copying files individual instead
+                foreach (var sheetPath in Directory.EnumerateFiles(tempSpritesheetsDir, "*.png"))
+                {
+                    AssetDatabase.MoveAsset(sheetPath, $"{spritesheetsDir}/{Path.GetFileName(sheetPath)}");
+                }
+            }
+            finally
+            {
+                AssetDatabase.StopAssetEditing();
+            }
+
+            Debug.Log("Finished importing spritesheets");
         }
 
         private static string ConvertToPng(AdfFile adf)
@@ -121,7 +139,7 @@ namespace Goose2Client.Assets.Scripts.Editor
                 texture.LoadRawTextureData(flippedTexData);
                 texture.Apply();
 
-                var path = $"{spritesheetsDir}/{adf.FileNumber}.png";
+                var path = $"{tempSpritesheetsDir}/{adf.FileNumber}.png";
                 File.WriteAllBytes(path, texture.EncodeToPNG());
 
                 UnityEngine.Object.DestroyImmediate(texture);
@@ -350,7 +368,7 @@ namespace Goose2Client.Assets.Scripts.Editor
     {
         void OnPreprocessTexture()
         {
-            if (!assetImporter.assetPath.StartsWith(ToolsMenu.spritesheetsDir))
+            if (!assetImporter.assetPath.StartsWith(ToolsMenu.tempSpritesheetsDir))
                 return;
 
             var numberString = Path.GetFileNameWithoutExtension(assetImporter.assetPath);
