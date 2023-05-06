@@ -59,7 +59,8 @@ namespace Goose2Client
             this.HairColor = ColorH.RGBA(packet.HairR, packet.HairG, packet.HairB, packet.HairA);
             this.FaceId = packet.FaceId;
             this.body = CreateAnimation(AnimationSlot.Body, "Body", packet.BodyId, this.BodyColor);
-            this.body.gameObject.AddComponent<BoxCollider2D>();
+            var boxCollider = this.body.gameObject.AddComponent<BoxCollider2D>();
+            SetBoxColliderSize(boxCollider, "Body", BodyId);
             this.body.gameObject.AddComponent<CharacterClickHandler>();
 
             CreateName(packet.Name, packet.Title, packet.Surname, body.Height, body.transform.localPosition.y);
@@ -126,6 +127,7 @@ namespace Goose2Client
             this.FaceId = packet.FaceId;
 
             UpdateAnimation(AnimationSlot.Body, "Body", packet.BodyId, this.BodyColor);
+            SetBoxColliderSize(body.GetComponent<BoxCollider2D>(), "Body", BodyId);
 
             if (packet.BodyId < 100)
             {
@@ -181,6 +183,14 @@ namespace Goose2Client
 
             if (GameManager.Instance.Character == this)
                 GameManager.Instance.OnCharacterUpdated(this);
+        }
+
+        private void SetBoxColliderSize(BoxCollider2D boxCollider, string animationType, int animationId)
+        {
+            var frame = GameManager.Instance.AnimationManager.GetFrame(animationType, animationId);
+
+            boxCollider.size = new Vector2(frame.Width / 32f, frame.Height / 32f);
+            boxCollider.offset = new Vector2(0, frame.Height / 32f / 2);
         }
 
         private void CreateName(string name, string title, string surname, int bodyHeight, float yOffset)
