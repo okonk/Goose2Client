@@ -1,19 +1,83 @@
 using System;
-using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEditor;
-using UnityEditor.U2D;
 using UnityEditor.U2D.Sprites;
 using UnityEngine;
-using UnityEngine.U2D;
 
 namespace Goose2Client.Assets.Scripts.Editor
 {
     public class ToolsMenu
     {
+        [MenuItem("Tools/Generate TemplateAnimations")]
+        public static void GenerateTemplateAnimations()
+        {
+            var animations = new[]
+            {
+                "Animation-1-AttackNoEquip-Left",
+                "Animation-1-AttackNoEquip-Down",
+                "Animation-1-AttackNoEquip-Right",
+                "Animation-1-AttackNoEquip-Up",
+                "Animation-1-Attack2Hand-Left",
+                "Animation-1-Attack2Hand-Down",
+                "Animation-1-Attack2Hand-Right",
+                "Animation-1-Attack2Hand-Up",
+            };
+
+            foreach (var animation in animations)
+            {
+                AssetDatabase.CopyAsset($"Assets/Resources/Animations/Blank.anim", $"Assets/Resources/Animations/{animation}.anim");
+            }
+        }
+
+        [MenuItem("Tools/Generate AnimationToFrame")]
+        public static void GenerateAnimationToFrame()
+        {
+            var illutiaDir = "/home/hayden/code/illutiadata";
+            var sourceDataDir = $"{illutiaDir}/data";
+
+            var compiledEnc = new CompiledEnc($"{sourceDataDir}/compiled.enc");
+            adfs = LoadAdfs(sourceDataDir);
+
+            ImportAnimationToFrame(compiledEnc, adfs);
+        }
+
+        private static void ImportAnimationToFrame(CompiledEnc compiledEnc, Dictionary<int, AdfFile> adfs)
+        {
+            var animationToFrame = new Dictionary<string, AnimationFrame>();
+
+            foreach (var compiledAnimation in compiledEnc.CompiledAnimations)
+            {
+                int animationNumber = (int)AnimationOrder.WalkingNoEquip;
+
+                var sheetNumber = compiledAnimation.AnimationFiles[animationNumber];
+                if (sheetNumber == 0) continue;
+
+                if (!adfs.TryGetValue(sheetNumber, out var adf)) continue;
+
+                int direction = (int)AnimationDirection.Down;
+
+                var animationId = compiledAnimation.AnimationIndexes[direction * 11 + animationNumber];
+                if (animationId == 0) continue;
+
+                List<Frame> animationFrames;
+                if (adf.Animations == null || !adf.Animations.TryGetValue(animationId, out var animationDefinition))
+                    animationFrames = new List<Frame> { adf.Frames[direction] };
+                else
+                    animationFrames = animationDefinition.Frames;
+
+                var name = $"{compiledAnimation.Type}-{compiledAnimation.Id}";
+                var frame = animationFrames.First();
+
+                animationToFrame[name] = new AnimationFrame(sheetNumber, frame.Index, frame.W, frame.H);
+            }
+
+            File.WriteAllLines($"Assets/Resources/AnimationToFirstFrame.txt", animationToFrame.Select(a => $"{a.Key},{a.Value.FileId},{a.Value.GraphicId},{a.Value.Width},{a.Value.Height}"));
+        }
+
+
         [MenuItem("Tools/Build AssetBundles")]
         private static void BuildAllAssetBundles()
         {
@@ -43,29 +107,36 @@ namespace Goose2Client.Assets.Scripts.Editor
             var sourceMapsDir = $"{illutiaDir}/maps";
 
             var compiledEnc = new CompiledEnc($"{sourceDataDir}/compiled.enc");
-            adfs = LoadAdfs(sourceDataDir)
-                .Where(a => a.Value.Type == AdfType.Graphic)
-                .Where(a => a.Value.FileNumber < 200)
-                .ToDictionary(k => k.Key, v => v.Value);
+            adfs = LoadAdfs(sourceDataDir);
+                // .Where(a => a.Value.Type == AdfType.Graphic)
+                // .Where(a => a.Value.FileNumber < 200)
+                // .ToDictionary(k => k.Key, v => v.Value);
 
-            //ConvertPngs(adfsToLoad);
-            ImportSpritesheets(adfs.Values);
-
-            // Have to do this to be able to load the SpriteAtlas
-            BuildPipeline.BuildAssetBundles(streamingAssetsDir, BuildAssetBundleOptions.None, BuildTarget.StandaloneLinux64);
-
+            ImportSpritesheets(adfs.Values.Where(a => a.Type == AdfType.Graphic));
             ImportAnimations(compiledEnc, adfs);
-
-            // CopyMaps(sourceMapsDir, mapsDir);
+            CopyMaps(sourceMapsDir);
 
             BuildPipeline.BuildAssetBundles(streamingAssetsDir, BuildAssetBundleOptions.None, BuildTarget.StandaloneLinux64);
         }
 
         private static void CopyMaps(string sourceMapsDir)
         {
-            foreach (var file in Directory.EnumerateFiles(sourceMapsDir, "*.map"))
+            AssetDatabase.StartAssetEditing();
+
+            try
             {
-                File.Copy(file, $"{mapsDir}/M{Path.GetFileNameWithoutExtension(file).Substring(1)}.bytes", overwrite: true);
+                foreach (var file in Directory.EnumerateFiles(sourceMapsDir, "*.map"))
+                {
+                    var outputPath = $"{mapsDir}/M{Path.GetFileNameWithoutExtension(file).Substring(1)}.bytes";
+                    File.Copy(file, outputPath, overwrite: true);
+
+                    AssetDatabase.ImportAsset(outputPath);
+                    LabelAsset(outputPath, "maps");
+                }
+            }
+            finally
+            {
+                AssetDatabase.StopAssetEditing();
             }
         }
 
@@ -82,16 +153,6 @@ namespace Goose2Client.Assets.Scripts.Editor
             return adfs;
         }
 
-        private static void ConvertPngs(IEnumerable<AdfFile> adfs)
-        {
-            foreach (var adf in adfs)
-            {
-                ConvertToPng(adf);
-            }
-
-            AssetDatabase.Refresh();
-        }
-
         private static void ImportSpritesheets(IEnumerable<AdfFile> adfs)
         {
             Debug.Log("Starting importing spritesheets");
@@ -101,8 +162,6 @@ namespace Goose2Client.Assets.Scripts.Editor
                 var path = ConvertToPng(adf);
 
                 AssetDatabase.ImportAsset(path);
-
-                //ImportSpritesheet(adf);
             }
 
             AssetDatabase.StartAssetEditing();
@@ -153,52 +212,6 @@ namespace Goose2Client.Assets.Scripts.Editor
             }
         }
 
-        private static void ImportSpritesheet(AdfFile adf)
-        {
-            var asset = (TextureImporter)AssetImporter.GetAtPath($"{spritesheetsDir}/{adf.FileNumber}.png");
-
-            asset.spritePixelsPerUnit = 32;
-            asset.filterMode = FilterMode.Point;
-            asset.textureCompression = TextureImporterCompression.Uncompressed;
-
-            if (adf.FileNumber >= 14 && adf.FileNumber <= 52)
-            {
-                asset.spriteImportMode = SpriteImportMode.Single;
-                asset.SaveAndReimport();
-                return;
-            }
-
-            asset.spriteImportMode = SpriteImportMode.Multiple;
-
-            asset.GetSourceTextureWidthAndHeight(out int totalWidth, out int totalHeight);
-
-            var factory = new SpriteDataProviderFactories();
-            factory.Init();
-            var dataProvider = factory.GetSpriteEditorDataProviderFromObject(asset);
-            dataProvider.InitSpriteEditorDataProvider();
-
-            var spriteRects = new List<SpriteRect>();
-
-            for (int i = 0; i < adf.Frames.Count; i++)
-            {
-                var frame = adf.Frames[i];
-
-                var newSprite = new SpriteRect()
-                {
-                    name = $"{adf.FileNumber}-{frame.Index}",
-                    spriteID = GUID.Generate(),
-                    rect = new Rect(frame.X, totalHeight - frame.Y - frame.H, frame.W, frame.H),
-                    alignment = SpriteAlignment.BottomCenter,
-                };
-
-                spriteRects.Add(newSprite);
-            }
-
-            dataProvider.SetSpriteRects(spriteRects.ToArray());
-            dataProvider.Apply();
-            asset.SaveAndReimport();
-        }
-
         private static AnimationClip CreateAnimation(Sprite[] frames, float frameRate = 8)
         {
             var clip = new AnimationClip
@@ -243,11 +256,28 @@ namespace Goose2Client.Assets.Scripts.Editor
             return $"{type}-{id}-{animation}-{direction}";
         }
 
+        private static Dictionary<string, Sprite> spriteCache = new();
+
+        private static Sprite GetSprite(int fileId, int graphicId)
+        {
+            var key = $"{fileId}-{graphicId}";
+
+            if (spriteCache.TryGetValue(key, out var sprite))
+                return sprite;
+
+            var sprites = AssetDatabase.LoadAllAssetsAtPath($"{spritesheetsDir}/{fileId}.png").OfType<Sprite>();
+            foreach (var s in sprites)
+            {
+                spriteCache[s.name] = s;
+            }
+
+            spriteCache.TryGetValue(key, out sprite);
+            return sprite;
+        }
+
         private static void ImportAnimations(CompiledEnc compiledEnc, Dictionary<int, AdfFile> adfs)
         {
-            var atlas = ResourceManager.LoadFromBundle<SpriteAtlas>("spriteatlas", "SpriteAtlas");
-
-            var animationToFrame = new Dictionary<string, Frame>();
+            var animationToFrame = new Dictionary<string, AnimationFrame>();
             var animationHeights = new Dictionary<string, int>();
 
             var animationsInCompiled = new HashSet<int>();
@@ -277,7 +307,7 @@ namespace Goose2Client.Assets.Scripts.Editor
                         else
                             frameDefinitions = animationDefinition.Frames;
 
-                        var frames = frameDefinitions.Select(frame => atlas.GetSprite($"{sheetNumber}-{frame.Index}")).ToArray();
+                        var frames = frameDefinitions.Select(frame => GetSprite(sheetNumber, frame.Index)).ToArray();
 
                         var animationName = CreateAnimationName(compiledAnimation.Id, compiledAnimation.Type, (AnimationOrder)animationNumber, (AnimationDirection)direction);
 
@@ -288,7 +318,10 @@ namespace Goose2Client.Assets.Scripts.Editor
                         LabelAsset(animationPath, assetBundleName);
 
                         if (animationNumber == (int)AnimationOrder.WalkingNoEquip && direction == (int)AnimationDirection.Down)
-                            animationToFrame[assetBundleName] = frameDefinitions.First();
+                        {
+                            var firstFrame = frameDefinitions.First();
+                            animationToFrame[assetBundleName] = new AnimationFrame(sheetNumber, firstFrame.Index, firstFrame.W, firstFrame.H);
+                        }
 
                         if (animationNumber is (int)AnimationOrder.WalkingNoEquip or (int)AnimationOrder.WalkingEquip or (int)AnimationOrder.Mounted)
                             GenerateIdleAnimation(frames.First(), frameDefinitions.First(), (AnimationOrder)animationNumber, (AnimationDirection)direction, compiledAnimation.Id, compiledAnimation.Type, assetBundleName, animationHeights);
@@ -307,7 +340,7 @@ namespace Goose2Client.Assets.Scripts.Editor
                 {
                     if (animationsInCompiled.Contains(animation.Id)) continue;
 
-                    var frames = animation.Frames.Select(frame => atlas.GetSprite($"{adf.FileNumber}-{frame.Index}")).ToArray();
+                    var frames = animation.Frames.Select(frame => GetSprite(adf.FileNumber, frame.Index)).ToArray();
 
                     var animationName = animation.Id.ToString();
 
@@ -322,7 +355,7 @@ namespace Goose2Client.Assets.Scripts.Editor
                 }
             }
 
-            File.WriteAllLines($"Assets/Resources/AnimationToFirstFrame.txt", animationToFrame.Select(a => $"{a.Key},{a.Value.Index},{a.Value.W},{a.Value.H}"));
+            File.WriteAllLines($"Assets/Resources/AnimationToFirstFrame.txt", animationToFrame.Select(a => $"{a.Key},{a.Value.FileId},{a.Value.GraphicId},{a.Value.Width},{a.Value.Height}"));
             File.WriteAllLines($"Assets/Resources/AnimationHeights.txt", animationHeights.Select(a => $"{a.Key},{a.Value}"));
         }
 

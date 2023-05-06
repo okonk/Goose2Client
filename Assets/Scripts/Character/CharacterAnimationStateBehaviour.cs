@@ -14,7 +14,7 @@ namespace Goose2Client
             int height = GameManager.Instance.AnimationManager.GetHeight(currentAnimation);
 
             if (height != characterAnimation.Height)
-                characterAnimation.SetPosition(currentAnimation, height);
+                characterAnimation.SetPosition(height);
         }
     }
 }

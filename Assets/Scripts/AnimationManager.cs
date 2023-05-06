@@ -8,13 +8,15 @@ namespace Goose2Client
 {
     public class AnimationFrame
     {
-        public int Id { get; }
+        public int FileId { get; }
+        public int GraphicId { get; }
         public int Width { get; }
         public int Height { get; }
 
-        public AnimationFrame(int id, int w, int h)
+        public AnimationFrame(int fileId, int graphicId, int w, int h)
         {
-            Id = id;
+            FileId = fileId;
+            GraphicId = graphicId;
             Width = w;
             Height = h;
         }
@@ -56,11 +58,12 @@ namespace Goose2Client
 
                 var tokens = line.Split(',');
                 var name = tokens[0];
-                var id = int.Parse(tokens[1]);
-                var w = int.Parse(tokens[2]);
-                var h = int.Parse(tokens[3]);
+                var fileId = int.Parse(tokens[1]);
+                var graphicId = int.Parse(tokens[2]);
+                var w = int.Parse(tokens[3]);
+                var h = int.Parse(tokens[4]);
 
-                animationFirstFrame[name] = new AnimationFrame(id, w, h);
+                animationFirstFrame[name] = new AnimationFrame(fileId, graphicId, w, h);
             }
         }
 

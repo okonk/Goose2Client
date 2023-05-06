@@ -9,10 +9,7 @@ namespace Goose2Client
     {
         public static Sprite GetSprite(int id, int file)
         {
-            var idString = id.ToString();
-            var sprite = ResourceManager.LoadSprite(idString);
-
-            return sprite;
+            return ResourceManager.LoadSprite($"{file}-{id}");
         }
 
         public static string FormatDuration(this TimeSpan t)

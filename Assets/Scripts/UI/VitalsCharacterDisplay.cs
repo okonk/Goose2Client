@@ -52,7 +52,7 @@ namespace Goose2Client
             if (animationType == "Body" && animationId >= 100)
                 yOffset = 0;
 
-            var sprite = Helpers.GetSprite(frame.Id, 0);
+            var sprite = Helpers.GetSprite(frame.GraphicId, frame.FileId);
             image.sprite = sprite;
             image.color = Color.white;
             image.material = Instantiate(image.material);

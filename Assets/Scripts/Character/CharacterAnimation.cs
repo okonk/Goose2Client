@@ -22,7 +22,7 @@ public class CharacterAnimation : MonoBehaviour
         animator.runtimeAnimatorController = overrideController;
     }
 
-    public void SetPosition(string animationName, int height)
+    public void SetPosition(int height)
     {
         this.Height = height;
 
@@ -62,7 +62,7 @@ public class CharacterAnimation : MonoBehaviour
 
         var animationName = $"{type}-{id}-IdleNoEquip-Left";
         int height = GameManager.Instance.AnimationManager.GetHeight(animationName);
-        SetPosition(animationName, height);
+        SetPosition(height);
     }
 
     public void SetColor(Color color)
