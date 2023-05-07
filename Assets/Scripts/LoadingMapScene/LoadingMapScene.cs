@@ -11,7 +11,7 @@ namespace Goose2Client
 {
     public class LoadingMapScene : MonoBehaviour
     {
-        private Dictionary<int, Tile> tileCache = new Dictionary<int, Tile>();
+        private Dictionary<string, Tile> tileCache = new Dictionary<string, Tile>();
 
         public void Load(string mapFile, string mapName)
         {
@@ -149,14 +149,15 @@ namespace Goose2Client
 
         private Tile GetOrCreateTile(int sheetNumber, int graphicId)
         {
-            if (tileCache.TryGetValue(graphicId, out Tile tile))
+            var key = $"{sheetNumber}-{graphicId}";
+            if (tileCache.TryGetValue(key, out Tile tile))
                 return tile;
 
             var sprite = Helpers.GetSprite(graphicId, sheetNumber);
             tile = ScriptableObject.CreateInstance<Tile>();
             tile.sprite = sprite;
 
-            tileCache[graphicId] = tile;
+            tileCache[key] = tile;
             return tile;
         }
     }

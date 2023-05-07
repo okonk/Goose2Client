@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System.Linq;
+using UnityEngine.Tilemaps;
 
 namespace Goose2Client
 {
@@ -54,6 +55,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Listen<EraseObjectPacket>(this.OnEraseMapObject);
             GameManager.Instance.PacketManager.Listen<EmotePacket>(this.OnEmote);
             GameManager.Instance.PacketManager.Listen<ChatPacket>(this.OnChatPacket);
+            GameManager.Instance.PacketManager.Listen<TileUpdatePacket>(this.OnTileUpdatePacket);
         }
 
         private void OnDestroy()
@@ -78,6 +80,7 @@ namespace Goose2Client
             GameManager.Instance.PacketManager.Remove<EraseObjectPacket>(this.OnEraseMapObject);
             GameManager.Instance.PacketManager.Remove<EmotePacket>(this.OnEmote);
             GameManager.Instance.PacketManager.Remove<ChatPacket>(this.OnChatPacket);
+            GameManager.Instance.PacketManager.Remove<TileUpdatePacket>(this.OnTileUpdatePacket);
         }
 
         private void OnMakeCharacter(object packet)
@@ -182,10 +185,10 @@ namespace Goose2Client
             if (x < 0 || y < 0 || x >= map.Width || y >= map.Height)
                 return false;
 
-            if (characters.Values.Select(c => c.GetComponent<Character>()).Any(c => c.X == x && c.Y == y))
+            if (map[x, y].IsBlocked)
                 return false;
 
-            if (map[x, y].IsBlocked)
+            if (characters.Values.Any(c => c.X == x && c.Y == y))
                 return false;
 
             return true;
@@ -374,6 +377,42 @@ namespace Goose2Client
                 return mapItem;
 
             return null;
+        }
+
+        private void OnTileUpdatePacket(object packetObj)
+        {
+            var packet = (TileUpdatePacket)packetObj;
+
+            var grid = FindObjectOfType<Grid>();
+            var layers = grid.GetComponentsInChildren<Tilemap>();
+
+            map[packet.X, packet.Y].Flags = packet.Flags;
+
+            var pos = new Vector3Int(packet.X, map.Height - packet.Y - 1, 0);
+
+            for (int layer = 0; layer < 5; layer++)
+            {
+                int graphicId = packet.Tiles[layer * 2];
+                int sheetNumber = packet.Tiles[layer * 2 + 1];
+
+                if (layers[layer].HasTile(pos))
+                {
+                    var tile = layers[layer].GetTile<Tile>(pos);
+                    if (tile.sprite.name == $"{sheetNumber}-{graphicId}") continue;
+
+                    if (sheetNumber == 0)
+                        layers[layer].DeleteCells(pos, Vector3Int.one);
+                    else
+                        tile.sprite = Helpers.GetSprite(graphicId, sheetNumber);
+                }
+                else if (sheetNumber != 0)
+                {
+                    var newTile = ScriptableObject.CreateInstance<Tile>();
+                    newTile.sprite = Helpers.GetSprite(graphicId, sheetNumber);
+
+                    layers[layer].SetTile(pos, newTile);
+                }
+            }
         }
     }
 }

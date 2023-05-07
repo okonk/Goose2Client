@@ -151,6 +151,7 @@
      <Compile Include="Assets/Scripts/UI/TextTooltip.cs" />
      <Compile Include="Assets/Scripts/MapManager.cs" />
      <Compile Include="Assets/Scripts/SpellTarget.cs" />
+     <Compile Include="Assets/Scripts/Network/Packets/TileUpdatePacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/EndWindowPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/SetYourPositionPacket.cs" />
      <Compile Include="Assets/Scripts/Network/Packets/AttackPacket.cs" />

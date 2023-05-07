@@ -796,6 +796,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 6553757656239544657, guid: cfce7bff46689fe3985c73c3e853bb7c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553757656239544657, guid: cfce7bff46689fe3985c73c3e853bb7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553757656239544657, guid: cfce7bff46689fe3985c73c3e853bb7c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839704172015043028, guid: cfce7bff46689fe3985c73c3e853bb7c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839704172015043028, guid: cfce7bff46689fe3985c73c3e853bb7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839704172015043028, guid: cfce7bff46689fe3985c73c3e853bb7c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8870232399310787735, guid: cfce7bff46689fe3985c73c3e853bb7c, type: 3}
       propertyPath: m_RootOrder
       value: 0
